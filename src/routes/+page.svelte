@@ -1,6 +1,10 @@
-<canvas id="background"></canvas>
-<div id="flex-container">
-	<div id="content-container">
+<script>
+	import Flex from '../components/Flex.svelte';
+</script>
+
+<canvas id="background" class="fullscreen"></canvas>
+<Flex maxWidth={550}>
+	<div id="container">
 		<!-- TODO: Rewrite text-->
 		<h1>Hello, world</h1>
 		<h2>my name is Daniel</h2>
@@ -13,42 +17,21 @@
 			</ul>
 		</nav>
 	</div>
-</div>
+</Flex>
 
 <style>
 	#background {
 		background: rgb(23, 25, 28);
-		position: fixed;
-		left: 0;
-		top: 0;
-		width: 100%;
-		height: 100%;
 	}
-	#flex-container {
+	#container {
 		color: rgb(232, 230, 227);
-		width: 100vw;
-		height: 100vh;
-		display: flex;
-		overflow: hidden;
-		position: relative;
-		max-width: 100%;
-		text-align: center;
-		align-items: center;
-		text-transform: uppercase;
-		justify-content: center;
-	}
-	#content-container {
 		text-shadow: rgb(200, 202, 205) 0px 0px 10px;
 		font-family: sans-serif; /* TODO: custom font */
-		padding: 18px !important;
-		max-width: 550px;
-		width: 100%;
+		text-align: center;
+		text-transform: uppercase;
 	}
-	h1,
-	h2,
-	h3 {
-		font-weight: 900;
-	}
+
+	/* TODO different font sizes on diff screens (@media) */
 	h1 {
 		font-family: monospace;
 		font-size: 4em;
@@ -58,20 +41,19 @@
 		margin: 0px;
 	}
 	h3 {
-		margin-top: 0px;
+		margin-top: 0.5em;
 	}
 	nav {
 		font-style: italic;
-		font-weight: 600;
-		text-transform: uppercase;
+		font-weight: bold;
 		align-items: start;
 	}
 	ul {
 		margin: 0px;
-		display: flex;
 		padding: 0px;
-		list-style: none;
+		display: flex;
 		flex-direction: row;
+		list-style: none;
 		justify-content: center;
 	}
 	a {
@@ -79,7 +61,5 @@
 		padding: 18px 36px;
 		text-decoration: none;
 		color: inherit;
-		border-bottom: 4px solid transparent;
-		background-color: transparent;
 	}
 </style>

@@ -3,7 +3,7 @@
 </script>
 
 <canvas id="background" class="fullscreen"></canvas>
-<Flex maxWidth={550}>
+<Flex className="narrow">
 	<div id="container">
 		<!-- TODO: Rewrite text-->
 		<h1>Hello, world</h1>

@@ -2,7 +2,7 @@
 	import Flex from '../../components/Flex.svelte';
 	import Image from './Image.svelte';
 
-	const images = new Array(10).map((i) => `Image #${i}`);
+	const images = [...Array(10).keys()].map((e) => `Image #${e}`);
 </script>
 
 <Flex className="wide" scrollable={true}>
@@ -12,7 +12,9 @@
 		<p>Some more text here text text text i love text</p>
 		<div id="gallery">
 			{#each images as title}
-				<Image {title}></Image>
+				<div class="image-container">
+					<Image {title}></Image>
+				</div>
 			{/each}
 		</div>
 	</div>
@@ -21,5 +23,15 @@
 <style>
 	#container {
 		height: 100vh;
+	}
+	#gallery {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+	}
+	.image-container {
+		/* flex-grow: 1; */
+		padding: 9px;
+		/* flex-basis: 300px; */
 	}
 </style>

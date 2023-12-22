@@ -1,9 +1,22 @@
 <script lang="ts">
+	import type { SketchFactory } from 'sketches';
+	import { run } from 'sketches';
+	import { onMount } from 'svelte';
+
 	export let title: string;
+	export let sketch: SketchFactory;
+	let canvas: HTMLCanvasElement;
+
+	onMount(() => {
+		run(sketch, canvas);
+	});
+
+	// TODO: Grow canvas
+	// TODO: Image selection
 </script>
 
 <div>
-	<canvas></canvas>
+	<canvas bind:this={canvas}></canvas>
 	<h1>{title}</h1>
 </div>
 

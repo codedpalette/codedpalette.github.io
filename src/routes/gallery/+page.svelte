@@ -1,8 +1,16 @@
-<script>
+<script lang="ts">
 	import Flex from '../../components/Flex.svelte';
 	import Image from './Image.svelte';
+	import { curves } from 'sketches';
 
-	const images = [...Array(10).keys()].map((e) => `Image #${e}`);
+	// TODO: Render sketches asynchronously
+
+	const sketches = [
+		{
+			title: 'Curves',
+			sketch: curves
+		}
+	];
 </script>
 
 <Flex className="wide" scrollable={true}>
@@ -11,9 +19,10 @@
 		<h1>This is my gallery :)</h1>
 		<p>Some more text here text text text i love text</p>
 		<div id="gallery">
-			{#each images as title}
+			{#each sketches as sketch}
 				<div class="image-container">
-					<Image {title}></Image>
+					<!-- TODO: Appearance animation-->
+					<Image {...sketch}></Image>
 				</div>
 			{/each}
 		</div>
@@ -30,7 +39,7 @@
 		justify-content: center;
 	}
 	.image-container {
-		/* flex-grow: 1; */
+		/* flex-grow: 1; */ /* TODO: Grow to the size of column */
 		padding: 9px;
 		/* flex-basis: 300px; */
 	}

@@ -13,7 +13,8 @@
 			view,
 			resolution,
 			scaleBbox: true,
-			resizeCSS: false
+			resizeCSS: false,
+			clickable: false
 		}).run();
 	});
 

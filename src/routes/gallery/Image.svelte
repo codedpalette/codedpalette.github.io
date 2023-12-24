@@ -5,15 +5,15 @@
 
 	export let title: string;
 	export let sketch: SketchFactory;
-	let canvas: HTMLCanvasElement;
+	let view: HTMLCanvasElement;
 
-	const scaleFactor = 4;
+	const resolution = 4;
 	onMount(() => {
 		new Sketch(sketch, {
-			view: canvas,
-			width: canvas.clientWidth * scaleFactor,
-			height: canvas.clientHeight * scaleFactor,
-			autoDensity: false
+			view,
+			resolution,
+			scaleBbox: true,
+			resizeCSS: false
 		}).run();
 	});
 
@@ -22,7 +22,7 @@
 </script>
 
 <div>
-	<canvas bind:this={canvas}></canvas>
+	<canvas bind:this={view}></canvas>
 	<h1>{title}</h1>
 </div>
 

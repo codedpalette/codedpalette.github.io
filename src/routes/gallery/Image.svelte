@@ -1,14 +1,20 @@
 <script lang="ts">
 	import type { SketchFactory } from 'sketches';
-	import { run } from 'sketches';
+	import { Sketch } from 'sketches';
 	import { onMount } from 'svelte';
 
 	export let title: string;
 	export let sketch: SketchFactory;
 	let canvas: HTMLCanvasElement;
 
+	const scaleFactor = 4;
 	onMount(() => {
-		run(sketch, canvas);
+		new Sketch(sketch, {
+			view: canvas,
+			width: canvas.clientWidth * scaleFactor,
+			height: canvas.clientHeight * scaleFactor,
+			autoDensity: false
+		}).run();
 	});
 
 	// TODO: Grow canvas

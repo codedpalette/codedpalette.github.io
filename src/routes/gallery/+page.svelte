@@ -3,7 +3,7 @@
 	import Image from './Image.svelte';
 	import { curves } from 'sketches';
 
-	// TODO: Render sketches asynchronously
+	// TODO: Render sketches asynchronously (if offscreencanvas is available)
 
 	const sketches = [
 		{

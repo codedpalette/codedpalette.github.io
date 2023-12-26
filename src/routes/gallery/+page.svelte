@@ -15,7 +15,6 @@
 
 <Flex className="wide" scrollable={true}>
 	<div id="container">
-		<!-- TODO: Rewrite text-->
 		<h1>This is my gallery :)</h1>
 		<p>Some more text here text text text i love text</p>
 		<div id="gallery">
@@ -29,7 +28,12 @@
 	</div>
 </Flex>
 
-<style>
+<style lang="scss">
+	@use '../../styles/base.scss';
+
+	:global(body) {
+		background: base.$white;
+	}
 	#container {
 		height: 100vh;
 	}

@@ -5,7 +5,6 @@
 <canvas id="background" class="fullscreen"></canvas>
 <Flex className="narrow">
 	<div id="container">
-		<!-- TODO: Rewrite text-->
 		<h1>Hello, world</h1>
 		<h2>my name is Daniel</h2>
 		<h3>and I enjoy making computers draw beautiful stuff</h3>
@@ -19,14 +18,18 @@
 	</div>
 </Flex>
 
-<style>
+<style lang="scss">
+	@use '../styles/base.scss';
+	@use 'sass:color';
+	$shadow: color.adjust(base.$white, $red: -30, $green: -30, $blue: -30);
+
 	#background {
-		background: rgb(23, 25, 28);
+		background: base.$black;
 	}
 	#container {
-		color: rgb(232, 230, 227);
-		text-shadow: rgb(200, 202, 205) 0px 0px 10px;
-		font-family: sans-serif; /* TODO: custom font */
+		color: base.$white;
+		text-shadow: $shadow 0px 0px 15px;
+		font-family: sans-serif;
 		text-align: center;
 		text-transform: uppercase;
 	}

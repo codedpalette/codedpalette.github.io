@@ -3,7 +3,7 @@
 	import { Sketch } from 'sketches';
 	import { onMount } from 'svelte';
 
-	export let title: string;
+	export let name: string;
 	export let sketch: SketchFactory;
 	let view: HTMLCanvasElement;
 
@@ -24,7 +24,7 @@
 
 <div>
 	<canvas bind:this={view}></canvas>
-	<h1>{title}</h1>
+	<h1>{name}</h1>
 </div>
 
 <style>

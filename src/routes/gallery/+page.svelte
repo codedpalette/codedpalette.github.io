@@ -1,29 +1,24 @@
 <script lang="ts">
 	import Flex from '$lib/components/Flex.svelte';
 	import Image from './Image.svelte';
-	import { curves } from 'sketches';
+	import { sketches as sketchesPromise } from 'sketches';
 
 	// TODO: Render sketches asynchronously (if offscreencanvas is available)
-
-	const sketches = [
-		{
-			title: 'Curves',
-			sketch: curves
-		}
-	];
 </script>
 
 <Flex stretch width="wide">
 	<h1>This is my gallery :)</h1>
 	<p>Some more text here text text text i love text</p>
-	<div id="gallery">
-		{#each sketches as sketch}
-			<div class="image-container">
-				<!-- TODO: Appearance animation-->
-				<Image {...sketch}></Image>
-			</div>
-		{/each}
-	</div>
+	{#await sketchesPromise then sketches}
+		<div id="gallery">
+			{#each sketches as sketch}
+				<div class="image-container">
+					<!-- TODO: Appearance animation-->
+					<Image {...sketch}></Image>
+				</div>
+			{/each}
+		</div>
+	{/await}
 </Flex>
 
 <style>

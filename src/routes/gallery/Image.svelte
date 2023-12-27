@@ -27,12 +27,10 @@
 	<h1>{title}</h1>
 </div>
 
-<style lang="scss">
-	$canvas-dim: 300px;
-
+<style>
 	canvas {
-		width: $canvas-dim;
-		height: $canvas-dim;
+		width: 300px;
+		height: 300px;
 		margin: 9px;
 	}
 	div {

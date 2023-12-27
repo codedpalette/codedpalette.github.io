@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Flex from '../../components/Flex.svelte';
+	import Flex from '$lib/components/Flex.svelte';
 	import Image from './Image.svelte';
 	import { curves } from 'sketches';
 
@@ -13,30 +13,20 @@
 	];
 </script>
 
-<Flex className="wide" scrollable={true}>
-	<div id="container">
-		<h1>This is my gallery :)</h1>
-		<p>Some more text here text text text i love text</p>
-		<div id="gallery">
-			{#each sketches as sketch}
-				<div class="image-container">
-					<!-- TODO: Appearance animation-->
-					<Image {...sketch}></Image>
-				</div>
-			{/each}
-		</div>
+<Flex stretch width="wide">
+	<h1>This is my gallery :)</h1>
+	<p>Some more text here text text text i love text</p>
+	<div id="gallery">
+		{#each sketches as sketch}
+			<div class="image-container">
+				<!-- TODO: Appearance animation-->
+				<Image {...sketch}></Image>
+			</div>
+		{/each}
 	</div>
 </Flex>
 
-<style lang="scss">
-	@use '../../styles/base.scss';
-
-	:global(body) {
-		background: base.$white;
-	}
-	#container {
-		height: 100vh;
-	}
+<style>
 	#gallery {
 		display: flex;
 		flex-wrap: wrap;

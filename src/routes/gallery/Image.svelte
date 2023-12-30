@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { loadModule, Sketch, type SizeParams, type SketchModule, SketchRenderer } from 'sketches';
+	import { loadModule, type SizeParams, Sketch, type SketchModule, SketchRenderer } from 'sketches';
 	import { onMount, tick } from 'svelte';
 	import type { Pool } from 'workerpool';
 

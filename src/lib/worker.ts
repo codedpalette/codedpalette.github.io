@@ -1,5 +1,5 @@
-import { Sketch, loadModule, SketchRenderer, type SizeParams, type SketchModule } from 'sketches';
-import workerpool from 'workerpool';
+import { loadModule, type SizeParams, Sketch, type SketchModule, SketchRenderer } from 'sketches';
+import { worker } from 'workerpool';
 
 const renderer = new SketchRenderer();
 
@@ -13,4 +13,4 @@ function onTerminate() {
 	renderer.destroy();
 }
 
-workerpool.worker({ render }, { onTerminate });
+worker({ render }, { onTerminate });

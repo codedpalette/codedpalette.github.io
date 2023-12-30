@@ -1,10 +1,13 @@
 <script lang="ts">
+	import { sketches, SketchRenderer } from 'sketches';
+	import { onMount } from 'svelte';
+	import { type Pool, pool } from 'workerpool';
+
 	import Flex from '$lib/components/Flex.svelte';
-	import Image from './Image.svelte';
-	import { SketchRenderer, sketches } from 'sketches';
-	import { pool, type Pool } from 'workerpool';
+	// eslint-disable-next-line import/default
 	import workerUrl from '$lib/worker?worker&url';
-	import { onDestroy, onMount } from 'svelte';
+
+	import Image from './Image.svelte';
 
 	let renderer: Pool | SketchRenderer;
 	onMount(() => {

@@ -2,6 +2,9 @@
 	"name": "portfolio",
 	"version": "0.0.1",
 	"private": true,
+	"browserslist": [
+		">0.3%, defaults, not op_mini all, not ie <= 11"
+	],
 	"scripts": {
 		"start": "vite dev --open",
 		"build": "vite build",

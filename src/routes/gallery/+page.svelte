@@ -11,7 +11,7 @@
 
 	let renderer: Pool | SketchRenderer;
 	onMount(() => {
-		const offscreenCanvasSupported = !!HTMLCanvasElement.prototype.transferControlToOffscreen;
+		const offscreenCanvasSupported = typeof OffscreenCanvas !== 'undefined';
 		renderer = offscreenCanvasSupported
 			? pool(workerUrl, {
 					maxWorkers: 3,
@@ -31,9 +31,7 @@
 	<p>Some more text here text text text i love text</p>
 	<div id="gallery">
 		{#each sketches as sketchModule}
-			<div class="image-container">
-				<Image {sketchModule} {renderer}></Image>
-			</div>
+			<Image {sketchModule} {renderer}></Image>
 		{/each}
 	</div>
 </Flex>
@@ -43,10 +41,6 @@
 		display: flex;
 		flex-wrap: wrap;
 		justify-content: center;
-	}
-	.image-container {
-		/* flex-grow: 1; */ /* TODO: Grow to the size of column */
-		padding: 9px;
-		/* flex-basis: 300px; */
+		gap: 10px;
 	}
 </style>

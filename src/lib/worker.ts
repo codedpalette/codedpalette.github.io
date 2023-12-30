@@ -1,12 +1,12 @@
 import { loadModule, type SizeParams, Sketch, type SketchModule, SketchRenderer } from 'sketches';
 import { worker } from 'workerpool';
 
-const renderer = new SketchRenderer();
+const renderer = new SketchRenderer<OffscreenCanvas>();
 
-async function render(sketchModule: SketchModule, canvas: OffscreenCanvas, params: SizeParams) {
+async function render(sketchModule: SketchModule, params: SizeParams) {
 	const sketchFactory = await loadModule(sketchModule);
 	const sketch = new Sketch(sketchFactory, renderer, params);
-	sketch.render(canvas);
+	return sketch.render();
 }
 
 function onTerminate() {

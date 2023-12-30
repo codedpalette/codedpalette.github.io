@@ -14,37 +14,42 @@
 			width: canvas.clientWidth * scale,
 			height: canvas.clientHeight * scale
 		};
+		Object.assign(canvas, params);
+		const ctx = canvas.getContext('2d');
 		if (renderer instanceof SketchRenderer) {
 			const sketchFactory = await loadModule(sketchModule);
 			const sketch = new Sketch(sketchFactory, renderer, params);
-			sketch.render(canvas);
+			ctx?.drawImage(await sketch.render(), 0, 0);
 		} else {
-			const offscreen = canvas.transferControlToOffscreen();
-			renderer
-				.exec('render', [sketchModule, offscreen, params], { transfer: [offscreen] })
-				.catch((error) => console.log(error));
+			try {
+				const result = (await renderer.exec('render', [sketchModule, params])) as ImageBitmap;
+				ctx?.drawImage(result, 0, 0);
+			} catch (error) {
+				console.log(error);
+			}
 		}
 	});
 
-	// TODO: Grow canvas
-	// TODO: Image selection
+	// TODO: Image selection, grow canvas with overlay
 	// TODO: Appearance animation
 </script>
 
-<div>
+<div id="image-container">
 	<canvas bind:this={canvas}></canvas>
 	<h1>{sketchModule.name}</h1>
 </div>
 
 <style>
 	canvas {
-		width: 300px;
-		height: 300px;
-		margin: 9px;
+		width: 100%;
+		aspect-ratio: 1/1;
 	}
-	div {
+
+	#image-container {
 		border: 1px solid black;
 		text-align: center;
-		justify-content: center;
+		flex: 1 0 auto;
+		padding: 9px;
+		flex-basis: 300px;
 	}
 </style>

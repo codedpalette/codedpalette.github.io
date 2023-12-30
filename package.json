@@ -12,7 +12,8 @@
 		"format": "prettier --write ."
 	},
 	"dependencies": {
-		"sketches": "portal:./../sketches"
+		"sketches": "portal:./../sketches",
+		"workerpool": "^9.0.4"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^3.0.0",

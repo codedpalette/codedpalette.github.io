@@ -1,30 +1,39 @@
 <script lang="ts">
-	import type { SketchFactory } from 'sketches';
-	import { Sketch } from 'sketches';
-	import { onMount } from 'svelte';
+	import { loadModule, Sketch, type SizeParams, type SketchModule, SketchRenderer } from 'sketches';
+	import { onMount, tick } from 'svelte';
+	import type { Pool } from 'workerpool';
 
-	export let name: string;
-	export let sketch: SketchFactory;
-	let view: HTMLCanvasElement;
+	export let sketchModule: SketchModule;
+	export let renderer: Pool | SketchRenderer;
+	let canvas: HTMLCanvasElement;
 
-	const resolution = 4;
-	onMount(() => {
-		new Sketch(sketch, {
-			view,
-			resolution,
-			scaleBbox: true,
-			resizeCSS: false,
-			clickable: false
-		}).run();
+	const scale = 4;
+	onMount(async () => {
+		await tick(); // Waiting for parent component to initialize renderer
+		const params: SizeParams = {
+			width: canvas.clientWidth * scale,
+			height: canvas.clientHeight * scale
+		};
+		if (renderer instanceof SketchRenderer) {
+			const sketchFactory = await loadModule(sketchModule);
+			const sketch = new Sketch(sketchFactory, renderer, params);
+			sketch.render(canvas);
+		} else {
+			const offscreen = canvas.transferControlToOffscreen();
+			renderer
+				.exec('render', [sketchModule, offscreen, params], { transfer: [offscreen] })
+				.catch((error) => console.log(error));
+		}
 	});
 
 	// TODO: Grow canvas
 	// TODO: Image selection
+	// TODO: Appearance animation
 </script>
 
 <div>
-	<canvas bind:this={view}></canvas>
-	<h1>{name}</h1>
+	<canvas bind:this={canvas}></canvas>
+	<h1>{sketchModule.name}</h1>
 </div>
 
 <style>

@@ -4,6 +4,7 @@
 	import { type Pool, pool } from 'workerpool';
 
 	import Flex from '$lib/components/Flex.svelte';
+	import Grid from '$lib/components/Grid.svelte';
 	// eslint-disable-next-line import/default
 	import workerUrl from '$lib/worker?worker&url';
 
@@ -29,18 +30,7 @@
 <Flex stretch width="wide">
 	<h1>This is my gallery :)</h1>
 	<p>Some more text here text text text i love text</p>
-	<div id="gallery">
-		{#each sketches as sketchModule}
-			<Image {sketchModule} {renderer}></Image>
-		{/each}
-	</div>
+	<Grid items={sketches} let:item>
+		<Image sketchModule={item} {renderer}></Image>
+	</Grid>
 </Flex>
-
-<style>
-	#gallery {
-		display: flex;
-		flex-wrap: wrap;
-		justify-content: center;
-		gap: 10px;
-	}
-</style>

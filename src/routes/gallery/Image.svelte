@@ -6,6 +6,7 @@
 	export let sketchModule: SketchModule;
 	export let renderer: Pool | SketchRenderer;
 	let canvas: HTMLCanvasElement;
+	let container: HTMLDivElement;
 
 	const scale = 4;
 	onMount(async () => {
@@ -20,10 +21,12 @@
 			const sketchFactory = await loadModule(sketchModule);
 			const sketch = new Sketch(sketchFactory, renderer, params);
 			ctx?.drawImage(await sketch.render(), 0, 0);
+			container.style.visibility = 'visible';
 		} else {
 			try {
 				const result = (await renderer.exec('render', [sketchModule, params])) as ImageBitmap;
 				ctx?.drawImage(result, 0, 0);
+				container.style.visibility = 'visible';
 			} catch (error) {
 				console.log(error);
 			}
@@ -34,7 +37,7 @@
 	// TODO: Appearance animation
 </script>
 
-<div id="image-container">
+<div bind:this={container}>
 	<canvas bind:this={canvas}></canvas>
 	<h1>{sketchModule.name}</h1>
 </div>
@@ -45,11 +48,10 @@
 		aspect-ratio: 1/1;
 	}
 
-	#image-container {
+	div {
+		visibility: hidden;
 		border: 1px solid black;
 		text-align: center;
-		flex: 1 0 auto;
 		padding: 9px;
-		flex-basis: 300px;
 	}
 </style>

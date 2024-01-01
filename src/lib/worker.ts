@@ -6,7 +6,8 @@ const renderer = new SketchRenderer<OffscreenCanvas>();
 async function render(sketchModule: SketchModule, params: SizeParams) {
 	const sketchFactory = await loadModule(sketchModule);
 	const sketch = new Sketch(sketchFactory, renderer, params);
-	return sketch.render();
+	sketch.render();
+	return createImageBitmap(renderer.canvas);
 }
 
 function onTerminate() {

@@ -16,21 +16,18 @@
 			height: canvas.clientHeight * scale
 		};
 		Object.assign(canvas, params);
-		const ctx = canvas.getContext('2d');
 		if (renderer instanceof SketchRenderer) {
 			const sketchFactory = await loadModule(sketchModule);
 			const sketch = new Sketch(sketchFactory, renderer, params);
-			ctx?.drawImage(await sketch.render(), 0, 0);
-			container.style.visibility = 'visible';
+			sketch.render(canvas);
 		} else {
-			try {
-				const result = (await renderer.exec('render', [sketchModule, params])) as ImageBitmap;
-				ctx?.drawImage(result, 0, 0);
-				container.style.visibility = 'visible';
-			} catch (error) {
-				console.log(error);
-			}
+			const result = (await renderer
+				.exec('render', [sketchModule, params])
+				.catch((error) => console.log(error))) as ImageBitmap;
+			const ctx = canvas.getContext('2d');
+			ctx?.drawImage(result, 0, 0);
 		}
+		container.style.visibility = 'visible';
 	});
 
 	// TODO: Image selection, grow canvas with overlay

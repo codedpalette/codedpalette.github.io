@@ -7,6 +7,7 @@
 	export let renderer: Pool | SketchRenderer;
 	let canvas: HTMLCanvasElement;
 	let container: HTMLDivElement;
+	let ready = false;
 
 	const scale = 4;
 	onMount(async () => {
@@ -27,14 +28,15 @@
 			const ctx = canvas.getContext('2d');
 			ctx?.drawImage(result, 0, 0);
 		}
+		ready = true;
 		container.style.visibility = 'visible';
 	});
 
 	// TODO: Image selection, grow canvas with overlay
-	// TODO: Appearance animation
+	// TODO: Canvas downsampling
 </script>
 
-<div bind:this={container}>
+<div bind:this={container} class={ready ? 'animated' : ''}>
 	<canvas bind:this={canvas}></canvas>
 	<h1>{sketchModule.name}</h1>
 </div>
@@ -46,9 +48,37 @@
 	}
 
 	div {
+		transition: scale 0.5s;
 		visibility: hidden;
-		border: 1px solid black;
 		text-align: center;
 		padding: 9px;
+		font-family: sans-serif;
+	}
+
+	div:hover {
+		scale: 1.1;
+	}
+
+	@keyframes fadeInUp {
+		0% {
+			opacity: 0;
+			transform: translate3d(0, 200px, 0);
+		}
+		50% {
+			transform: translate3d(0, 0, 0);
+			opacity: 1;
+			border: none;
+			box-shadow: none;
+		}
+		100% {
+			border-radius: 10px;
+			box-shadow:
+				-10px -10px 20px #aeadaa,
+				10px 10px 20px #ffffff;
+		}
+	}
+
+	.animated {
+		animation: fadeInUp 2s forwards;
 	}
 </style>

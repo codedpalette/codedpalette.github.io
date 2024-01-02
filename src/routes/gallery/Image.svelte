@@ -14,9 +14,11 @@
 		await tick(); // Waiting for parent component to initialize renderer
 		const params: SizeParams = {
 			width: canvas.clientWidth * scale,
-			height: canvas.clientHeight * scale
+			height: canvas.clientHeight * scale,
+			resolution: 1 / scale
 		};
-		Object.assign(canvas, params);
+		canvas.width = canvas.clientWidth;
+		canvas.height = canvas.clientHeight;
 		if (renderer instanceof SketchRenderer) {
 			const sketchFactory = await loadModule(sketchModule);
 			const sketch = new Sketch(sketchFactory, renderer, params);
@@ -33,7 +35,6 @@
 	});
 
 	// TODO: Image selection, grow canvas with overlay
-	// TODO: Canvas downsampling
 </script>
 
 <div bind:this={container} class={ready ? 'animated' : ''}>

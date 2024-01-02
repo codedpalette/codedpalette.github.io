@@ -54,6 +54,7 @@
 		text-align: center;
 		padding: 9px;
 		font-family: sans-serif;
+		cursor: zoom-in;
 	}
 
 	div:hover {

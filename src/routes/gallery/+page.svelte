@@ -12,7 +12,9 @@
 
 	let renderer: Pool | SketchRenderer;
 	onMount(() => {
-		const offscreenCanvasSupported = typeof OffscreenCanvas !== 'undefined';
+		const offscreenCanvasSupported =
+			// eslint-disable-next-line compat/compat
+			typeof OffscreenCanvas !== 'undefined' && new OffscreenCanvas(0, 0).getContext('webgl2');
 		renderer = offscreenCanvasSupported
 			? pool(workerUrl, {
 					maxWorkers: 3,

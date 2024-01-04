@@ -70,11 +70,12 @@
 		zoomed = true;
 		canvas.style.transform = `scale(${scale}) translate3d(${translateX}px, ${translateY}px, 0)`;
 		container.classList.add('zoomed');
+		document.addEventListener('scroll', zoomOut);
 		// TODO: SketchRunner
-		// TODO: zoom out on scroll
 	}
 
 	function zoomOut() {
+		document.removeEventListener('scroll', zoomOut);
 		canvas.style.transform = 'none';
 		zoomed = false;
 		const onZoomOutEnd = () => {

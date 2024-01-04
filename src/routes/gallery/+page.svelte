@@ -10,29 +10,42 @@
 
 	import Image from './Image.svelte';
 
-	let renderer: Pool | SketchRenderer;
+	let renderer: SketchRenderer;
+	let workerpool: Pool | undefined;
 	onMount(() => {
 		const offscreenCanvasSupported =
 			// eslint-disable-next-line compat/compat
 			typeof OffscreenCanvas !== 'undefined' && new OffscreenCanvas(0, 0).getContext('webgl2');
-		renderer = offscreenCanvasSupported
-			? pool(workerUrl, {
-					maxWorkers: 3,
-					workerOpts: {
-						// By default, Vite uses a module worker in dev mode, which can cause your application to fail.
-						// Therefore, we need to use a module worker in dev mode and a classic worker in prod mode.
-						type: import.meta.env.PROD ? undefined : 'module'
-					}
-				})
-			: new SketchRenderer();
-		return () => (renderer instanceof SketchRenderer ? renderer.destroy() : renderer.terminate());
+		renderer = new SketchRenderer();
+		if (offscreenCanvasSupported) {
+			workerpool = pool(workerUrl, {
+				maxWorkers: 3,
+				workerOpts: {
+					// By default, Vite uses a module worker in dev mode, which can cause your application to fail.
+					// Therefore, we need to use a module worker in dev mode and a classic worker in prod mode.
+					type: import.meta.env.PROD ? undefined : 'module'
+				}
+			});
+		}
+		return () => {
+			renderer.destroy();
+			workerpool?.terminate();
+		};
 	});
 </script>
 
 <Flex stretch width="wide">
 	<h1>This is my gallery :)</h1>
 	<p>Some more text here text text text i love text</p>
-	<Grid items={sketches} let:item>
-		<Image sketchModule={item} {renderer}></Image>
-	</Grid>
+	<div>
+		<Grid items={sketches} let:item>
+			<Image sketchModule={item} {renderer} {workerpool}></Image>
+		</Grid>
+	</div>
 </Flex>
+
+<style>
+	div {
+		padding: 18px 0;
+	}
+</style>

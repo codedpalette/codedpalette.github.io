@@ -41,14 +41,11 @@
 	}
 
 	async function renderAsync(workerpool: Pool, params: SizeParams) {
-		try {
-			const result = await workerpool.exec('render', [sketchModule, params]);
-			const ctx = canvas.getContext('2d');
-			ctx?.drawImage(result, 0, 0);
-		} catch (error) {
-			console.log(error);
-			await renderSync(params); // fallback
-		}
+		const result = await workerpool
+			.exec('render', [sketchModule, params])
+			.catch((err) => console.log(err));
+		const ctx = canvas.getContext('2d');
+		ctx?.drawImage(result, 0, 0);
 	}
 
 	function zoomIn() {
@@ -109,7 +106,7 @@
 
 	/** Add z-index to grid item container to make it's stacking context display over other grid cells */
 	:global(div:has(> .container.zoomed)) {
-		z-index: 1;
+		z-index: 2;
 	}
 
 	/** Using :is() selector so that Svelte won't remove "unused" css since we're adding class imperatively */

@@ -9,7 +9,7 @@
 	export let title: string;
 
 	$: ready = thumbnail !== undefined;
-	$: thumbnailUrl = thumbnail ? URL.createObjectURL(thumbnail) : undefined;
+	$: thumbnailUrl = thumbnail ? URL.createObjectURL(thumbnail) : undefined; //TODO: revoke on destroy
 	let thumbnailImg: HTMLImageElement;
 	let container: HTMLDivElement;
 	let zoomed = false;

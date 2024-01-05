@@ -10,12 +10,13 @@
 	// eslint-disable-next-line import/default
 	import workerUrl from '$lib/worker?worker&url';
 
-	import Image from './Image.svelte';
+	import SketchImage from './SketchImage.svelte';
 
 	let renderer: SketchRenderer<HTMLCanvasElement>;
 	let workerpool: Pool | undefined;
 	const loadedSketches: Sketch[] = [];
 	const thumbnailBlobs: Blob[] = [];
+	const thumbnailSizeParams: SizeParams = { width: 1200, height: 1200, resolution: 1 / 4 };
 	const workerPoolOpts: WorkerPoolOptions = {
 		maxWorkers: 3,
 		workerOpts: {
@@ -26,7 +27,6 @@
 	};
 
 	onMount(async () => {
-		const sizeParams: SizeParams = { width: 1200, height: 1200, resolution: 1 / 4 };
 		const offscreenCanvasSupported =
 			// eslint-disable-next-line compat/compat
 			typeof OffscreenCanvas !== 'undefined' && new OffscreenCanvas(0, 0).getContext('webgl2');
@@ -36,7 +36,7 @@
 			const sketchFactory = await loadModule(sketchModule);
 			if (workerpool) {
 				workerpool
-					.exec('render', [sketchModule, sizeParams])
+					.exec('render', [sketchModule, thumbnailSizeParams])
 					.catch((err) => console.log(err))
 					.then((result: RenderResult) => {
 						// TODO: Long running, create on demand
@@ -44,7 +44,7 @@
 						thumbnailBlobs[index] = result.blob;
 					});
 			} else {
-				loadedSketches[index] = new Sketch(sketchFactory, renderer, sizeParams);
+				loadedSketches[index] = new Sketch(sketchFactory, renderer, thumbnailSizeParams);
 				thumbnailBlobs[index] = await loadedSketches[index].export(); //TODO: Maybe setTimeout(0)?
 			}
 		}
@@ -63,7 +63,7 @@
 	<p>Some more text here text text text i love text</p>
 	<div>
 		<Grid items={sketches} let:index let:item>
-			<Image thumbnail={thumbnailBlobs[index]} title={item.name} />
+			<SketchImage thumbnail={thumbnailBlobs[index]} title={item.name} />
 		</Grid>
 	</div>
 </Flex>

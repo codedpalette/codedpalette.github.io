@@ -16,7 +16,7 @@
 	let workerpool: Pool | undefined;
 	const loadedSketches: Sketch[] = [];
 	const thumbnailBlobs: Blob[] = [];
-	const thumbnailSizeParams: SizeParams = { width: 1200, height: 1200, resolution: 1 / 4 };
+	const thumbnailSizeParams: SizeParams = { width: 1200, height: 1200, resolution: 1 / 2 };
 	const workerPoolOpts: WorkerPoolOptions = {
 		maxWorkers: 3,
 		workerOpts: {

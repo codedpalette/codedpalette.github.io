@@ -8,7 +8,7 @@
 	<div id="content-container">
 		<h1>Hello, world</h1>
 		<h2>my name is Daniel</h2>
-		<h3>and I enjoy making computers draw beautiful stuff</h3>
+		<h3>and I enjoy making computers display beautiful stuff</h3>
 		<NavBar />
 	</div>
 </Flex>

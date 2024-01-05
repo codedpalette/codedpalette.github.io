@@ -14,7 +14,7 @@
 <style>
 	#grid {
 		display: grid;
-		gap: 20px;
+		gap: 30px;
 	}
 
 	.item-container {

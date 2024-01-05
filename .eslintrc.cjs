@@ -34,6 +34,8 @@ module.exports = {
 		'import/newline-after-import': 'warn',
 		'import/no-duplicates': 'warn',
 
+		'import/no-unresolved': ['error', { ignore: ['\\$app/*'] }],
+
 		// https://github.com/sweepline/eslint-plugin-unused-imports#usage
 		'@typescript-eslint/no-unused-vars': 'off',
 		'unused-imports/no-unused-imports': 'warn',

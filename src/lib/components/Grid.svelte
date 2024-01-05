@@ -4,9 +4,9 @@
 </script>
 
 <div id="grid">
-	{#each items as item}
+	{#each items as item, index}
 		<div class="item-container">
-			<slot {item} />
+			<slot {item} {index} />
 		</div>
 	{/each}
 </div>

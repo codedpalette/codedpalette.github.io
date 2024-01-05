@@ -1,61 +1,26 @@
 <script lang="ts">
-	import { loadModule, type SizeParams, Sketch, type SketchModule, SketchRenderer } from 'sketches';
 	// Because of this bug https://github.com/import-js/eslint-plugin-import/issues/1479
 	/* eslint-disable import/no-duplicates */
-	import { onMount, tick } from 'svelte';
 	import { fade } from 'svelte/transition';
 	/* eslint-enable import/no-duplicates */
-	import type { Pool } from 'workerpool';
 
-	export let sketchModule: SketchModule;
-	export let renderer: SketchRenderer;
-	export let workerpool: Pool | undefined = undefined;
-	let canvas: HTMLCanvasElement;
+	//export let sketch: Sketch;
+	export let thumbnail: Blob;
+	export let title: string;
+
+	$: ready = thumbnail !== undefined;
+	$: thumbnailUrl = thumbnail ? URL.createObjectURL(thumbnail) : undefined;
+	let thumbnailImg: HTMLImageElement;
 	let container: HTMLDivElement;
-	let ready = false; // Finished rendering
 	let zoomed = false;
-
-	const scaleFactor = 4; // Scaling of sketch model space relative to canvas's css size
-	onMount(async () => {
-		await tick(); // Waiting for parent component to initialize renderer
-		const params: SizeParams = {
-			width: canvas.clientWidth * scaleFactor,
-			height: canvas.clientHeight * scaleFactor,
-			resolution: 1 / scaleFactor
-		};
-		canvas.width = canvas.clientWidth;
-		canvas.height = canvas.clientHeight;
-		if (workerpool) {
-			await renderAsync(workerpool, params);
-		} else {
-			await renderSync(params);
-		}
-		ready = true;
-		container.style.visibility = 'visible';
-	});
-
-	async function renderSync(params: SizeParams) {
-		const sketchFactory = await loadModule(sketchModule);
-		const sketch = new Sketch(sketchFactory, renderer, params);
-		sketch.render(canvas);
-	}
-
-	async function renderAsync(workerpool: Pool, params: SizeParams) {
-		const result = await workerpool
-			.exec('render', [sketchModule, params])
-			.catch((err) => console.log(err));
-		const ctx = canvas.getContext('2d');
-		ctx?.drawImage(result, 0, 0);
-	}
 
 	function zoomIn() {
 		const margin = 18; //px
 		const viewportWidth = document.documentElement.clientWidth - margin * 2;
 		const viewportHeight = document.documentElement.clientHeight - margin * 2;
 
-		const naturalWidth = canvas.clientWidth * scaleFactor;
-		const naturalHeight = canvas.clientHeight * scaleFactor;
-		const { width, height, top, left } = canvas.getBoundingClientRect();
+		const { naturalWidth, naturalHeight } = thumbnailImg;
+		const { width, height, top, left } = thumbnailImg.getBoundingClientRect();
 
 		const scaleX = Math.min(naturalWidth, viewportWidth) / width;
 		const scaleY = Math.min(naturalHeight, viewportHeight) / height;
@@ -65,21 +30,27 @@
 		const translateY = (-top + (viewportHeight - height) / 2 + margin) / scale;
 
 		zoomed = true;
-		canvas.style.transform = `scale(${scale}) translate3d(${translateX}px, ${translateY}px, 0)`;
+		thumbnailImg.style.transform = `scale(${scale}) translate3d(${translateX}px, ${translateY}px, 0)`;
 		container.classList.add('zoomed');
 		document.addEventListener('scroll', zoomOut);
-		// TODO: SketchRunner
+
+		// TODO: Create runner
+		// canvas.getContext('2d')?.reset();
+		// const renderer = new SketchRenderer<HTMLCanvasElement>({ canvas });
+		// const sketch = new Sketch(sketchFactory, renderer, fullSizeParams, seed);
+		// runner = new SketchRunner(sketch);
+		// runner.start();
 	}
 
 	function zoomOut() {
 		document.removeEventListener('scroll', zoomOut);
-		canvas.style.transform = 'none';
+		thumbnailImg.style.transform = 'none';
 		zoomed = false;
 		const onZoomOutEnd = () => {
 			container.classList.remove('zoomed');
-			canvas.removeEventListener('transitionend', onZoomOutEnd);
+			thumbnailImg.removeEventListener('transitionend', onZoomOutEnd);
 		};
-		canvas.addEventListener('transitionend', onZoomOutEnd);
+		thumbnailImg.addEventListener('transitionend', onZoomOutEnd);
 	}
 </script>
 
@@ -91,8 +62,8 @@
 		<!-- svelte-ignore a11y-no-static-element-interactions -->
 		<div class="overlay" transition:fade on:click|stopPropagation={zoomOut}></div>
 	{/if}
-	<canvas bind:this={canvas}></canvas>
-	<h1>{sketchModule.name}</h1>
+	<img bind:this={thumbnailImg} src={thumbnailUrl} alt={title} />
+	<h1>{title}</h1>
 </div>
 
 <style>
@@ -102,6 +73,11 @@
 		padding: 9px;
 		font-family: sans-serif;
 		transition: scale 400ms;
+	}
+
+	.container:is(.ready) {
+		visibility: visible;
+		animation: fadeInUp 2s forwards;
 	}
 
 	/** Add z-index to grid item container to make it's stacking context display over other grid cells */
@@ -121,10 +97,6 @@
 		scale: 1.1;
 	}
 
-	.ready {
-		animation: fadeInUp 2s forwards;
-	}
-
 	.overlay {
 		position: fixed;
 		top: 0;
@@ -135,7 +107,7 @@
 		cursor: zoom-out;
 	}
 
-	canvas {
+	img {
 		width: 100%;
 		aspect-ratio: 1/1;
 		transition: transform 400ms;

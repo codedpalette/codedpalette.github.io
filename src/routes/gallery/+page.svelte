@@ -45,7 +45,7 @@
 					});
 			} else {
 				loadedSketches[index] = new Sketch(sketchFactory, renderer, sizeParams);
-				thumbnailBlobs[index] = await loadedSketches[index].export();
+				thumbnailBlobs[index] = await loadedSketches[index].export(); //TODO: Maybe setTimeout(0)?
 			}
 		}
 	});

@@ -18,14 +18,12 @@
 		const margin = 18; //px
 		const viewportWidth = document.documentElement.clientWidth - margin * 2;
 		const viewportHeight = document.documentElement.clientHeight - margin * 2;
-
 		const { naturalWidth, naturalHeight } = thumbnailImg;
 		const { width, height, top, left } = thumbnailImg.getBoundingClientRect();
 
 		const scaleX = Math.min(naturalWidth, viewportWidth) / width;
 		const scaleY = Math.min(naturalHeight, viewportHeight) / height;
 		const scale = Math.min(scaleX, scaleY);
-
 		const translateX = (-left + (viewportWidth - width) / 2 + margin) / scale;
 		const translateY = (-top + (viewportHeight - height) / 2 + margin) / scale;
 

@@ -14,9 +14,10 @@
 
 	let renderer: SketchRenderer<HTMLCanvasElement>;
 	let workerpool: Pool | undefined;
-	const loadedSketches: Sketch[] = [];
+	const loadedSketches: Sketch<HTMLCanvasElement>[] = [];
 	const thumbnailBlobs: Blob[] = [];
-	const thumbnailSizeParams: SizeParams = { width: 1200, height: 1200, resolution: 1 / 2 };
+	const sizeParams: SizeParams = { width: 1200, height: 1200 };
+	const thumbnailSizeParams: SizeParams = { ...sizeParams, resolution: 1 / 2 };
 	const workerPoolOpts: WorkerPoolOptions = {
 		maxWorkers: 3,
 		workerOpts: {
@@ -30,7 +31,8 @@
 		const offscreenCanvasSupported =
 			// eslint-disable-next-line compat/compat
 			typeof OffscreenCanvas !== 'undefined' && new OffscreenCanvas(0, 0).getContext('webgl2');
-		renderer = new SketchRenderer();
+		renderer = new SketchRenderer({ resizeCSS: false });
+		renderer.canvas.style.width = '100%';
 		workerpool = offscreenCanvasSupported ? pool(workerUrl, workerPoolOpts) : undefined;
 		for (const [index, sketchModule] of sketches.entries()) {
 			const sketchFactory = await loadModule(sketchModule);
@@ -39,13 +41,12 @@
 					.exec('render', [sketchModule, thumbnailSizeParams])
 					.catch((err) => console.log(err))
 					.then((result: RenderResult) => {
-						// TODO: Long running, create on demand
-						//loadedSketches[index] = new Sketch(sketchFactory, renderer, sizeParams, result.seed);
+						loadedSketches[index] = new Sketch(sketchFactory, renderer, sizeParams, result.seed);
 						thumbnailBlobs[index] = result.blob;
 					});
 			} else {
 				loadedSketches[index] = new Sketch(sketchFactory, renderer, thumbnailSizeParams);
-				thumbnailBlobs[index] = await loadedSketches[index].export(); //TODO: Maybe setTimeout(0)?
+				thumbnailBlobs[index] = await loadedSketches[index].export();
 			}
 		}
 	});
@@ -63,7 +64,11 @@
 	<p>Some more text here text text text i love text</p>
 	<div>
 		<Grid items={sketches} let:index let:item>
-			<SketchImage thumbnail={thumbnailBlobs[index]} title={item.name} />
+			<SketchImage
+				sketch={loadedSketches[index]}
+				thumbnail={thumbnailBlobs[index]}
+				title={item.name}
+			/>
 		</Grid>
 	</div>
 </Flex>

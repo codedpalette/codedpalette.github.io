@@ -6,6 +6,7 @@
 	import { fade } from 'svelte/transition';
 	/* eslint-enable import/no-duplicates */
 
+	// TODO: Pass all as object
 	export let sketch: Sketch<HTMLCanvasElement>;
 	export let thumbnail: Blob;
 	export let title: string;
@@ -34,7 +35,7 @@
 		const translateY = (-top + (viewportHeight - height) / 2 + margin) / scale;
 
 		zoomed = true;
-		container.classList.add('zoomed');
+		container.classList.add('zoomed'); //TODO: Add with variable
 		imageContainer.style.transform = `scale(${scale}) translate3d(${translateX}px, ${translateY}px, 0)`;
 
 		setTimeout(() => {
@@ -43,7 +44,8 @@
 			runner.start();
 			imageContainer.appendChild(sketch.renderer.canvas);
 			thumbnailImg.style.display = 'none';
-		}, 100);
+		}, 100); // This needs to be higher than scale transition to none on zoomed container
+		// to let browser update layout
 	}
 
 	async function zoomOut() {
@@ -57,6 +59,7 @@
 	}
 
 	async function updateThumbnail() {
+		// TODO: Pass it from parent
 		sketch.resize({ resolution: 1 / 2 });
 		thumbnail = await sketch.export();
 		sketch.resize({ resolution: 1 });
@@ -80,6 +83,7 @@
 		<img bind:this={thumbnailImg} src={thumbnailUrl} alt={title} />
 	</div>
 	<h1>{title}</h1>
+	<!-- TODO: Github link-->
 </div>
 
 <style>
@@ -147,6 +151,7 @@
 		}
 	}
 
+	/* TODO: Add border to ::after and animate opacity */
 	@keyframes border {
 		0% {
 			border: none;

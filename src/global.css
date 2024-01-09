@@ -19,3 +19,7 @@ body {
 	--white: rgb(232, 230, 227);
 	--black: rgb(23, 25, 28);
 }
+
+.padding {
+	padding: 18px;
+}

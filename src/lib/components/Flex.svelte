@@ -1,10 +1,11 @@
 <script lang="ts">
+	/** Class specifying width of flex container */
 	export let width: 'narrow' | 'wide';
-	export let noScroll = false;
+	/** Whether to stretch content vertically */
 	export let stretch = false;
 </script>
 
-<div class="flex-container" class:noScroll class:stretch>
+<div class="flex-container" class:stretch>
 	<div class="content-container {width}">
 		<slot />
 	</div>
@@ -20,12 +21,7 @@
 	}
 
 	.content-container {
-		padding: 18px;
 		width: 100%;
-	}
-
-	.noScroll {
-		overflow: hidden;
 	}
 
 	.stretch {

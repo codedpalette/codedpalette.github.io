@@ -39,7 +39,7 @@
 			if (workerpool) {
 				workerpool
 					.exec('render', [sketchModule, thumbnailSizeParams])
-					.catch((err) => console.log(err))
+					.catch((err) => console.log(err)) //TODO: Test error handling
 					.then((result: RenderResult) => {
 						loadedSketches[index] = new Sketch(sketchFactory, renderer, sizeParams, result.seed);
 						thumbnailBlobs[index] = result.blob;
@@ -60,21 +60,23 @@
 </script>
 
 <Flex stretch width="wide">
-	<h1>This is my gallery :)</h1>
-	<p>Some more text here text text text i love text</p>
-	<div>
-		<Grid items={sketches} let:index let:item>
-			<SketchImage
-				sketch={loadedSketches[index]}
-				thumbnail={thumbnailBlobs[index]}
-				title={item.name}
-			/>
-		</Grid>
+	<div class="padding">
+		<h1>This is my gallery :)</h1>
+		<p>Some more text here text text text i love text</p>
+		<div id="grid-container">
+			<Grid items={sketches} let:index let:item>
+				<SketchImage
+					sketch={loadedSketches[index]}
+					thumbnail={thumbnailBlobs[index]}
+					title={item.name}
+				/>
+			</Grid>
+		</div>
 	</div>
 </Flex>
 
 <style>
-	div {
+	#grid-container {
 		padding: 18px 0;
 	}
 </style>

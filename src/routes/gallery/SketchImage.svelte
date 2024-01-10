@@ -1,15 +1,24 @@
+<script context="module" lang="ts">
+	export type SketchParams = {
+		sketch: Sketch<HTMLCanvasElement>;
+		thumbnail: Blob;
+		thumbnailResolution: number;
+		module: SketchModule;
+	};
+</script>
+
 <script lang="ts">
-	import { type Sketch, SketchRunner } from 'sketches';
+	import { type Sketch, type SketchModule, SketchRunner } from 'sketches';
 	// Because of this bug https://github.com/import-js/eslint-plugin-import/issues/1479
 	/* eslint-disable import/no-duplicates */
 	import { onDestroy } from 'svelte';
 	import { fade } from 'svelte/transition';
 	/* eslint-enable import/no-duplicates */
 
-	// TODO: Pass all as object
 	export let sketch: Sketch<HTMLCanvasElement>;
 	export let thumbnail: Blob;
-	export let title: string;
+	export let module: SketchModule;
+	export let thumbnailResolution: number;
 
 	$: runner = new SketchRunner(sketch);
 	$: ready = thumbnail !== undefined;
@@ -35,17 +44,19 @@
 		const translateY = (-top + (viewportHeight - height) / 2 + margin) / scale;
 
 		zoomed = true;
-		container.classList.add('zoomed'); //TODO: Add with variable
+		container.classList.add('zoomed');
 		imageContainer.style.transform = `scale(${scale}) translate3d(${translateX}px, ${translateY}px, 0)`;
 
+		// This needs to be higher than scale transition to none on zoomed container
+		// to let browser update layout
+		const renderDelay = 100;
 		setTimeout(() => {
 			// runner.start potentially has to initialize sketch, which is a long lasting operations
 			// using setTimeout here to let css animation start
 			runner.start();
 			imageContainer.appendChild(sketch.renderer.canvas);
 			thumbnailImg.style.display = 'none';
-		}, 100); // This needs to be higher than scale transition to none on zoomed container
-		// to let browser update layout
+		}, renderDelay);
 	}
 
 	async function zoomOut() {
@@ -59,8 +70,7 @@
 	}
 
 	async function updateThumbnail() {
-		// TODO: Pass it from parent
-		sketch.resize({ resolution: 1 / 2 });
+		sketch.resize({ resolution: thumbnailResolution });
 		thumbnail = await sketch.export();
 		sketch.resize({ resolution: 1 });
 	}
@@ -80,14 +90,21 @@
 		class="image-container"
 		on:transitionend={() => !zoomed && container.classList.remove('zoomed')}
 	>
-		<img bind:this={thumbnailImg} src={thumbnailUrl} alt={title} />
+		<img bind:this={thumbnailImg} src={thumbnailUrl} alt={module.name} />
 	</div>
-	<h1>{title}</h1>
-	<!-- TODO: Github link-->
+	<h1>{module.name}</h1>
+	<a
+		href={`https://github.com/monkeyroar/sketches/blob/master/sketches/${module.year}/${module.name}.ts`}
+		target="_blank"
+		on:click|stopPropagation
+	>
+		link to sources
+	</a>
 </div>
 
 <style>
 	.container {
+		position: relative;
 		visibility: hidden;
 		text-align: center;
 		padding: 9px;
@@ -95,16 +112,33 @@
 		transition: scale 400ms;
 	}
 
-	.container:is(.ready) {
+	.container.ready {
 		visibility: visible;
-		animation:
-			ease-in-out fadeInUp 0.5s,
-			0.5s border 0.5s forwards;
+		animation: ease-in-out fadeInUp 0.5s;
+	}
+
+	.container::after {
+		content: '';
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		z-index: -1;
+		opacity: 0;
+		border-radius: 10px;
+		box-shadow:
+			-10px -10px 20px #aeadaa,
+			10px 10px 20px #ffffff;
+	}
+
+	.container.ready::after {
+		animation: border 0.5s 0.5s forwards;
 	}
 
 	/** Add z-index to grid item container to make it's stacking context display over other grid cells */
 	:global(div:has(> .container.zoomed)) {
-		z-index: 2;
+		z-index: 1;
 	}
 
 	/** Using :is() selector so that Svelte won't remove "unused" css since we're adding class imperatively */
@@ -140,6 +174,16 @@
 		aspect-ratio: 1/1;
 	}
 
+	a {
+		display: block;
+		text-decoration: none;
+		font-style: italic;
+		font-weight: bold;
+		color: color-mix(in srgb, var(--black), var(--white));
+		text-align: right;
+		width: 100%;
+	}
+
 	@keyframes fadeInUp {
 		0% {
 			opacity: 0;
@@ -151,17 +195,12 @@
 		}
 	}
 
-	/* TODO: Add border to ::after and animate opacity */
 	@keyframes border {
 		0% {
-			border: none;
-			box-shadow: none;
+			opacity: 0;
 		}
 		100% {
-			border-radius: 10px;
-			box-shadow:
-				-10px -10px 20px #aeadaa,
-				10px 10px 20px #ffffff;
+			opacity: 1;
 		}
 	}
 </style>

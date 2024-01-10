@@ -19,7 +19,6 @@
 
 	.item-container {
 		grid-column: span 2;
-		z-index: 1;
 	}
 
 	@media (min-width: 600px) {

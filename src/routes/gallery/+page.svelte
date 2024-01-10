@@ -10,14 +10,14 @@
 	// eslint-disable-next-line import/default
 	import workerUrl from '$lib/worker?worker&url';
 
-	import SketchImage from './SketchImage.svelte';
+	import SketchImage, { type SketchParams } from './SketchImage.svelte';
 
 	let renderer: SketchRenderer<HTMLCanvasElement>;
 	let workerpool: Pool | undefined;
-	const loadedSketches: Sketch<HTMLCanvasElement>[] = [];
-	const thumbnailBlobs: Blob[] = [];
+	const loadedSketches: SketchParams[] = [];
 	const sizeParams: SizeParams = { width: 1200, height: 1200 };
-	const thumbnailSizeParams: SizeParams = { ...sizeParams, resolution: 1 / 2 };
+	const thumbnailResolution = 1 / 2;
+	const thumbnailSizeParams: SizeParams = { ...sizeParams, resolution: thumbnailResolution };
 	const workerPoolOpts: WorkerPoolOptions = {
 		maxWorkers: 3,
 		workerOpts: {
@@ -34,19 +34,21 @@
 		renderer = new SketchRenderer({ resizeCSS: false });
 		renderer.canvas.style.width = '100%';
 		workerpool = offscreenCanvasSupported ? pool(workerUrl, workerPoolOpts) : undefined;
-		for (const [index, sketchModule] of sketches.entries()) {
-			const sketchFactory = await loadModule(sketchModule);
+		for (const [index, module] of sketches.entries()) {
+			const sketchFactory = await loadModule(module);
 			if (workerpool) {
 				workerpool
-					.exec('render', [sketchModule, thumbnailSizeParams])
+					.exec('render', [module, thumbnailSizeParams])
 					.catch((err) => console.log(err)) //TODO: Test error handling
 					.then((result: RenderResult) => {
-						loadedSketches[index] = new Sketch(sketchFactory, renderer, sizeParams, result.seed);
-						thumbnailBlobs[index] = result.blob;
+						const sketch = new Sketch(sketchFactory, renderer, sizeParams, result.seed);
+						const thumbnail = result.blob;
+						loadedSketches[index] = { sketch, thumbnail, thumbnailResolution, module };
 					});
 			} else {
-				loadedSketches[index] = new Sketch(sketchFactory, renderer, thumbnailSizeParams);
-				thumbnailBlobs[index] = await loadedSketches[index].export();
+				const sketch = new Sketch(sketchFactory, renderer, thumbnailSizeParams);
+				const thumbnail = await sketch.export();
+				loadedSketches[index] = { sketch, thumbnail, thumbnailResolution, module };
 			}
 		}
 	});
@@ -64,12 +66,10 @@
 		<h1>This is my gallery :)</h1>
 		<p>Some more text here text text text i love text</p>
 		<div id="grid-container">
-			<Grid items={sketches} let:index let:item>
-				<SketchImage
-					sketch={loadedSketches[index]}
-					thumbnail={thumbnailBlobs[index]}
-					title={item.name}
-				/>
+			<Grid items={sketches} let:index>
+				{#if loadedSketches[index]}
+					<SketchImage {...loadedSketches[index]} />
+				{/if}
 			</Grid>
 		</div>
 	</div>

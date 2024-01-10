@@ -53,7 +53,7 @@
 	#content-container {
 		position: relative;
 		color: var(--white);
-		text-shadow: var(--black) 0px 0px 15px;
+		text-shadow: var(--black) 0px 0px 10px;
 		font-family: sans-serif;
 		text-align: center;
 		text-transform: uppercase;
@@ -63,7 +63,7 @@
 		position: absolute;
 		width: 100%;
 		height: 100%;
-		background: var(--white);
+		background: var(--black);
 		opacity: 0.2;
 	}
 

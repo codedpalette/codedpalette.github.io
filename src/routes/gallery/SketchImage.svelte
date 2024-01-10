@@ -1,5 +1,5 @@
 <script context="module" lang="ts">
-	export type SketchParams = {
+	export type LoadedSketch = {
 		sketch: Sketch<HTMLCanvasElement>;
 		thumbnail: Blob;
 		thumbnailResolution: number;

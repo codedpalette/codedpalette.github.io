@@ -10,11 +10,11 @@
 	// eslint-disable-next-line import/default
 	import workerUrl from '$lib/worker?worker&url';
 
-	import SketchImage, { type SketchParams } from './SketchImage.svelte';
+	import SketchImage, { type LoadedSketch } from './SketchImage.svelte';
 
 	let renderer: SketchRenderer<HTMLCanvasElement>;
 	let workerpool: Pool | undefined;
-	const loadedSketches: SketchParams[] = [];
+	const loadedSketches: LoadedSketch[] = [];
 	const sizeParams: SizeParams = { width: 1200, height: 1200 };
 	const thumbnailResolution = 1 / 2;
 	const thumbnailSizeParams: SizeParams = { ...sizeParams, resolution: thumbnailResolution };

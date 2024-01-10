@@ -23,7 +23,7 @@
 
 <div id="container">
 	<canvas id="background" bind:this={canvas}></canvas>
-	<Flex width="wide">
+	<Flex width="narrow">
 		<div id="content-container">
 			<div id="text-background"></div>
 			<div id="text-container" class="padding">
@@ -43,7 +43,7 @@
 		overflow: hidden;
 	}
 	#background {
-		background: var(--black);
+		background: rgb(43, 45, 48);
 		width: 100%;
 		height: 100%;
 		position: fixed;
@@ -64,8 +64,7 @@
 		width: 100%;
 		height: 100%;
 		background: var(--white);
-		opacity: 0.1;
-		transform: skewX(-5deg);
+		opacity: 0.2;
 	}
 
 	#text-container {
@@ -75,16 +74,15 @@
 	/* TODO Responsive font size (@media) */
 	h1 {
 		font-family: monospace;
-		font-size: 8em;
+		font-size: 4em;
 	}
 	h2 {
 		font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-		font-size: 4em;
+		font-size: 2em;
 		margin: 0px;
 	}
 	h3 {
 		font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-		font-size: 2em;
 		margin-top: 0.5em;
 	}
 </style>

@@ -22,7 +22,6 @@
 		justify-content: center;
 	}
 	a {
-		font-size: 2em;
 		display: block;
 		padding: 18px 36px;
 		text-decoration: none;

@@ -1,0 +1,140 @@
+{
+	"$schema": "https://raw.githubusercontent.com/jsonresume/resume-schema/v1.0.0/schema.json",
+	"basics": {
+		"name": "Daniel Blinder",
+		"label": "Full-stack developer",
+		"image": "",
+		"email": "daniel.blindr@gmail.com",
+		"phone": "+972 (53) 930-7348",
+		"url": "https://monkeyroar.github.io",
+		"summary": "I'm Daniel, a software engineer hailing from Israel. I've been immersed in backend development for over 5 years. Recently, I stumbled upon the world of creative coding and generative art, prompting me to make a shift to graphics programming. Over the last 2 years, I've been diving deep into this fascinating field.\n\nMy passion for video games and game development has been with me since a young age, and my programming journey actually kicked off with learning how to develop games. What I find most fulfilling about programming is its creative aspect, bringing visuals and aesthetically pleasing creations to life.",
+		"location": {
+			"city": "Ramat Gan",
+			"countryCode": "IL"
+		},
+		"profiles": [
+			{
+				"network": "GitHub",
+				"username": "monkeyroar",
+				"url": "https://github.com/monkeyroar"
+			},
+			{
+				"network": "LinkedIn",
+				"username": "Daniel Blinder",
+				"url": "https://www.linkedin.com/in/daniel-blinder-25a10566/"
+			}
+		]
+	},
+	"work": [
+		{
+			"name": "Reali",
+			"location": "Tel Aviv, IL",
+			"description": "Using Reali, customers could buy and sell in one coordinated transaction, eliminating resale contingencies, moving twice, and paying two mortgages at once.",
+			"position": "Senior Java/Scala Developer",
+			"url": "https://www.reali.com/",
+			"startDate": "2021-05",
+			"endDate": "2022-09",
+			"highlights": [
+				"Engineered backend microservices using Scala and the Play framework, ensuring robust and scalable functionality for a seamless real estate experience.",
+				"Enhanced database performance by optimizing MongoDB queries and implementing improvements in Mongo Compass, elevating the efficiency of data retrieval processes.",
+				"Established data pipelines using Apache Spark to extract and store geographic data in the database, enriching the platform with valuable location-based insights.",
+				"Provided mentorship to team members, imparting expertise in Scala and functional programming, fostering a collaborative and skilled development team."
+			]
+		},
+		{
+			"name": "Israel Defense Forces",
+			"location": "Tel Aviv, IL",
+			"position": "Frontend Engineer",
+			"startDate": "2019-04",
+			"endDate": "2021-04",
+			"highlights": [
+				"Developed intuitive front-end interfaces for multiple internal websites within the General Staff of the IDF using React, enhancing user access to crucial operational data.",
+				"Utilized the D3.js library to visualize graph connections, improving the representation and accessibility of critical information.",
+				"Guided, mentored, and developed new recruits in front-end development practices, contributing to team cohesion and expertise.",
+				"Applied the Neo4j graph database for efficient storage and querying of operational data, optimizing information retrieval processes and fostering a cohesive and user-centric digital environment."
+			]
+		},
+		{
+			"name": "Puls",
+			"location": "Tel Aviv, IL",
+			"description": "Your go-to expert for all your home care needs",
+			"position": "Java Backend Developer",
+			"url": "https://puls.com/",
+			"startDate": "2017-02",
+			"endDate": "2018-11",
+			"highlights": [
+				"Engineered the migration of a PHP monolith to Java microservices using Spring Boot, enhancing system performance and maintainability.",
+				"Developed integrations for offline conversion tracking systems, improving performance metrics accuracy.",
+				"Created a price calculation microservice, streamlining pricing with tax calculations, upsells, coupons, and discounts.",
+				"Led the development of an NPS scoring system and mail sending microservice, boosting customer engagement and satisfaction.",
+				"Innovated a timetable microservice for efficient appointment scheduling, considering technician availability and market-specific factors."
+			]
+		}
+	],
+	"education": [
+		{
+			"institution": "Odessa National University of I.I. Mechnikov",
+			"url": "https://onu.edu.ua/en/",
+			"area": "Applied Math",
+			"studyType": "Bachelor",
+			"startDate": "2012-09",
+			"endDate": "2016-07"
+		}
+	],
+	"skills": [
+		{
+			"name": "Backend development",
+			"level": "Advanced",
+			"keywords": ["Java", "Scala", "SpringBoot", "Play"]
+		},
+		{
+			"name": "Frontend development",
+			"level": "Intermediate",
+			"keywords": ["Javascript", "Typescript", "React", "Svelte", "Pixi.js"]
+		},
+		{
+			"name": "Databases",
+			"level": "Advanced",
+			"keywords": ["MongoDB", "PostgreSQL", "Redis"]
+		},
+		{
+			"name": "Cloud and DevOps",
+			"level": "Intermediate",
+			"keywords": ["AWS", "Docker", "Kubernetes", "Jenkins", "Terraform"]
+		}
+	],
+	"projects": [
+		{
+			"name": "Generative art sketches",
+			"description": "My generative art sketches",
+			"keywords": ["Typescript", "Pixi.js", "WebGL", "Three.JS"],
+			"url": "https://github.com/monkeyroar/sketches",
+			"roles": []
+		},
+		{
+			"name": "Personal website",
+			"description": "My personal website",
+			"keywords": ["Typescript", "Svelte"],
+			"url": "https://github.com/monkeyroar/personal-site",
+			"roles": []
+		}
+	],
+	"languages": [
+		{
+			"language": "Ukrainian",
+			"fluency": "Native"
+		},
+		{
+			"language": "Russian",
+			"fluency": "Native"
+		},
+		{
+			"language": "English",
+			"fluency": "Upper intermediate"
+		},
+		{
+			"language": "Hebrew",
+			"fluency": "Intermediate"
+		}
+	]
+}

@@ -55,7 +55,7 @@
 }
 
 :global(.summary) {
-  font-size: variables.$font-size-small;
+  font-size: variables.$font-size-medium;
 
   &:empty {
     display: none
@@ -68,8 +68,6 @@
   margin: 0 0 variables.$space-2 0;
 }
 
-
-
 :global(.main) {
   :global(.highlights) {
     width: auto;
@@ -78,7 +76,7 @@
     margin-bottom: 0;    
 
     :global(li) {
-      font-size: variables.$font-size-xsmall;
+      font-size: variables.$font-size-small;
       list-style: none;
 
       &:before {

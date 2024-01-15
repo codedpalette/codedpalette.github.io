@@ -15,7 +15,7 @@
 </script>
 
 <Flex stretch width="wide">
-	<div id="content">
+	<div id="content" class="padding">
 		<Basics {basics} />
 		<div class="table">
 			<div class="main">
@@ -36,15 +36,9 @@
 	@use 'styles/variables.scss';
 	#content {
 		width: 100%;
-		padding: 0 50px;
-		margin: 0 auto;
 		font-family: Helvetica, Arial, sans-serif;
 		color: var(--black);
 
 		@import 'styles/global.scss';
-
-		.table {
-			padding-top: variables.$space-2;
-		}
 	}
 </style>

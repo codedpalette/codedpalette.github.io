@@ -71,7 +71,6 @@
 		position: relative;
 	}
 
-	/* TODO Responsive font size (@media) */
 	h1 {
 		font-family: monospace;
 		font-size: 4em;

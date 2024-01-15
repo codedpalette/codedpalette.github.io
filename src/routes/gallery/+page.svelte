@@ -39,7 +39,7 @@
 			if (workerpool) {
 				workerpool
 					.exec('render', [module, thumbnailSizeParams])
-					.catch((err) => console.log(err)) //TODO: Test error handling
+					.catch((err) => console.log(err))
 					.then((result: RenderResult) => {
 						const sketch = new Sketch(sketchFactory, renderer, sizeParams, result.seed);
 						const thumbnail = result.blob;

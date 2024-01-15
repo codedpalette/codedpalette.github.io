@@ -1,41 +1,32 @@
 <script lang="ts">
-	// import 'jsonresume-theme-actual/assets/styles.css';
-
-	import { onMount } from 'svelte';
-
 	import Flex from '$lib/components/Flex.svelte';
 
-	import type { PageData } from './$types';
 	import Basics from './Basics.svelte';
+	import Education from './Education.svelte';
+	import Languages from './Languages.svelte';
+	import Links from './Links.svelte';
 	import Projects from './Projects.svelte';
-	import resume from './resume.json';
+	import { basics, education, languages, projects, skills, work } from './resume.json';
+	import Skills from './Skills.svelte';
 	import Work from './Work.svelte';
 
-	export let data: PageData;
-	let templateHTML: string;
-
 	// TODO: Export to PDF
-	onMount(() => {
-		templateHTML = new DOMParser().parseFromString(data.template, 'text/html').body.innerHTML;
-	});
+	// TODO: Responsive layout
 </script>
-
-<!-- eslint-disable-next-line svelte/no-at-html-tags -->
-<!-- {@html templateHTML} -->
 
 <Flex stretch width="wide">
 	<div id="content">
-		<Basics {...resume} />
+		<Basics {basics} />
 		<div class="table">
 			<div class="main">
-				<Projects {...resume} />
-				<Work {...resume} />
+				<Projects {projects} />
+				<Work {work} />
 			</div>
 			<div class="side">
-				<!-- skills -->
-				<!-- education -->
-				<!-- languages -->
-				<!-- links -->
+				<Skills {skills} />
+				<Education {education} />
+				<Languages {languages} />
+				<Links {basics} />
 			</div>
 		</div>
 	</div>

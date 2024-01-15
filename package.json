@@ -16,7 +16,6 @@
 	},
 	"dependencies": {
 		"iso-3166-1": "^2.1.1",
-		"jsonresume-theme-actual": "^0.2.2",
 		"markdown-it": "^14.0.0",
 		"moment": "^2.30.1",
 		"sketches": "portal:./../sketches",

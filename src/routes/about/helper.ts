@@ -50,6 +50,19 @@ export function beautifyDate(date: moment.MomentInput) {
 	return moment(date, 'YYYY-MM-DD').format('MMM YYYY');
 }
 
+export function beautifyArray(separator: string, array: Array<unknown>) {
+	return array.filter((x) => x).join(separator);
+}
+
+export function beautifyLink(string: string) {
+	let url = string.trim().replace(/^(?:https?:\/\/)?(?:www\.)?/i, '');
+	url = url.endsWith('/') ? url.slice(0, -1) : url;
+
+	const chunks = url.split('/');
+	chunks[0] = `<strong>${chunks[0]}</strong>`;
+	return chunks.join('/');
+}
+
 export function arrayToPhrase(array?: string[]) {
 	let str = '';
 	const a = array || [];

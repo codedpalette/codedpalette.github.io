@@ -73,7 +73,7 @@
 	],
 	"education": [
 		{
-			"institution": "Odessa National University of I.I. Mechnikov",
+			"institution": "Odessa National University",
 			"url": "https://onu.edu.ua/en/",
 			"area": "Applied Math",
 			"studyType": "Bachelor",
@@ -100,7 +100,7 @@
 		{
 			"name": "Cloud and DevOps",
 			"level": "Intermediate",
-			"keywords": ["AWS", "Docker", "Kubernetes", "Jenkins", "Terraform"]
+			"keywords": ["AWS", "Docker", "Kubernetes", "Jenkins"]
 		}
 	],
 	"projects": [

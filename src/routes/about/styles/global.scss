@@ -1,7 +1,9 @@
 @use "variables";
-@use "mixins";
 @use "sass:color";
 @use "sass:math";
+
+@import "markdown";
+@import "utils";
 
 :global(ul),
 :global(li) {
@@ -66,72 +68,14 @@
   margin: 0 0 variables.$space-2 0;
 }
 
-:global(.markdown) {
-  :global(h1) {
-    font-size: 160%;
-    font-weight: bolder;
-  }
 
-  :global(h2) {
-    font-size: 150%;
-    font-weight: bolder;
-  }
-
-  :global(h3) {
-    font-size: 140%;
-    font-weight: bolder;
-  }
-
-  :global(h4) {
-    font-size: 130%;
-    font-weight: bold;
-  }
-
-  :global(h5) {
-    font-size: 120%;
-    font-weight: bold;
-  }
-
-  :global(h6) {
-    font-size: 110%;
-    font-weight: bold;
-  }
-
-  :global(ul),
-  :global(ol) {
-    margin-left: variables.$space-2;
-  }
-
-  :global(img) {
-    display: block;
-    margin: variables.$space-2 auto;
-    max-width: 1000px;
-    text-align: center;
-  }
-
-  :global(blockquote) {
-    margin: variables.$space-2 0;
-    padding: 15px variables.$space-2;
-
-    :global(p) {
-      display: inline;
-    }
-  }
-
-  :global(code) {
-    font-family: monospace;
-  }
-}
 
 :global(.main) {
   :global(.highlights) {
     width: auto;
     display: block;
     padding: 0 variables.$space-1;
-    margin-bottom: 0;
-    columns: 2;
-    column-width: calc((variables.$content-width * math.div(variables.$content-main-percentage, 100%) - 3 * variables.$space-1 - variables.$space-4) * 0.5);
-    column-gap: variables.$space-1;
+    margin-bottom: 0;    
 
     :global(li) {
       font-size: variables.$font-size-xsmall;
@@ -170,60 +114,4 @@
       white-space: nowrap;
     }
   }
-}
-
-:global(.margin-container-2):not(:first-child) {
-  margin-top: variables.$space-2;
-}
-
-:global(.margin-container-3):not(:first-child) {
-  margin-top: variables.$space-3;
-}
-
-:global(.margin-container-4):not(:first-child) {
-  margin-top: variables.$space-4;
-}
-
-:global(.padding-container-2) {
-  padding: variables.$space-2 0;
-}
-
-:global(.padding-top-container-2) {
-  padding-top: variables.$space-2;
-}
-
-:global(.padding-bottom-container-2) {
-  padding-bottom: variables.$space-2;
-}
-
-:global(.margin-text-1) {
-  @include mixins.margin-text(2px)
-}
-
-:global(.margin-text-2) {
-  @include mixins.margin-text(4px)
-}
-
-:global(.margin-text-3) {
-  @include mixins.margin-text(6px)
-}
-
-:global(.margin-text-4) {
-  @include mixins.margin-text(8px)
-}
-
-:global(.margin-text-5) {
-  @include mixins.margin-text(14px)
-}
-
-:global(.no-break) {
-  break-inside: avoid;
-}
-
-:global(.no-alone-1) {
-  @include mixins.no-alone(75px)
-}
-
-:global(.no-alone-2) {
-  @include mixins.no-alone(150px)
 }

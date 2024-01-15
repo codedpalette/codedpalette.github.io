@@ -1,115 +1,115 @@
-@use "variables";
-@use "sass:color";
-@use "sass:math";
+@use 'variables';
+@use 'sass:color';
+@use 'sass:math';
 
-@import "markdown";
-@import "utils";
+@import 'markdown';
+@import 'utils';
 
 :global(ul),
 :global(li) {
-  margin: 0;
-  padding: 0;
+	margin: 0;
+	padding: 0;
 }
 
 :global(span),
 :global(q) {
-  display: block;
+	display: block;
 }
 
 :global(a) {
-  color: variables.$text-color;
-  font-weight: inherit;
-  text-decoration: underline;
-  text-decoration-color: color.adjust(variables.$text-color, $lightness: 40%);  
+	color: variables.$text-color;
+	font-weight: inherit;
+	text-decoration: underline;
+	text-decoration-color: color.adjust(variables.$text-color, $lightness: 40%);
 }
 
 :global(p),
 :global(q) {
-  line-height: variables.$line-height-1;
+	line-height: variables.$line-height-1;
 }
 
 :global(li) {
-  line-height: variables.$line-height-2;
+	line-height: variables.$line-height-2;
 
-  &:first-child {
-    margin-top: 0;
-  }
+	&:first-child {
+		margin-top: 0;
+	}
 }
 
 :global(.table) {
-  width: 100%;
-  display: table;
+	width: 100%;
+	display: table;
 
-  :global(.main) {
-    display: table-cell;
-    width: variables.$content-main-percentage;
-    padding-right: variables.$space-4;
-  }
+	:global(.main) {
+		display: table-cell;
+		width: variables.$content-main-percentage;
+		padding-right: variables.$space-4;
+	}
 
-  :global(.side) {
-    display: table-cell;
-    width: variables.$content-side-percentage;
-    padding-left: variables.$space-4;
-    text-align: right;
-  }
+	:global(.side) {
+		display: table-cell;
+		width: variables.$content-side-percentage;
+		padding-left: variables.$space-4;
+		text-align: right;
+	}
 }
 
 :global(.summary) {
-  font-size: variables.$font-size-medium;
+	font-size: variables.$font-size-medium;
 
-  &:empty {
-    display: none
-  }
+	&:empty {
+		display: none;
+	}
 }
 
 :global(.section-title) {
-  font-size: variables.$font-size-xlarge;
-  font-weight: normal;
-  margin: 0 0 variables.$space-2 0;
+	font-size: variables.$font-size-xlarge;
+	font-weight: normal;
+	margin: 0 0 variables.$space-2 0;
 }
 
 :global(.main) {
-  :global(.highlights) {
-    width: auto;
-    display: block;
-    padding: 0 variables.$space-1;
-    margin-bottom: 0;    
+	:global(.highlights) {
+		width: auto;
+		display: block;
+		padding: 0 variables.$space-1;
+		margin-bottom: 0;
 
-    :global(li) {
-      font-size: variables.$font-size-small;
-      list-style: none;
+		:global(li) {
+			font-size: variables.$font-size-small;
+			list-style: none;
 
-      &:before {
-        content: "· ";
-        vertical-align: middle;
-      }
-    }
-  }
+			&:before {
+				content: '· ';
+				vertical-align: middle;
+			}
+		}
+	}
 
-  :global(.left) {
-    display: table-cell;
+	:global(.left) {
+		display: table-cell;
 
-    :global(.title) {
-      font-size: variables.$font-size-large;
-      font-weight: bold;
-      display: block;
-    }
+		:global(.title) {
+			font-size: variables.$font-size-large;
+			font-weight: bold;
+			display: block;
+		}
 
-    :global(.subtitle) {
-      font-size: variables.$font-size-medium;
-      font-weight: lighter;
-      display: block;
-    }
-  }
+		:global(.subtitle) {
+			font-size: variables.$font-size-medium;
+			font-weight: lighter;
+			display: block;
+		}
+	}
 
-  :global(.right) {
-    text-align: right;
-    display: table-cell;
+	:global(.right) {
+		text-align: right;
+		display: table-cell;
 
-    :global(.date) {
-      font-size: variables.$font-size-small;
-      font-weight: lighter;
-      white-space: nowrap;
-    }
-  }
+		:global(.date) {
+			font-size: variables.$font-size-small;
+			font-weight: lighter;
+			white-space: nowrap;
+		}
+	}
 }

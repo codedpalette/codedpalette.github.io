@@ -1,58 +1,58 @@
-@use "variables";
-@use "mixins";
+@use 'variables';
+@use 'mixins';
 
 :global(.margin-container-2):not(:first-child) {
-  margin-top: variables.$space-2;
+	margin-top: variables.$space-2;
 }
 
 :global(.margin-container-3):not(:first-child) {
-  margin-top: variables.$space-3;
+	margin-top: variables.$space-3;
 }
 
 :global(.margin-container-4):not(:first-child) {
-  margin-top: variables.$space-4;
+	margin-top: variables.$space-4;
 }
 
 :global(.padding-container-2) {
-  padding: variables.$space-2 0;
+	padding: variables.$space-2 0;
 }
 
 :global(.padding-top-container-2) {
-  padding-top: variables.$space-2;
+	padding-top: variables.$space-2;
 }
 
 :global(.padding-bottom-container-2) {
-  padding-bottom: variables.$space-2;
+	padding-bottom: variables.$space-2;
 }
 
 :global(.margin-text-1) {
-  @include mixins.margin-text(2px)
+	@include mixins.margin-text(2px);
 }
 
 :global(.margin-text-2) {
-  @include mixins.margin-text(4px)
+	@include mixins.margin-text(4px);
 }
 
 :global(.margin-text-3) {
-  @include mixins.margin-text(6px)
+	@include mixins.margin-text(6px);
 }
 
 :global(.margin-text-4) {
-  @include mixins.margin-text(8px)
+	@include mixins.margin-text(8px);
 }
 
 :global(.margin-text-5) {
-  @include mixins.margin-text(14px)
+	@include mixins.margin-text(14px);
 }
 
 :global(.no-break) {
-  break-inside: avoid;
+	break-inside: avoid;
 }
 
 :global(.no-alone-1) {
-  @include mixins.no-alone(75px)
+	@include mixins.no-alone(75px);
 }
 
 :global(.no-alone-2) {
-  @include mixins.no-alone(150px)
+	@include mixins.no-alone(150px);
 }

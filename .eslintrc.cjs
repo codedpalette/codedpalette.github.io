@@ -8,10 +8,18 @@ module.exports = {
 		'plugin:import/typescript',
 		'plugin:svelte/recommended',
 		'plugin:compat/recommended',
+		'plugin:ecmascript-compat/recommended',
 		'prettier'
 	],
 	parser: '@typescript-eslint/parser',
-	plugins: ['@typescript-eslint', 'compat', 'import', 'unused-imports', 'simple-import-sort'],
+	plugins: [
+		'@typescript-eslint',
+		'compat',
+		'ecmascript-compat',
+		'import',
+		'unused-imports',
+		'simple-import-sort'
+	],
 	parserOptions: {
 		sourceType: 'module',
 		extraFileExtensions: ['.svelte']
@@ -23,8 +31,7 @@ module.exports = {
 	},
 	settings: {
 		// https://github.com/import-js/eslint-plugin-import/tree/main#typescript
-		'import/resolver': { typescript: true },
-		lintAllEsApis: true
+		'import/resolver': { typescript: true }
 	},
 	rules: {
 		// https://github.com/lydell/eslint-plugin-simple-import-sort/#example-configuration

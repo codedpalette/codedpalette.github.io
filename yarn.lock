@@ -4491,7 +4491,6 @@ __metadata:
     stylelint-config-html: "npm:^1.1.0"
     stylelint-config-recommended-scss: "npm:^14.0.0"
     stylelint-config-standard: "npm:^36.0.0"
-    stylelint-scss: "npm:^6.0.0"
     svelte: "npm:^4.2.7"
     svelte-check: "npm:^3.6.0"
     svelte-preprocess: "npm:^5.1.3"

@@ -42,8 +42,9 @@
 		height: 100%;
 		overflow: hidden;
 	}
+
 	#background {
-		background: rgb(43, 45, 48);
+		background: rgb(43 45 48);
 		width: 100%;
 		height: 100%;
 		position: fixed;
@@ -53,7 +54,7 @@
 	#content-container {
 		position: relative;
 		color: var(--white);
-		text-shadow: var(--black) 0px 0px 10px;
+		text-shadow: var(--black) 0 0 10px;
 		font-family: sans-serif;
 		text-align: center;
 		text-transform: uppercase;
@@ -75,11 +76,13 @@
 		font-family: monospace;
 		font-size: 4em;
 	}
+
 	h2 {
 		font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 		font-size: 2em;
-		margin: 0px;
+		margin: 0;
 	}
+
 	h3 {
 		font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 		margin-top: 0.5em;

@@ -79,7 +79,7 @@
 			font-size: variables.$font-size-small;
 			list-style: none;
 
-			&:before {
+			&::before {
 				content: '· ';
 				vertical-align: middle;
 			}

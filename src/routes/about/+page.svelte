@@ -34,11 +34,13 @@
 
 <style lang="scss">
 	@use 'styles/variables.scss';
+
 	#content {
 		width: 100%;
 		font-family: Helvetica, Arial, sans-serif;
 		color: var(--black);
 
-		@import 'styles/global.scss';
+		/* stylelint-disable-next-line no-invalid-position-at-import-rule */
+		@import 'styles/global';
 	}
 </style>

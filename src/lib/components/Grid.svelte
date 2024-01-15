@@ -21,7 +21,7 @@
 		grid-column: span 2;
 	}
 
-	@media (min-width: 600px) {
+	@media (width >= 600px) {
 		#grid {
 			grid-template-columns: repeat(4, 1fr);
 		}
@@ -32,7 +32,7 @@
 		}
 	}
 
-	@media (min-width: 900px) {
+	@media (width >= 900px) {
 		#grid {
 			grid-template-columns: repeat(6, 1fr);
 		}

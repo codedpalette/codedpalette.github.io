@@ -1,0 +1,18 @@
+{
+	"extends": ["stylelint-config-standard", "stylelint-config-recommended-scss"],
+	"overrides": [
+		{
+			"files": ["*.svelte", "**/*.svelte"],
+			"customSyntax": "postcss-html"
+		}
+	],
+	"rules": {
+		"selector-pseudo-class-no-unknown": [
+			true,
+			{
+				"ignorePseudoClasses": ["global"]
+			}
+		],
+		"import-notation": "string"
+	}
+}

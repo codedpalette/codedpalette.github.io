@@ -40,19 +40,24 @@
 	#basics {
 		.main {
 			vertical-align: middle;
+
 			#name {
 				@include main-span(variables.$header-name-font-size, bold, -0.07);
 			}
+
 			#label {
 				@include main-span(variables.$header-line-font-size, lighter, -0.04);
 			}
 		}
+
 		.side {
 			vertical-align: middle;
 			padding-left: 0;
 			padding-top: 15px;
+
 			#contact {
 				list-style-type: none;
+
 				li {
 					font-size: variables.$font-size-large;
 					line-height: variables.$line-height-3;

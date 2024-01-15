@@ -43,10 +43,7 @@
 			.article {
 				break-inside: avoid-column;
 				min-width: calc(
-					(
-							variables.$content-width * math.div(variables.$content-side-percentage, 100%) -
-								variables.$space-1 - variables.$space-4
-						) * 0.5
+					(variables.$content-side-percentage - variables.$space-1 - variables.$space-4) * 0.5
 				);
 				padding-top: variables.$space-2;
 

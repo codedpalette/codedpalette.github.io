@@ -114,22 +114,19 @@
 
 	.container.ready {
 		visibility: visible;
-		animation: ease-in-out fadeInUp 0.5s;
+		animation: ease-in-out fade-in-up 0.5s;
 	}
 
 	.container::after {
 		content: '';
 		position: absolute;
-		top: 0;
-		bottom: 0;
-		left: 0;
-		right: 0;
+		inset: 0;
 		z-index: -1;
 		opacity: 0;
 		border-radius: 10px;
 		box-shadow:
 			-10px -10px 20px #aeadaa,
-			10px 10px 20px #ffffff;
+			10px 10px 20px #fff;
 	}
 
 	.container.ready::after {
@@ -156,10 +153,7 @@
 
 	.overlay {
 		position: fixed;
-		top: 0;
-		right: 0;
-		bottom: 0;
-		left: 0;
+		inset: 0;
 		background-color: #fff;
 		cursor: zoom-out;
 	}
@@ -184,11 +178,12 @@
 		width: 100%;
 	}
 
-	@keyframes fadeInUp {
+	@keyframes fade-in-up {
 		0% {
 			opacity: 0;
 			transform: translate3d(0, 200px, 0);
 		}
+
 		100% {
 			transform: none;
 			opacity: 1;
@@ -199,6 +194,7 @@
 		0% {
 			opacity: 0;
 		}
+
 		100% {
 			opacity: 1;
 		}

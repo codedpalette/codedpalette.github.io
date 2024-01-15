@@ -12,6 +12,7 @@
 			<span id="name">{basics.name}</span>
 			<span id="label">{basics.label}</span>
 		</div>
+		<!-- TODO: Display only on pdf (maybe replace with picture) -->
 		<div class="side">
 			<ul id="contact">
 				<li>{basics.phone}</li>

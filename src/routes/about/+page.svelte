@@ -1,8 +1,8 @@
 <script lang="ts">
 	import Flex from '$lib/components/Flex.svelte';
 
-	import Education from './Education.svelte';
 	import Basics from './Basics.svelte';
+	import Education from './Education.svelte';
 	import Languages from './Languages.svelte';
 	import Links from './Links.svelte';
 	import Projects from './Projects.svelte';

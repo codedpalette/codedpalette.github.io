@@ -3,7 +3,6 @@
 
 	import Education from './Education.svelte';
 	import Basics from './Basics.svelte';
-
 	import Languages from './Languages.svelte';
 	import Links from './Links.svelte';
 	import Projects from './Projects.svelte';

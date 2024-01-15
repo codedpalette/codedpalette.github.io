@@ -1,58 +1,58 @@
 @use 'variables';
 
-:global(.markdown) {
-	:global(h1) {
+.markdown {
+	h1 {
 		font-size: 160%;
 		font-weight: bolder;
 	}
 
-	:global(h2) {
+	h2 {
 		font-size: 150%;
 		font-weight: bolder;
 	}
 
-	:global(h3) {
+	h3 {
 		font-size: 140%;
 		font-weight: bolder;
 	}
 
-	:global(h4) {
+	h4 {
 		font-size: 130%;
 		font-weight: bold;
 	}
 
-	:global(h5) {
+	h5 {
 		font-size: 120%;
 		font-weight: bold;
 	}
 
-	:global(h6) {
+	h6 {
 		font-size: 110%;
 		font-weight: bold;
 	}
 
-	:global(ul),
-	:global(ol) {
+	ul,
+	ol {
 		margin-left: variables.$space-2;
 	}
 
-	:global(img) {
+	img {
 		display: block;
 		margin: variables.$space-2 auto;
 		max-width: 1000px;
 		text-align: center;
 	}
 
-	:global(blockquote) {
+	blockquote {
 		margin: variables.$space-2 0;
 		padding: 15px variables.$space-2;
 
-		:global(p) {
+		p {
 			display: inline;
 		}
 	}
 
-	:global(code) {
+	code {
 		font-family: monospace;
 	}
 }

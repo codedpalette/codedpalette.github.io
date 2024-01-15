@@ -40,7 +40,9 @@
 		font-family: Helvetica, Arial, sans-serif;
 		color: var(--black);
 
-		/* stylelint-disable-next-line no-invalid-position-at-import-rule */
-		@import 'styles/global';
+		:global {
+			/* stylelint-disable-next-line no-invalid-position-at-import-rule */
+			@import 'styles/global';
+		}
 	}
 </style>

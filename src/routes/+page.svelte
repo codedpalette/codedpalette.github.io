@@ -40,6 +40,7 @@
 	#container {
 		width: 100%;
 		height: 100%;
+		/* stylelint-disable-next-line plugin/no-unsupported-browser-features */
 		overflow: hidden;
 	}
 

@@ -26,23 +26,23 @@
 }
 
 .margin-text-1 {
-	@include mixins.margin-text(2px)
+	@include mixins.margin-text(2px);
 }
 
 .margin-text-2 {
-	@include mixins.margin-text(4px)
+	@include mixins.margin-text(4px);
 }
 
 .margin-text-3 {
-	@include mixins.margin-text(6px)
+	@include mixins.margin-text(6px);
 }
 
 .margin-text-4 {
-	@include mixins.margin-text(8px)
+	@include mixins.margin-text(8px);
 }
 
 .margin-text-5 {
-	@include mixins.margin-text(14px)
+	@include mixins.margin-text(14px);
 }
 
 .no-break {
@@ -50,9 +50,9 @@
 }
 
 .no-alone-1 {
-	@include mixins.no-alone(75px)
+	@include mixins.no-alone(75px);
 }
 
 .no-alone-2 {
-	@include mixins.no-alone(150px)
+	@include mixins.no-alone(150px);
 }

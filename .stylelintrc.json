@@ -4,6 +4,7 @@
 		"stylelint-config-recommended-scss",
 		"stylelint-config-html/svelte"
 	],
+	"plugins": ["stylelint-no-unsupported-browser-features"],
 	"rules": {
 		"selector-pseudo-class-no-unknown": [
 			true,
@@ -11,6 +12,20 @@
 				"ignorePseudoClasses": ["global"]
 			}
 		],
-		"import-notation": "string"
+		"import-notation": "string",
+		"plugin/no-unsupported-browser-features": [
+			true,
+			{
+				"severity": "warning",
+				"ignore": ["css-nesting", "multicolumn"]
+			}
+		],
+		"declaration-block-no-redundant-longhand-properties": [
+			true,
+			{
+				"ignoreShorthands": ["inset"]
+			}
+		],
+		"media-feature-range-notation": "prefix"
 	}
 }

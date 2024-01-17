@@ -11,7 +11,6 @@
 	import Work from './Work.svelte';
 
 	// TODO: Export to PDF
-	// TODO: Responsive layout
 </script>
 
 <Flex stretch width="wide">

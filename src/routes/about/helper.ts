@@ -23,15 +23,11 @@ export function validArray<T>(array?: T[]): array is T[] {
 	return array !== undefined && array.length > 0;
 }
 
-export function calcDate(date: moment.MomentInput) {
-	return date ? beautifyDate(date) : null;
-}
-
-export function calcDateRange(start: moment.MomentInput, end: moment.MomentInput) {
+export function calcDateRange(start: moment.MomentInput, end: moment.MomentInput, short: boolean) {
 	const array = [];
 
-	const startDate = calcDate(start);
-	const endDate = calcDate(end);
+	const startDate = calcDate(start, short);
+	const endDate = calcDate(end, short);
 
 	if (startDate && endDate) {
 		array.push(startDate, endDate);
@@ -46,8 +42,12 @@ export function calcDateRange(start: moment.MomentInput, end: moment.MomentInput
 	return array.join(' - ');
 }
 
-export function beautifyDate(date: moment.MomentInput) {
-	return moment(date, 'YYYY-MM-DD').format('MMM YYYY');
+function calcDate(date: moment.MomentInput, short: boolean) {
+	return date ? beautifyDate(date, short) : null;
+}
+
+function beautifyDate(date: moment.MomentInput, short: boolean) {
+	return moment(date, 'YYYY-MM-DD').format(short ? 'MM/YY' : 'MMM YYYY');
 }
 
 export function beautifyArray(separator: string, array: Array<unknown>) {

@@ -52,6 +52,7 @@
 		}
 
 		.side {
+			visibility: hidden;
 			vertical-align: middle;
 			padding-left: 0;
 			padding-top: 15px;

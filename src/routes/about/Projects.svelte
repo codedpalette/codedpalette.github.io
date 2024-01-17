@@ -1,9 +1,10 @@
 <script lang="ts">
 	import type { ResumeSchema } from '@kurone-kito/jsonresume-types';
 
-	import { arrayToPhrase, calcDateRange, mdToHtml, validArray } from './helper';
+	import { beautifyArray, mdToHtml, validArray } from './helper';
 
 	export let projects: ResumeSchema['projects'];
+	let tableWidth: number;
 </script>
 
 {#if validArray(projects)}
@@ -13,15 +14,16 @@
 			{#each projects as project}
 				<div class="article margin-container-3">
 					<div class="header no-alone-1">
-						<div class="table">
+						<div class="table" bind:clientWidth={tableWidth}>
 							<div class="left">
-								<span class="title">{arrayToPhrase(project.roles)}</span>
-								<span class="subtitle margin-text-1">
+								<span class="title">
 									<a href={project.url}>{project.name}</a>
 								</span>
-							</div>
-							<div class="right">
-								<span class="date">{calcDateRange(project.startDate, project.endDate)}</span>
+								{#if project.keywords}
+									<span class="subtitle margin-text-1"
+										>{beautifyArray(' · ', project.keywords)}</span
+									>
+								{/if}
 							</div>
 						</div>
 					</div>

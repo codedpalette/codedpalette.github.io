@@ -1,3 +1,6 @@
+// https://github.com/davcd/jsonresume-theme-actual
+// MIT License
+// Copyright (c) 2020 EGOIST (https: //egoist.sh)
 @use 'variables';
 @use 'sass:color';
 @use 'sass:math';
@@ -40,60 +43,74 @@ li {
 	}
 }
 
-.main {
-	.highlights {
-		width: auto;
-		display: block;
-		padding: 0 variables.$space-1;
-		margin-bottom: 0;
-
-		li {
-			font-size: variables.$font-size-small;
-			list-style: none;
-
-			&::before {
-				content: '· ';
-				vertical-align: middle;
-			}
-		}
-	}
-
-	.left {
-		display: table-cell;
-
-		.title {
-			font-size: variables.$font-size-large;
-			font-weight: bold;
-			display: block;
-		}
-
-		.subtitle {
-			font-size: variables.$font-size-medium;
-			font-weight: lighter;
-			display: block;
-		}
-	}
-
-	.right {
-		text-align: right;
-		display: table-cell;
-
-		.date {
-			font-size: variables.$font-size-small;
-			font-weight: lighter;
-			white-space: nowrap;
-		}
-	}
-}
+$max-table-size: 750px;
 
 .table {
 	width: 100%;
 	display: table;
 
+	@media(max-width: $max-table-size) {
+		display: block;
+	}
+
 	.main {
+		padding-right: variables.$space-4;
 		display: table-cell;
 		width: variables.$content-main-percentage;
-		padding-right: variables.$space-4;
+		
+		@media(max-width: $max-table-size) {
+				display: block;
+				width: 100%;
+				padding-right: 0;
+		}
+
+		.table {
+			display: table;
+		}
+
+		.highlights {
+				width: auto;
+				display: block;
+				padding: 0 variables.$space-1;
+				margin-bottom: 0;
+		
+				li {
+					font-size: variables.$font-size-medium;
+					list-style: none;
+		
+					&::before {
+						content: '· ';
+						vertical-align: middle;
+					}
+				}
+			}
+		
+			.left {
+				display: table-cell;
+		
+				.title {
+					font-size: variables.$font-size-large;
+					font-weight: bold;
+					display: block;
+				}
+		
+				.subtitle {
+					font-size: variables.$font-size-medium;
+					font-weight: lighter;
+					display: block;
+				}
+			}
+		
+			.right {
+				text-align: right;
+				display: table-cell;
+		
+				.date {
+					font-size: variables.$font-size-small;
+					font-weight: lighter;
+					white-space: nowrap;
+				}
+			}
 	}
 
 	.side {
@@ -101,6 +118,14 @@ li {
 		width: variables.$content-side-percentage;
 		padding-left: variables.$space-4;
 		text-align: right;
+
+		@media(max-width: $max-table-size) {
+				display: block;
+				width: 100%;
+				text-align: left;
+				padding-left: 0;
+				padding-top: variables.$space-4;
+		}
 	}
 }
 

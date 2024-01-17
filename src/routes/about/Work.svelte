@@ -4,6 +4,7 @@
 	import { calcDateRange, mdToHtml, validArray } from './helper';
 
 	export let work: ResumeSchema['work'];
+	let tableWidth: number;
 </script>
 
 {#if validArray(work)}
@@ -13,7 +14,7 @@
 			{#each work as workplace}
 				<div class="article margin-container-3">
 					<div class="header no-alone-1">
-						<div class="table">
+						<div class="table" bind:clientWidth={tableWidth}>
 							<div class="left">
 								<span class="title">{workplace.position}</span>
 								<span class="subtitle margin-text-1">
@@ -24,7 +25,9 @@
 								</span>
 							</div>
 							<div class="right">
-								<span class="date">{calcDateRange(workplace.startDate, workplace.endDate)}</span>
+								<span class="date">
+									{calcDateRange(workplace.startDate, workplace.endDate, tableWidth <= 400)}
+								</span>
 							</div>
 						</div>
 					</div>

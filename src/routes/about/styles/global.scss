@@ -106,30 +106,31 @@ $max-table-size: 750px;
 		text-align: right;		
 	}
 
-		&.flex {
+	// TODO: Replace with display: flex
+	&.flex {
+		@media only screen and (max-width: $max-table-size) {
+			display: block;
+		}
+
+		.main {
 			@media only screen and (max-width: $max-table-size) {
 				display: block;
+				width: 100%;
+				padding-right: 0;
 			}
-	
-			.main {
-				@media only screen and (max-width: $max-table-size) {
-					display: block;
-					width: 100%;
-					padding-right: 0;
-				}
-			}
-	
-			.side {
-				@media only screen and (max-width: $max-table-size) {
-					display: block;
-					width: 100%;
-					text-align: left;
-					padding-left: 0;
-					padding-top: variables.$space-4;
-				}
-			}
-	
 		}
+
+		.side {
+			@media only screen and (max-width: $max-table-size) {
+				display: block;
+				width: 100%;
+				text-align: left;
+				padding-left: 0;
+				padding-top: variables.$space-4;
+			}
+		}
+
+	}
 }
 
 .summary {
@@ -144,4 +145,5 @@ $max-table-size: 750px;
 	font-size: variables.$font-size-xlarge;
 	font-weight: normal;
 	margin: 0 0 variables.$space-2 0;
+	border-bottom: 1px solid variables.$text-color;
 }

@@ -7,7 +7,7 @@
 </script>
 
 <div id="basics">
-	<div class="table padding-bottom-container-2">
+	<div class="table">
 		<div class="main">
 			<span id="name">{basics.name}</span>
 			<span id="label">{basics.label}</span>
@@ -21,10 +21,9 @@
 			</ul>
 		</div>
 	</div>
-	{#if basics.summary}
-		<!-- eslint-disable-next-line svelte/no-at-html-tags -->
-		<div class="summary markdown padding-bottom-container-2">{@html mdToHtml(basics.summary)}</div>
-	{/if}
+	<!-- eslint-disable-next-line svelte/no-at-html-tags -->
+	<div class="summary markdown padding-bottom-container-2">{@html mdToHtml(basics.summary)}</div>
+	<!--TODO: Add picture (only on screen)-->
 </div>
 
 <style lang="scss">
@@ -39,6 +38,10 @@
 	}
 
 	#basics {
+		.table {
+			border-bottom: 1px solid variables.$text-color;
+		}
+
 		.main {
 			vertical-align: middle;
 

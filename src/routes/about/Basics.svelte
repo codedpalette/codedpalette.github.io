@@ -12,8 +12,8 @@
 			<span id="name">{basics.name}</span>
 			<span id="label">{basics.label}</span>
 		</div>
-		<!-- TODO: Display only on pdf (maybe replace with picture) -->
 		<div class="side">
+			<a id="pdf" href="/about/pdf" download={`${basics.name} CV.pdf`}>Save as pdf</a>
 			<ul id="contact">
 				<li>{basics.phone}</li>
 				<li>{basics.email}</li>
@@ -52,12 +52,25 @@
 		}
 
 		.side {
-			visibility: hidden;
 			vertical-align: middle;
 			padding-left: 0;
 			padding-top: 15px;
 
+			@media screen {
+				vertical-align: top;
+			}
+
+			#pdf {
+				@media print {
+					display: none;
+				}
+			}
+
 			#contact {
+				@media screen {
+					display: none;
+				}
+
 				list-style-type: none;
 
 				li {

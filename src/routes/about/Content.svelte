@@ -11,7 +11,7 @@
 
 <div id="content" class="padding">
 	<Basics {basics} />
-	<div class="table">
+	<div class="table flex">
 		<div class="main">
 			<Projects {projects} />
 			<Work {work} />

@@ -47,26 +47,12 @@ $max-table-size: 750px;
 
 .table {
 	width: 100%;
-	display: table;
-
-	@media (max-width: $max-table-size) {
-		display: block;
-	}
+	display: table;		
 
 	.main {
 		padding-right: variables.$space-4;
 		display: table-cell;
-		width: variables.$content-main-percentage;
-
-		@media (max-width: $max-table-size) {
-			display: block;
-			width: 100%;
-			padding-right: 0;
-		}
-
-		.table {
-			display: table;
-		}
+		width: variables.$content-main-percentage;		
 
 		.highlights {
 			width: auto;
@@ -117,16 +103,33 @@ $max-table-size: 750px;
 		display: table-cell;
 		width: variables.$content-side-percentage;
 		padding-left: variables.$space-4;
-		text-align: right;
-
-		@media (max-width: $max-table-size) {
-			display: block;
-			width: 100%;
-			text-align: left;
-			padding-left: 0;
-			padding-top: variables.$space-4;
-		}
+		text-align: right;		
 	}
+
+		&.flex {
+			@media only screen and (max-width: $max-table-size) {
+				display: block;
+			}
+	
+			.main {
+				@media only screen and (max-width: $max-table-size) {
+					display: block;
+					width: 100%;
+					padding-right: 0;
+				}
+			}
+	
+			.side {
+				@media only screen and (max-width: $max-table-size) {
+					display: block;
+					width: 100%;
+					text-align: left;
+					padding-left: 0;
+					padding-top: variables.$space-4;
+				}
+			}
+	
+		}
 }
 
 .summary {

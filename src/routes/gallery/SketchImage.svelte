@@ -94,12 +94,7 @@
 	{#if overlay}
 		<!-- svelte-ignore a11y-click-events-have-key-events -->
 		<!-- svelte-ignore a11y-no-static-element-interactions -->
-		<div
-			class="overlay"
-			transition:fade
-			on:outroend={() => (zoomed = false)}
-			on:click|stopPropagation={zoomOut}
-		></div>
+		<div class="overlay" transition:fade on:outroend={() => (zoomed = false)} on:click|stopPropagation={zoomOut}></div>
 	{/if}
 	<div bind:this={imageContainer} class="image-container">
 		<img bind:this={thumbnailImg} src={thumbnailUrl} alt={module.name} />

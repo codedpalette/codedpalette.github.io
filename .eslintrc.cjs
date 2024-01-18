@@ -12,14 +12,7 @@ module.exports = {
 		'prettier'
 	],
 	parser: '@typescript-eslint/parser',
-	plugins: [
-		'@typescript-eslint',
-		'compat',
-		'ecmascript-compat',
-		'import',
-		'unused-imports',
-		'simple-import-sort'
-	],
+	plugins: ['@typescript-eslint', 'compat', 'ecmascript-compat', 'import', 'unused-imports', 'simple-import-sort'],
 	parserOptions: {
 		sourceType: 'module',
 		extraFileExtensions: ['.svelte']

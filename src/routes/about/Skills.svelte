@@ -42,9 +42,7 @@
 
 			.article {
 				break-inside: avoid-column;
-				min-width: calc(
-					(variables.$content-side-percentage - variables.$space-1 - variables.$space-4) * 0.5
-				);
+				min-width: calc((variables.$content-side-percentage - variables.$space-1 - variables.$space-4) * 0.5);
 				padding-top: variables.$space-2;
 
 				span {

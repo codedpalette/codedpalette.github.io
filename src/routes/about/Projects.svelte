@@ -20,9 +20,7 @@
 									<a href={project.url}>{project.name}</a>
 								</span>
 								{#if project.keywords}
-									<span class="subtitle margin-text-1"
-										>{beautifyArray(' · ', project.keywords)}</span
-									>
+									<span class="subtitle margin-text-1">{beautifyArray(' · ', project.keywords)}</span>
 								{/if}
 							</div>
 						</div>

@@ -1,7 +1,11 @@
 import { sveltekit } from '@sveltejs/kit/vite';
 import { defineConfig } from 'vite';
-import removeConsole from 'vite-plugin-remove-console';
 
-export default defineConfig({
-	plugins: [sveltekit(), removeConsole()]
+export default defineConfig(({ mode }) => {
+	return {
+		plugins: [sveltekit()],
+		esbuild: {
+			pure: mode === 'production' ? ['console.log'] : []
+		}
+	};
 });

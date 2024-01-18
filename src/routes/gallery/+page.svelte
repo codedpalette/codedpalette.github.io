@@ -28,23 +28,22 @@
 	};
 
 	onMount(async () => {
-		const offscreenCanvasSupported =
-			// eslint-disable-next-line compat/compat
-			typeof OffscreenCanvas !== 'undefined' && new OffscreenCanvas(0, 0).getContext('webgl2');
+		// eslint-disable-next-line compat/compat
+		const ofcSupported = typeof OffscreenCanvas !== 'undefined' && new OffscreenCanvas(0, 0).getContext('webgl2');
 		renderer = new SketchRenderer({ resizeCSS: false });
 		renderer.canvas.style.width = '100%';
-		workerpool = offscreenCanvasSupported ? pool(workerUrl, workerPoolOpts) : undefined;
+		workerpool = ofcSupported ? pool(workerUrl, workerPoolOpts) : undefined;
 		for (const [index, module] of sketches.entries()) {
 			const sketchFactory = await loadModule(module);
 			if (workerpool) {
-				workerpool
-					.exec('render', [module, thumbnailSizeParams])
-					.catch((err) => console.log(err))
-					.then((result: RenderResult) => {
-						const sketch = new Sketch(sketchFactory, renderer, sizeParams, result.seed);
-						const thumbnail = result.blob;
-						loadedSketches[index] = { sketch, thumbnail, thumbnailResolution, module };
-					});
+				try {
+					const result = (await workerpool.exec('render', [module, thumbnailSizeParams])) as RenderResult;
+					const sketch = new Sketch(sketchFactory, renderer, sizeParams, result.seed);
+					const thumbnail = result.blob;
+					loadedSketches[index] = { sketch, thumbnail, thumbnailResolution, module };
+				} catch (err) {
+					console.log(err);
+				}
 			} else {
 				const sketch = new Sketch(sketchFactory, renderer, thumbnailSizeParams);
 				const thumbnail = await sketch.export();

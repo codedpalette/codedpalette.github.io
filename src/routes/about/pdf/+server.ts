@@ -2,6 +2,7 @@ import { launch } from 'puppeteer';
 
 import Content from '../Content.svelte';
 
+// SvelteKit doesn't export types for server-side components API, need to define it myself
 type ServerSideComponent = {
 	render(): { html: string; head: string; css: { code: string } };
 };
@@ -17,4 +18,5 @@ export async function GET() {
 	return new Response(pdf, { status: 200, headers: { 'Content-Type': 'application/pdf' } });
 }
 
+// Enable prerendering of server endpoints for deploying with adapter-static
 export const prerender = true;

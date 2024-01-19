@@ -64,6 +64,7 @@
 	<div class="padding">
 		<h1>This is my gallery :)</h1>
 		<p>Some more text here text text text i love text</p>
+		<!-- TODO: Loading indicator -->
 		<div id="grid-container">
 			<Grid items={sketches} let:index>
 				{#if loadedSketches[index]}

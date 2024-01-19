@@ -13,7 +13,7 @@
 			<span id="label">{basics.label}</span>
 		</div>
 		<div class="side">
-			<a id="pdf" href="/about/pdf" download={`${basics.name} CV.pdf`}>Save as pdf</a>
+			<a id="pdf" href="/about/resume.pdf">Save as pdf</a>
 			<ul id="contact">
 				<li>{basics.phone}</li>
 				<li>{basics.email}</li>
@@ -23,7 +23,6 @@
 	</div>
 	<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 	<div class="summary markdown padding-bottom-container-2">{@html mdToHtml(basics.summary)}</div>
-	<!--TODO: Add picture (only on screen)-->
 </div>
 
 <style lang="scss">

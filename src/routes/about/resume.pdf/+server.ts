@@ -15,7 +15,7 @@ export async function GET() {
 	await page.setContent(`<html><head>${contentResult.head}</head><body>${contentResult.html}</body>`);
 	await page.addStyleTag({ content: contentResult.css.code });
 	const pdf = await page.pdf({ format: 'A4' });
-	return new Response(pdf, { status: 200, headers: { 'Content-Type': 'application/pdf' } });
+	return new Response(pdf, { status: 200 });
 }
 
 // Enable prerendering of server endpoints for deploying with adapter-static

@@ -11,7 +11,9 @@
 	</div>
 </div>
 
-<style>
+<style lang="scss">
+	@use 'sass:math';
+
 	.flex-container {
 		width: 100%;
 		height: 100%;
@@ -29,10 +31,10 @@
 	}
 
 	.narrow {
-		max-width: 550px;
+		max-width: math.div($flex-content-width, 2);
 	}
 
 	.wide {
-		max-width: 1100px;
+		max-width: $flex-content-width;
 	}
 </style>

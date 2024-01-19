@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { ResumeSchema } from '@kurone-kito/jsonresume-types';
 
-	import { calcDateRange, mdToHtml, validArray } from './helper';
+	import { calcDateRange, mdToHtml, validArray } from '../helper';
 
 	export let work: ResumeSchema['work'];
 	let tableWidth: number;

@@ -6,11 +6,10 @@
 	</ul>
 </nav>
 
-<style>
+<style lang="scss">
 	nav {
 		font-style: italic;
 		font-weight: bold;
-		align-items: start;
 	}
 
 	ul {
@@ -24,7 +23,7 @@
 
 	a {
 		display: block;
-		padding: 18px 36px;
+		padding: $padding-container $padding-container * 2;
 		text-decoration: none;
 		color: inherit;
 	}

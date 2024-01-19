@@ -109,54 +109,55 @@
 	</a>
 </div>
 
-<style>
+<style lang="scss">
+	@use 'sass:color';
+
 	.container {
 		position: relative;
 		visibility: hidden;
 		text-align: center;
 		padding: 9px;
-		font-family: sans-serif;
 		transition: scale 400ms;
-	}
 
-	.container.ready {
-		visibility: visible;
-		animation: ease-in-out fade-in-up 0.5s;
-	}
+		&.ready {
+			visibility: visible;
+			animation: ease-in-out fade-in-up 0.5s;
 
-	.container::after {
-		content: '';
-		position: absolute;
-		top: 0;
-		bottom: 0;
-		left: 0;
-		right: 0;
-		z-index: -1;
-		opacity: 0;
-		border-radius: 10px;
-		box-shadow:
-			-10px -10px 20px #aeadaa,
-			10px 10px 20px #fff;
-	}
+			&::after {
+				animation: border 0.5s 0.5s forwards;
+			}
+		}
 
-	.container.ready::after {
-		animation: border 0.5s 0.5s forwards;
-	}
+		&::after {
+			content: '';
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			z-index: -1;
+			opacity: 0;
+			border-radius: 10px;
+			box-shadow:
+				-10px -10px 20px #aeadaa,
+				10px 10px 20px #fff;
+		}
 
-	.container.zoomed {
-		/** Add z-index to grid item container to make it's stacking context display over other grid cells */
-		z-index: 1;
+		&.zoomed {
+			/** Add z-index to grid item container to make it's stacking context display over other grid cells */
+			z-index: 1;
 
-		/** Until hovered container has scale property set, the overlay won't be positioned relative to viewport
+			/** Until hovered container has scale property set, the overlay won't be positioned relative to viewport
 				We need it to transition to "none" faster than overlay is transitioning to opacity: 1 */
-		transition: scale 50ms;
-		transform: none;
-	}
+			transition: scale 50ms;
+			transform: none;
+		}
 
-	.container:not(.zoomed):hover {
-		/* stylelint-disable-next-line plugin/no-unsupported-browser-features */
-		cursor: zoom-in;
-		scale: 1.1;
+		&:not(.zoomed):hover {
+			/* stylelint-disable-next-line plugin/no-unsupported-browser-features */
+			cursor: zoom-in;
+			scale: 1.1;
+		}
 	}
 
 	.overlay {
@@ -185,7 +186,7 @@
 		text-decoration: none;
 		font-style: italic;
 		font-weight: bold;
-		color: color-mix(in srgb, var(--black), var(--white));
+		color: color.mix($white, $black);
 		text-align: right;
 		width: 100%;
 	}

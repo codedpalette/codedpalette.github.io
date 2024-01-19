@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { ResumeSchema } from '@kurone-kito/jsonresume-types';
 
-	import { beautifyArray, validArray } from './helper';
+	import { beautifyArray, validArray } from '../helper';
 
 	export let languages: ResumeSchema['languages'];
 </script>
@@ -22,14 +22,12 @@
 {/if}
 
 <style lang="scss">
-	@use 'styles/variables';
-
 	#languages {
 		ul {
 			list-style: none;
 
 			li {
-				font-size: variables.$font-size-xsmall;
+				font-size: $font-size-xsmall;
 			}
 		}
 	}

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { ResumeSchema } from '@kurone-kito/jsonresume-types';
 
-	import { calcLocation, mdToHtml } from './helper';
+	import { calcLocation, mdToHtml } from '../helper';
 
 	export let basics: Required<ResumeSchema>['basics'];
 </script>
@@ -26,8 +26,7 @@
 </div>
 
 <style lang="scss">
-	@use 'styles/variables';
-	@use 'styles/mixins';
+	@use '../styles/mixins';
 
 	@mixin main-span($font-size, $font-weight, $margin-factor) {
 		font-size: $font-size;
@@ -38,18 +37,18 @@
 
 	#basics {
 		.table {
-			border-bottom: 1px solid variables.$text-color;
+			border-bottom: 1px solid $text-color;
 		}
 
 		.main {
 			vertical-align: middle;
 
 			#name {
-				@include main-span(variables.$header-name-font-size, bold, -0.07);
+				@include main-span($header-name-font-size, bold, -0.07);
 			}
 
 			#label {
-				@include main-span(variables.$header-line-font-size, lighter, -0.04);
+				@include main-span($header-line-font-size, lighter, -0.04);
 			}
 		}
 
@@ -76,8 +75,8 @@
 				list-style-type: none;
 
 				li {
-					font-size: variables.$font-size-large;
-					line-height: variables.$line-height-3;
+					font-size: $font-size-large;
+					line-height: $line-height-3;
 				}
 			}
 		}

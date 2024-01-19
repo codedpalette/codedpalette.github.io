@@ -1,17 +1,19 @@
-$content-width: 100%;
+// TODO: SassDoc
+
+$flex-content-width: 1100px;
+
 $content-main-percentage: 70%;
-$content-side-percentage: $content-width - $content-main-percentage;
+$content-side-percentage: 30%;
 
 $space-1: 10px;
 $space-2: 20px;
 $space-3: 30px;
 $space-4: 50px;
+$padding-container: 18px;
 
 $line-height-1: 1.25em;
 $line-height-2: 1.35em;
 $line-height-3: 1.6em;
-
-$text-color: #222;
 
 $font-size-xlarge: 26px;
 $font-size-large: 18px;
@@ -21,3 +23,9 @@ $font-size-xsmall: 14px;
 
 $header-name-font-size: 80px;
 $header-line-font-size: 40px;
+
+$white: rgb(242 240 237);
+$black: rgb(23 25 28);
+
+$text-color: $black;
+$main-content-family: helvetica, arial, sans-serif

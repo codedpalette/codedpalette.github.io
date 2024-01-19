@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { ResumeSchema } from '@kurone-kito/jsonresume-types';
 
-	import { validArray } from './helper';
+	import { validArray } from '../helper';
 
 	export let skills: ResumeSchema['skills'];
 </script>
@@ -27,7 +27,6 @@
 {/if}
 
 <style lang="scss">
-	@use 'styles/variables';
 	@use 'sass:math';
 
 	#skills {
@@ -38,21 +37,21 @@
 		.container {
 			display: block;
 			columns: 2;
-			column-gap: variables.$space-1;
+			column-gap: $space-1;
 
 			.article {
 				break-inside: avoid-column;
-				min-width: calc((variables.$content-side-percentage - variables.$space-1 - variables.$space-4) * 0.5);
-				padding-top: variables.$space-2;
+				min-width: calc(($content-side-percentage - $space-1 - $space-4) * 0.5);
+				padding-top: $space-2;
 
 				span {
 					display: block;
-					font-size: variables.$font-size-large;
+					font-size: $font-size-large;
 					font-weight: lighter;
 				}
 
 				li {
-					font-size: variables.$font-size-xsmall;
+					font-size: $font-size-xsmall;
 					list-style: none;
 				}
 			}

@@ -26,7 +26,7 @@
 	<Flex width="narrow">
 		<div id="content-container">
 			<div id="text-background"></div>
-			<div id="text-container" class="padding">
+			<div id="text-container">
 				<h1>Hello, world</h1>
 				<h2>my name is Daniel</h2>
 				<h3>and I enjoy making computers display beautiful stuff</h3>
@@ -36,7 +36,7 @@
 	</Flex>
 </div>
 
-<style>
+<style lang="scss">
 	#container {
 		width: 100%;
 		height: 100%;
@@ -54,9 +54,9 @@
 
 	#content-container {
 		position: relative;
-		color: var(--white);
-		text-shadow: var(--black) 0 0 10px;
-		font-family: sans-serif;
+		color: $white;
+		text-shadow: $black 0 0 10px;
+		font-family: $main-content-family;
 		text-align: center;
 		text-transform: uppercase;
 	}
@@ -65,12 +65,13 @@
 		position: absolute;
 		width: 100%;
 		height: 100%;
-		background: var(--black);
+		background: $black;
 		opacity: 0.2;
 	}
 
 	#text-container {
 		position: relative;
+		padding: $padding-container;
 	}
 
 	h1 {

@@ -1,7 +1,7 @@
 // https://github.com/davcd/jsonresume-theme-actual
 // MIT License
 // Copyright (c) 2020 EGOIST (https: //egoist.sh)
-@use 'variables';
+@use "variables" as *;
 
 .markdown {
 	h1 {
@@ -36,19 +36,19 @@
 
 	ul,
 	ol {
-		margin-left: variables.$space-2;
+		margin-left: $space-2;
 	}
 
 	img {
 		display: block;
-		margin: variables.$space-2 auto;
+		margin: $space-2 auto;
 		max-width: 1000px;
 		text-align: center;
 	}
 
 	blockquote {
-		margin: variables.$space-2 0;
-		padding: 15px variables.$space-2;
+		margin: $space-2 0;
+		padding: 15px $space-2;
 
 		p {
 			display: inline;

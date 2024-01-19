@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { ResumeSchema } from '@kurone-kito/jsonresume-types';
 
-	import { beautifyArray, mdToHtml, validArray } from './helper';
+	import { beautifyArray, mdToHtml, validArray } from '../helper';
 
 	export let education: ResumeSchema['education'];
 </script>
@@ -26,15 +26,13 @@
 {/if}
 
 <style lang="scss">
-	@use 'styles/variables';
-
 	#education {
 		.title {
-			font-size: variables.$font-size-small;
+			font-size: $font-size-small;
 		}
 
 		.institution {
-			font-size: variables.$font-size-small;
+			font-size: $font-size-small;
 			font-weight: lighter;
 		}
 	}

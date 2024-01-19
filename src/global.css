@@ -7,20 +7,6 @@ div#main {
 	height: 100%;
 }
 
-body {
-	background: var(--white);
-}
-
 * {
 	box-sizing: border-box;
-}
-
-:root {
-	--white: rgb(242 240 237);
-	--black: rgb(23 25 28);
-	--gray: color-mix(in srgb, var(--black), var(--white));
-}
-
-.padding {
-	padding: 18px;
 }

@@ -1,15 +1,15 @@
 <script lang="ts">
-	import Basics from './Basics.svelte';
-	import Education from './Education.svelte';
-	import Languages from './Languages.svelte';
-	import Links from './Links.svelte';
-	import Projects from './Projects.svelte';
+	import Basics from './partials/Basics.svelte';
+	import Education from './partials/Education.svelte';
+	import Languages from './partials/Languages.svelte';
+	import Links from './partials/Links.svelte';
+	import Projects from './partials/Projects.svelte';
+	import Skills from './partials/Skills.svelte';
+	import Work from './partials/Work.svelte';
 	import { basics, education, languages, projects, skills, work } from './resume.json';
-	import Skills from './Skills.svelte';
-	import Work from './Work.svelte';
 </script>
 
-<div id="content" class="padding">
+<div id="content">
 	<Basics {basics} />
 	<div class="table flex">
 		<div class="main">
@@ -26,8 +26,6 @@
 </div>
 
 <style lang="scss">
-	@use 'styles/variables.scss';
-
 	/* stylelint-disable-next-line plugin/no-unsupported-browser-features */
 	@page {
 		margin: 5mm;
@@ -35,14 +33,15 @@
 
 	@media print {
 		:global(html, body) {
-			width: 1100px;
+			width: $flex-content-width;
 		}
 	}
 
 	#content {
 		width: 100%;
-		font-family: Helvetica, Arial, sans-serif;
-		color: var(--black);
+		font-family: $main-content-family;
+		color: $black;
+		padding: $padding-container;
 
 		:global {
 			/* stylelint-disable-next-line no-invalid-position-at-import-rule */

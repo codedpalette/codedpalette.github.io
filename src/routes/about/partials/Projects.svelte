@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { ResumeSchema } from '@kurone-kito/jsonresume-types';
 
-	import { beautifyArray, mdToHtml, validArray } from './helper';
+	import { beautifyArray, mdToHtml, validArray } from '../helper';
 
 	export let projects: ResumeSchema['projects'];
 	let tableWidth: number;

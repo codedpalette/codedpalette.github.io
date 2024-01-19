@@ -5,11 +5,11 @@
 
 	import { browser } from '$app/environment';
 	import Flex from '$lib/components/Flex.svelte';
-	import Grid from '$lib/components/Grid.svelte';
 	import type { RenderResult } from '$lib/worker';
 	// eslint-disable-next-line import/default
 	import workerUrl from '$lib/worker?worker&url';
 
+	import Grid from './Grid.svelte';
 	import SketchImage, { type LoadedSketch } from './SketchImage.svelte';
 
 	let renderer: SketchRenderer<HTMLCanvasElement>;
@@ -61,7 +61,7 @@
 </script>
 
 <Flex stretch width="wide">
-	<div class="padding">
+	<div id="content">
 		<h1>This is my gallery :)</h1>
 		<p>Some more text here text text text i love text</p>
 		<!-- TODO: Loading indicator -->
@@ -75,8 +75,13 @@
 	</div>
 </Flex>
 
-<style>
+<style lang="scss">
+	#content {
+		padding: $padding-container;
+		font-family: $main-content-family;
+	}
+
 	#grid-container {
-		padding: 18px 0;
+		padding: $padding-container 0;
 	}
 </style>

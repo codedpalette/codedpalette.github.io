@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { ResumeSchema } from '@kurone-kito/jsonresume-types';
 
-	import { beautifyLink, validArray } from './helper';
+	import { beautifyLink, validArray } from '../helper';
 
 	export let basics: Required<ResumeSchema>['basics'];
 </script>
@@ -33,14 +33,12 @@
 {/if}
 
 <style lang="scss">
-	@use 'styles/variables';
-
 	#links {
 		ul {
 			list-style: none;
 
 			li {
-				font-size: variables.$font-size-xsmall;
+				font-size: $font-size-xsmall;
 			}
 		}
 	}

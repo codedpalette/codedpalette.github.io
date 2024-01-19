@@ -1,9 +1,9 @@
 // https://github.com/davcd/jsonresume-theme-actual
 // MIT License
 // Copyright (c) 2020 EGOIST (https: //egoist.sh)
-@use 'variables';
 @use 'sass:color';
 @use 'sass:math';
+@use "variables" as *;
 
 @import 'markdown';
 @import 'utils';
@@ -20,23 +20,23 @@ q {
 }
 
 a {
-	color: variables.$text-color;
+	color: $text-color;
 	font-weight: inherit;
 	text-decoration: none;
 
 	&[href] {
 		/* stylelint-disable-next-line plugin/no-unsupported-browser-features */
-		text-decoration: underline color.adjust(variables.$text-color, $lightness: 40%);
+		text-decoration: underline color.adjust($text-color, $lightness: 40%);
 	}
 }
 
 p,
 q {
-	line-height: variables.$line-height-1;
+	line-height: $line-height-1;
 }
 
 li {
-	line-height: variables.$line-height-2;
+	line-height: $line-height-2;
 
 	&:first-child {
 		margin-top: 0;
@@ -50,18 +50,18 @@ $max-table-size: 750px;
 	display: table;		
 
 	.main {
-		padding-right: variables.$space-4;
+		padding-right: $space-4;
 		display: table-cell;
-		width: variables.$content-main-percentage;		
+		width: $content-main-percentage;		
 
 		.highlights {
 			width: auto;
 			display: block;
-			padding: 0 variables.$space-1;
+			padding: 0 $space-1;
 			margin-bottom: 0;
 
 			li {
-				font-size: variables.$font-size-medium;
+				font-size: $font-size-medium;
 				list-style: none;
 
 				&::before {
@@ -75,13 +75,13 @@ $max-table-size: 750px;
 			display: table-cell;
 
 			.title {
-				font-size: variables.$font-size-large;
+				font-size: $font-size-large;
 				font-weight: bold;
 				display: block;
 			}
 
 			.subtitle {
-				font-size: variables.$font-size-medium;
+				font-size: $font-size-medium;
 				font-weight: lighter;
 				display: block;
 			}
@@ -92,7 +92,7 @@ $max-table-size: 750px;
 			display: table-cell;
 
 			.date {
-				font-size: variables.$font-size-small;
+				font-size: $font-size-small;
 				font-weight: lighter;
 				white-space: nowrap;
 			}
@@ -101,8 +101,8 @@ $max-table-size: 750px;
 
 	.side {
 		display: table-cell;
-		width: variables.$content-side-percentage;
-		padding-left: variables.$space-4;
+		width: $content-side-percentage;
+		padding-left: $space-4;
 		text-align: right;		
 	}
 
@@ -126,7 +126,7 @@ $max-table-size: 750px;
 				width: 100%;
 				text-align: left;
 				padding-left: 0;
-				padding-top: variables.$space-4;
+				padding-top: $space-4;
 			}
 		}
 
@@ -134,7 +134,7 @@ $max-table-size: 750px;
 }
 
 .summary {
-	font-size: variables.$font-size-medium;
+	font-size: $font-size-medium;
 
 	&:empty {
 		display: none;
@@ -142,8 +142,8 @@ $max-table-size: 750px;
 }
 
 .section-title {
-	font-size: variables.$font-size-xlarge;
+	font-size: $font-size-xlarge;
 	font-weight: normal;
-	margin: 0 0 variables.$space-2 0;
-	border-bottom: 1px solid variables.$text-color;
+	margin: 0 0 $space-2 0;
+	border-bottom: 1px solid $text-color;
 }

@@ -157,6 +157,13 @@
 			/* stylelint-disable-next-line plugin/no-unsupported-browser-features */
 			cursor: zoom-in;
 			scale: 1.1;
+			z-index: 1;
+		}
+
+		h1 {
+			font-family: $heading-font-family;
+			font-weight: normal;
+			font-size: $header-label-font-size;
 		}
 	}
 
@@ -183,9 +190,7 @@
 
 	a {
 		display: block;
-		text-decoration: none;
 		font-style: italic;
-		font-weight: bold;
 		color: color.mix($white, $black);
 		text-align: right;
 		width: 100%;

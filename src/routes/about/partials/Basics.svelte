@@ -42,6 +42,7 @@
 
 		.main {
 			vertical-align: middle;
+			font-family: $heading-font-family;
 
 			#name {
 				@include main-span($header-name-font-size, bold, -0.07);

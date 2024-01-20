@@ -12,6 +12,7 @@ export async function GET() {
 	const contentResult = (Content as unknown as ServerSideComponent).render();
 	const browser = await launch({ headless: 'new' });
 	const page = await browser.newPage();
+	// TODO: Load custom fonts
 	await page.setContent(`<html><head>${contentResult.head}</head><body>${contentResult.html}</body>`);
 	await page.addStyleTag({ content: contentResult.css.code });
 	const pdf = await page.pdf({ format: 'A4' });

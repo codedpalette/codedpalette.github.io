@@ -56,7 +56,6 @@
 		position: relative;
 		color: $white;
 		text-shadow: $black 0 0 10px;
-		font-family: $main-content-family;
 		text-align: center;
 		text-transform: uppercase;
 	}
@@ -80,13 +79,11 @@
 	}
 
 	h2 {
-		font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 		font-size: 2em;
 		margin: 0;
 	}
 
 	h3 {
-		font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 		margin-top: 0.5em;
 	}
 </style>

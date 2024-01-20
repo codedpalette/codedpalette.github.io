@@ -7,6 +7,7 @@
 
 @import 'markdown';
 @import 'utils';
+@import 'table';
 
 ul,
 li {
@@ -43,95 +44,6 @@ li {
 	}
 }
 
-$max-table-size: 750px;
-
-.table {
-	width: 100%;
-	display: table;		
-
-	.main {
-		padding-right: $space-4;
-		display: table-cell;
-		width: $content-main-percentage;		
-
-		.highlights {
-			width: auto;
-			display: block;
-			padding: 0 $space-1;
-			margin-bottom: 0;
-
-			li {
-				font-size: $font-size-medium;
-				list-style: none;
-
-				&::before {
-					content: '· ';
-					vertical-align: middle;
-				}
-			}
-		}
-
-		.left {
-			display: table-cell;
-
-			.title {
-				font-size: $font-size-large;
-				font-weight: bold;
-				display: block;
-			}
-
-			.subtitle {
-				font-size: $font-size-medium;
-				font-weight: lighter;
-				display: block;
-			}
-		}
-
-		.right {
-			text-align: right;
-			display: table-cell;
-
-			.date {
-				font-size: $font-size-small;
-				font-weight: lighter;
-				white-space: nowrap;
-			}
-		}
-	}
-
-	.side {
-		display: table-cell;
-		width: $content-side-percentage;
-		padding-left: $space-4;
-		text-align: right;		
-	}
-	
-	&.flex {
-		@media only screen and (max-width: $max-table-size) {
-			display: block;
-		}
-
-		.main {
-			@media only screen and (max-width: $max-table-size) {
-				display: block;
-				width: 100%;
-				padding-right: 0;
-			}
-		}
-
-		.side {
-			@media only screen and (max-width: $max-table-size) {
-				display: block;
-				width: 100%;
-				text-align: left;
-				padding-left: 0;
-				padding-top: $space-4;
-			}
-		}
-
-	}
-}
-
 .summary {
 	font-size: $font-size-medium;
 
@@ -141,6 +53,7 @@ $max-table-size: 750px;
 }
 
 .section-title {
+	font-family: $heading-font-family;
 	font-size: $font-size-xlarge;
 	font-weight: normal;
 	margin: 0 0 $space-2 0;

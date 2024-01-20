@@ -63,7 +63,7 @@
 
 <Flex stretch width="wide">
 	<div id="content">
-		<h1>This is my gallery :)</h1>
+		<h1>Generative artworks</h1>
 		<p>Some more text here text text text i love text</p>
 		{#if loadedSketches.length == 0}
 			<div id="loader-container">
@@ -84,7 +84,6 @@
 <style lang="scss">
 	#content {
 		padding: $padding-container;
-		font-family: $main-content-family;
 		height: 100%;
 		display: flex;
 		flex-direction: column;
@@ -96,5 +95,12 @@
 
 	#grid-container {
 		padding: $padding-container 0;
+	}
+
+	h1 {
+		font-family: $heading-font-family;
+		font-size: $header-name-font-size;
+		margin: 0;
+		line-height: 1em;
 	}
 </style>

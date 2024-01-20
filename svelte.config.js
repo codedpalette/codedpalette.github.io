@@ -7,7 +7,7 @@ const config = {
 	// for more information about preprocessors
 	preprocess: sveltePreprocess({
 		scss: {
-			prependData: "@use 'variables.scss' as *;",
+			prependData: "@use 'variables' as *;",
 			includePaths: ['src/styles']
 		}
 	}),

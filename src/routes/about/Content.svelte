@@ -39,7 +39,6 @@
 
 	#content {
 		width: 100%;
-		font-family: $main-content-family;
 		color: $black;
 		padding: $padding-container;
 

@@ -10,6 +10,7 @@
 	import workerUrl from '$lib/worker?worker&url';
 
 	import Grid from './Grid.svelte';
+	import Loader from './Loader.svelte';
 	import SketchImage, { type LoadedSketch } from './SketchImage.svelte';
 
 	let renderer: SketchRenderer<HTMLCanvasElement>;
@@ -64,14 +65,19 @@
 	<div id="content">
 		<h1>This is my gallery :)</h1>
 		<p>Some more text here text text text i love text</p>
-		<!-- TODO: Loading indicator -->
-		<div id="grid-container">
-			<Grid items={sketches} let:index>
-				{#if loadedSketches[index]}
-					<SketchImage {...loadedSketches[index]} />
-				{/if}
-			</Grid>
-		</div>
+		{#if loadedSketches.length == 0}
+			<div id="loader-container">
+				<Loader />
+			</div>
+		{:else}
+			<div id="grid-container">
+				<Grid items={sketches} let:index>
+					{#if loadedSketches[index]}
+						<SketchImage {...loadedSketches[index]} />
+					{/if}
+				</Grid>
+			</div>
+		{/if}
 	</div>
 </Flex>
 
@@ -79,6 +85,13 @@
 	#content {
 		padding: $padding-container;
 		font-family: $main-content-family;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+	}
+
+	#loader-container {
+		margin: auto;
 	}
 
 	#grid-container {

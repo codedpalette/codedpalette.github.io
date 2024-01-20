@@ -48,7 +48,7 @@
 			}
 
 			#label {
-				@include main-span($header-line-font-size, lighter, -0.04);
+				@include main-span($header-label-font-size, lighter, -0.04);
 			}
 		}
 

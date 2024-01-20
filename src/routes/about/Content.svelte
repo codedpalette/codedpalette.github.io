@@ -39,12 +39,12 @@
 
 	#content {
 		width: 100%;
-		color: $black;
+		color: $text-color;
 		padding: $padding-container;
 
 		:global {
 			/* stylelint-disable-next-line no-invalid-position-at-import-rule */
-			@import 'styles/global';
+			@import 'styles/about';
 		}
 	}
 </style>

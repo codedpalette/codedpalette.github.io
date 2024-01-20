@@ -1,5 +1,6 @@
 import { launch } from 'puppeteer';
 
+import layout from '../../+layout.svelte';
 import Content from '../Content.svelte';
 
 // SvelteKit doesn't export types for server-side components API, need to define it myself
@@ -9,12 +10,26 @@ type ServerSideComponent = {
 
 /** @type {import('./$types').RequestHandler} */
 export async function GET() {
-	const contentResult = (Content as unknown as ServerSideComponent).render();
+	const layoutRender = (layout as unknown as ServerSideComponent).render();
+	const contentRender = (Content as unknown as ServerSideComponent).render();
 	const browser = await launch({ headless: 'new' });
 	const page = await browser.newPage();
-	// TODO: Load custom fonts
-	await page.setContent(`<html><head>${contentResult.head}</head><body>${contentResult.html}</body>`);
-	await page.addStyleTag({ content: contentResult.css.code });
+	await page.setContent(
+		`<html>
+			<head>
+				${layoutRender.head}
+				${contentRender.head}
+				<style type='text/css'>
+					${layoutRender.css.code}
+					${contentRender.css.code}
+				</style>
+			</head>
+			<body>
+				${contentRender.html}
+			</body>
+		</html>`,
+		{ waitUntil: 'networkidle0' }
+	);
 	const pdf = await page.pdf({ format: 'A4' });
 	return new Response(pdf, { status: 200 });
 }

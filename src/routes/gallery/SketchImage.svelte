@@ -161,9 +161,9 @@
 		}
 
 		h1 {
-			font-family: $heading-font-family;
 			font-weight: normal;
 			font-size: $header-label-font-size;
+			margin: 0.5em 0;
 		}
 	}
 

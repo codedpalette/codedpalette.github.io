@@ -21,13 +21,11 @@ q {
 
 a {
 	color: $black;
-	font-weight: inherit;
-	text-decoration: none;
-
-	&[href] {
-		/* stylelint-disable-next-line plugin/no-unsupported-browser-features */
-		text-decoration: underline color.adjust($black, $lightness: 40%);
-	}
+	font-weight: inherit;	
+	// False positive: text-decoration-color is widely supported
+	// Root cause fix: https: //github.com/anandthakker/doiuse/pull/160
+	/* stylelint-disable-next-line plugin/no-unsupported-browser-features */
+	text-decoration-color: color.adjust($black, $lightness: 40%);	
 }
 
 p,

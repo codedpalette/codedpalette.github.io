@@ -154,6 +154,7 @@
 		}
 
 		&:not(.zoomed):hover {
+			// Unsupported mostly on mobile where there is no cursor anyway
 			/* stylelint-disable-next-line plugin/no-unsupported-browser-features */
 			cursor: zoom-in;
 			scale: 1.1;
@@ -174,6 +175,7 @@
 		left: 0;
 		right: 0;
 		background-color: #fff;
+		// Unsupported mostly on mobile where there is no cursor anyway
 		/* stylelint-disable-next-line plugin/no-unsupported-browser-features */
 		cursor: zoom-out;
 	}

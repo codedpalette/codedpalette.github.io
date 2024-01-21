@@ -40,6 +40,8 @@
 	#container {
 		width: 100%;
 		height: 100%;
+		// False positive: partial support refers to not supporting the `clip` value
+		// Root cause fix: https: //github.com/anandthakker/doiuse/pull/160
 		/* stylelint-disable-next-line plugin/no-unsupported-browser-features */
 		overflow: hidden;
 	}

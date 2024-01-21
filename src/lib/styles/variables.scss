@@ -21,10 +21,8 @@ $font-size-medium: 16px;
 $font-size-small: 15px;
 $font-size-xsmall: 14px;
 
-/* stylelint-disable plugin/no-unsupported-browser-features */
 $header-name-font-size: clamp(36px, 10vw, 80px);
 $header-label-font-size: clamp(18px, 5vw, 40px);
-/* stylelint-enable plugin/no-unsupported-browser-features */
 
 $white: rgb(232 230 227);
 $black: rgb(23 25 28);

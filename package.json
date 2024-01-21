@@ -3,7 +3,7 @@
 	"version": "0.0.1",
 	"private": true,
 	"browserslist": [
-		"defaults, not op_mini all"
+		"defaults and supports css-math-functions"
 	],
 	"scripts": {
 		"start": "vite dev --open",

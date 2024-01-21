@@ -26,6 +26,7 @@
 </div>
 
 <style lang="scss">
+	// Ignoring since we're printing page through Puppeteer, and Chrome definitely supports this
 	/* stylelint-disable-next-line plugin/no-unsupported-browser-features */
 	@page {
 		margin: 5mm;

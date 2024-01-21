@@ -37,7 +37,7 @@
 
 	#basics {
 		.table {
-			border-bottom: 1px solid $text-color;
+			border-bottom: 1px solid $black;
 		}
 
 		.main {

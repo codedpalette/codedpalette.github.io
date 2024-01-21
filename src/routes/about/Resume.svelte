@@ -39,7 +39,6 @@
 
 	#content {
 		width: 100%;
-		color: $text-color;
 		padding: $padding-container;
 
 		:global {

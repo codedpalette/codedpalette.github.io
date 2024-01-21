@@ -1,7 +1,8 @@
 import { launch } from 'puppeteer';
 
-import layout from '../../+layout.svelte';
-import Content from '../Content.svelte';
+import globalStyles from '$lib/styles/global.scss?inline';
+
+import Resume from '../Resume.svelte';
 
 // SvelteKit doesn't export types for server-side components API, need to define it myself
 type ServerSideComponent = {
@@ -10,22 +11,21 @@ type ServerSideComponent = {
 
 /** @type {import('./$types').RequestHandler} */
 export async function GET() {
-	const layoutRender = (layout as unknown as ServerSideComponent).render();
-	const contentRender = (Content as unknown as ServerSideComponent).render();
+	console.log(globalStyles);
+	const resumeRender = (Resume as unknown as ServerSideComponent).render();
 	const browser = await launch({ headless: 'new' });
 	const page = await browser.newPage();
 	await page.setContent(
 		`<html>
-			<head>
-				${layoutRender.head}
-				${contentRender.head}
+			<head>	
+				${resumeRender.head}
 				<style type='text/css'>
-					${layoutRender.css.code}
-					${contentRender.css.code}
+					${globalStyles}					
+					${resumeRender.css.code}
 				</style>
 			</head>
 			<body>
-				${contentRender.html}
+				${resumeRender.html}
 			</body>
 		</html>`,
 		{ waitUntil: 'networkidle0' }

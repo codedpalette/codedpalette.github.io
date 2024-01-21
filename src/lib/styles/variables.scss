@@ -26,13 +26,15 @@ $header-label-font-size: 40px;
 
 $white: rgb(232 230 227);
 $black: rgb(23 25 28);
-$text-color: $black;
 
-$main-font-family: "Montserrat", sans-serif;
-$heading-font-family: "Barlow Condensed", sans-serif;
+$-main-font: "Montserrat";
+$-heading-font: "Barlow Condensed";
+
+$main-font-family: $-main-font, sans-serif;
+$heading-font-family: $-heading-font, sans-serif;
+
 $fonts-url: 'https://fonts.googleapis.com/css2?display=swap';
 
-@each $font in ($main-font-family, $heading-font-family) {
-  $family-name: list.nth($font, 1);
-  $fonts-url: $fonts-url + '&family=#{$family-name}:wght@400;700';
+@each $font in ($-main-font, $-heading-font) {  
+  $fonts-url: $fonts-url + '&family=#{$font}:wght@400;700';
 }

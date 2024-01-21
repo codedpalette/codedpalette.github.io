@@ -4,10 +4,9 @@
 @use 'sass:color';
 @use 'sass:math';
 @use "variables" as *;
-
-@import 'markdown';
-@import 'utils';
-@import 'table';
+@use 'markdown';
+@use 'utils';
+@use 'table';
 
 ul,
 li {
@@ -21,13 +20,13 @@ q {
 }
 
 a {
-	color: $text-color;
+	color: $black;
 	font-weight: inherit;
 	text-decoration: none;
 
 	&[href] {
 		/* stylelint-disable-next-line plugin/no-unsupported-browser-features */
-		text-decoration: underline color.adjust($text-color, $lightness: 40%);
+		text-decoration: underline color.adjust($black, $lightness: 40%);
 	}
 }
 
@@ -57,5 +56,5 @@ li {
 	font-size: $font-size-xlarge;
 	font-weight: normal;
 	margin: 0 0 $space-2 0;
-	border-bottom: 1px solid $text-color;
+	border-bottom: 1px solid $black;
 }

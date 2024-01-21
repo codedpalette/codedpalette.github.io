@@ -73,6 +73,8 @@
 		padding: $padding-container;
 	}
 
+	// TODO: Responsive font
+
 	h1 {
 		font-family: monospace;
 		font-size: 4em;

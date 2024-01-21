@@ -32,11 +32,12 @@
 		font-size: $font-size;
 		line-height: 1em;
 		font-weight: $font-weight;
-		margin-left: $font-size * $margin-factor;
+		margin-left: calc($font-size * $margin-factor);
 	}
 
 	#basics {
 		.table {
+			padding-bottom: $space-1;
 			border-bottom: 1px solid $black;
 		}
 

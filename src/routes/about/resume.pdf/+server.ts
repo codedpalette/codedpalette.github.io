@@ -11,7 +11,6 @@ type ServerSideComponent = {
 
 /** @type {import('./$types').RequestHandler} */
 export async function GET() {
-	console.log(globalStyles);
 	const resumeRender = (Resume as unknown as ServerSideComponent).render();
 	const browser = await launch({ headless: 'new' });
 	const page = await browser.newPage();

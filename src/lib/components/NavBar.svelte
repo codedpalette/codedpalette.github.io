@@ -7,6 +7,8 @@
 </nav>
 
 <style lang="scss">
+	@use 'sass:math';
+
 	nav {
 		font-style: italic;
 		font-weight: bold;
@@ -26,5 +28,9 @@
 		padding: $padding-container $padding-container * 2;
 		text-decoration: none;
 		color: inherit;
+
+		@media only screen and (max-width: 768px) {
+			padding: math.div($padding-container, 2) $padding-container;
+		}
 	}
 </style>

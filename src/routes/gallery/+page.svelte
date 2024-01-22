@@ -5,6 +5,7 @@
 
 	import { browser } from '$app/environment';
 	import Flex from '$lib/components/Flex.svelte';
+	import NavBar from '$lib/components/NavBar.svelte';
 	import type { RenderResult } from '$lib/worker';
 	// eslint-disable-next-line import/default
 	import workerUrl from '$lib/worker?worker&url';
@@ -62,6 +63,7 @@
 </script>
 
 <Flex stretch width="wide">
+	<NavBar />
 	<div id="content">
 		<h1>Generative artworks</h1>
 		<p>Some more text here text text text i love text</p>

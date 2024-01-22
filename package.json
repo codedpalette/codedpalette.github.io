@@ -12,7 +12,7 @@
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"lint": "prettier --check . && eslint .",
-		"lint:css": "stylelint '**/*.{css,scss,svelte}'",
+		"lint:css": "stylelint 'src/**/*.{css,scss,svelte}'",
 		"format": "prettier --write .",
 		"postinstall": "husky install"
 	},

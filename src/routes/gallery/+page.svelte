@@ -74,6 +74,8 @@
 				<Grid items={sketches} let:index>
 					{#if loadedSketches[index]}
 						<SketchImage {...loadedSketches[index]} />
+					{:else}
+						<div class="placeholder"></div>
 					{/if}
 				</Grid>
 			</div>
@@ -102,5 +104,11 @@
 		font-size: $header-name-font-size;
 		margin: 0;
 		line-height: 1em;
+	}
+
+	.placeholder {
+		visibility: hidden;
+		width: 300px;
+		height: 400px;
 	}
 </style>

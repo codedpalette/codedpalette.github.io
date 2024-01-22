@@ -64,6 +64,7 @@ $max-table-size: 750px;
     width: $content-side-percentage;
     padding-left: $space-4;
     text-align: right;
+    direction: rtl;    
   }
 
   &.flex {
@@ -84,6 +85,7 @@ $max-table-size: 750px;
         display: block;
         width: 100%;
         text-align: left;
+        direction: ltr;
         padding-left: 0;
         padding-top: $space-4;
       }

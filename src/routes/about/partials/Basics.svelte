@@ -1,5 +1,7 @@
 <script lang="ts">
+	import { faEnvelope, faFilePdf, faLocationDot, faPhone } from '@fortawesome/free-solid-svg-icons';
 	import type { ResumeSchema } from '@kurone-kito/jsonresume-types';
+	import { Fa } from 'svelte-fa';
 
 	import { calcLocation, mdToHtml } from '../helper';
 
@@ -13,11 +15,22 @@
 			<span id="label">{basics.label}</span>
 		</div>
 		<div class="side">
-			<a id="pdf" href="/about/resume.pdf">Save as pdf</a>
+			<a id="pdf" href="/about/resume.pdf">
+				<Fa icon={faFilePdf}></Fa>
+			</a>
 			<ul id="contact">
-				<li>{basics.phone}</li>
-				<li>{basics.email}</li>
-				<li class="margin-text-5">{calcLocation(basics.location)}</li>
+				<li>
+					<Fa icon={faPhone} fw></Fa>
+					{basics.phone}
+				</li>
+				<li>
+					<Fa icon={faEnvelope} fw></Fa>
+					{basics.email}
+				</li>
+				<li class="margin-text-5">
+					<Fa icon={faLocationDot} fw></Fa>
+					{calcLocation(basics.location)}
+				</li>
 			</ul>
 		</div>
 	</div>
@@ -39,46 +52,50 @@
 		.table {
 			padding-bottom: $space-1;
 			border-bottom: 1px solid $black;
-		}
 
-		.main {
-			vertical-align: middle;
-			font-family: $heading-font-family;
+			.main {
+				vertical-align: middle;
+				font-family: $heading-font-family;
 
-			#name {
-				@include main-span($header-name-font-size, bold, -0.07);
-			}
+				#name {
+					@include main-span($header-name-font-size, bold, -0.07);
+				}
 
-			#label {
-				@include main-span($header-label-font-size, lighter, -0.04);
-			}
-		}
-
-		.side {
-			vertical-align: middle;
-			padding-left: 0;
-			padding-top: 15px;
-
-			@media screen {
-				vertical-align: top;
-			}
-
-			#pdf {
-				@media print {
-					display: none;
+				#label {
+					@include main-span($header-label-font-size, lighter, -0.04);
 				}
 			}
 
-			#contact {
+			.side {
+				vertical-align: middle;
+				padding-left: 0;
+				padding-top: 15px;
+
 				@media screen {
-					display: none;
+					vertical-align: top;
 				}
 
-				list-style-type: none;
+				#pdf {
+					@media print {
+						display: none;
+					}
 
-				li {
-					font-size: $font-size-large;
-					line-height: $line-height-3;
+					:global(svg) {
+						font-size: 2em;
+					}
+				}
+
+				#contact {
+					@media screen {
+						display: none;
+					}
+
+					list-style-type: none;
+
+					li {
+						font-size: $font-size-large;
+						line-height: $line-height-3;
+					}
 				}
 			}
 		}

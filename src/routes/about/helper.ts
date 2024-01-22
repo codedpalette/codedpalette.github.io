@@ -55,12 +55,8 @@ export function beautifyArray(separator: string, array: Array<unknown>) {
 }
 
 export function beautifyLink(string: string) {
-	let url = string.trim().replace(/^(?:https?:\/\/)?(?:www\.)?/i, '');
-	url = url.endsWith('/') ? url.slice(0, -1) : url;
-
-	const chunks = url.split('/');
-	chunks[0] = `<strong>${chunks[0]}</strong>`;
-	return chunks.join('/');
+	const url = string.trim().replace(/^(?:https?:\/\/)?(?:www\.)?/i, '');
+	return url.endsWith('/') ? url.slice(0, -1) : url;
 }
 
 export function arrayToPhrase(array?: string[]) {

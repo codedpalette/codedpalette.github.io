@@ -8,12 +8,14 @@
 </script>
 
 <script lang="ts">
+	import { faGithub } from '@fortawesome/free-brands-svg-icons';
 	import throttle from 'just-throttle';
 	import { type Sketch, type SketchModule, SketchRunner } from 'sketches';
 	// Because of this bug https://github.com/import-js/eslint-plugin-import/issues/1479
 	/* eslint-disable import/no-duplicates */
 	import { onDestroy } from 'svelte';
 	import { fade } from 'svelte/transition';
+	import { Fa } from 'svelte-fa';
 	/* eslint-enable import/no-duplicates */
 
 	export let sketch: Sketch<HTMLCanvasElement>;
@@ -105,7 +107,8 @@
 		target="_blank"
 		on:click|stopPropagation
 	>
-		link to sources
+		source
+		<Fa icon={faGithub}></Fa>
 	</a>
 </div>
 

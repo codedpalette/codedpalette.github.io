@@ -5,18 +5,13 @@ import { base } from '$app/paths';
 export const prerender = true;
 
 export const load = ({ url }) => {
-	const link = new URL(url.pathname, url.origin).href;
-	const description = 'Home description';
 	const baseMetaTags: MetaTagsProps = {
 		title: 'Home',
-		description,
+		description: 'Hello world! My name is Daniel, and I enjoy making computers display beautiful stuff.',
 		titleTemplate: 'codepalette · %s',
-		canonical: link,
+		canonical: new URL(url.pathname, url.origin).href,
 		openGraph: {
 			type: 'website',
-			url: link,
-			title: 'codepalette',
-			description,
 			images: [
 				{
 					url: `${base}/avatar.png`,

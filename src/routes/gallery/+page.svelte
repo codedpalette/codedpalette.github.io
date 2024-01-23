@@ -4,6 +4,7 @@
 	import { type Pool, pool, type WorkerPoolOptions } from 'workerpool';
 
 	import { browser } from '$app/environment';
+	import { trackError } from '$lib/analytics';
 	import Flex from '$lib/components/Flex.svelte';
 	import NavBar from '$lib/components/NavBar.svelte';
 	import type { RenderResult } from '$lib/worker';
@@ -37,19 +38,20 @@
 		workerpool = ofcSupported ? pool(workerUrl, workerPoolOpts) : undefined;
 		for (const [index, module] of sketches.entries()) {
 			const sketchFactory = await loadModule(module);
-			if (workerpool) {
-				try {
+			try {
+				let sketch: Sketch<HTMLCanvasElement>, thumbnail: Blob;
+				if (workerpool) {
 					const result = (await workerpool.exec('render', [module, thumbnailSizeParams])) as RenderResult;
-					const sketch = new Sketch(sketchFactory, renderer, sizeParams, result.seed);
-					const thumbnail = result.blob;
-					loadedSketches[index] = { sketch, thumbnail, thumbnailResolution, module };
-				} catch (err) {
-					console.log(err);
+					sketch = new Sketch(sketchFactory, renderer, sizeParams, result.seed);
+					thumbnail = result.blob;
+				} else {
+					sketch = new Sketch(sketchFactory, renderer, thumbnailSizeParams);
+					thumbnail = await sketch.export();
 				}
-			} else {
-				const sketch = new Sketch(sketchFactory, renderer, thumbnailSizeParams);
-				const thumbnail = await sketch.export();
 				loadedSketches[index] = { sketch, thumbnail, thumbnailResolution, module };
+			} catch (err) {
+				console.log(err);
+				trackError(err);
 			}
 		}
 	});

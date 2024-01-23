@@ -1146,6 +1146,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/umami@npm:^0.1.5":
+  version: 0.1.5
+  resolution: "@types/umami@npm:0.1.5"
+  checksum: cc9fe3811bc7c06ccbb99f9515d8cff73af201002ec5ef7c10292854a584a378cd3b6c1be9ea5e274deb86e04cb56a13b586db419b86a03b4b38c5f4ab1698eb
+  languageName: node
+  linkType: hard
+
 "@types/yauzl@npm:^2.9.1":
   version: 2.10.3
   resolution: "@types/yauzl@npm:2.10.3"
@@ -4956,6 +4963,7 @@ __metadata:
     "@sveltejs/kit": "npm:^2.0.0"
     "@sveltejs/vite-plugin-svelte": "npm:^3.0.0"
     "@types/markdown-it": "npm:^13.0.7"
+    "@types/umami": "npm:^0.1.5"
     "@typescript-eslint/eslint-plugin": "npm:^6.0.0"
     "@typescript-eslint/parser": "npm:^6.0.0"
     eslint: "npm:^8.28.0"

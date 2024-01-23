@@ -26,6 +26,9 @@ module.exports = {
 		// https://github.com/import-js/eslint-plugin-import/tree/main#typescript
 		'import/resolver': { typescript: true }
 	},
+	globals: {
+		umami: 'readonly'
+	},
 	rules: {
 		// https://github.com/lydell/eslint-plugin-simple-import-sort/#example-configuration
 		'simple-import-sort/imports': 'warn',

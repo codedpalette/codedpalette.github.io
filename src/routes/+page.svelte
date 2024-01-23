@@ -12,7 +12,7 @@
 		const sizeParams = { width: canvas.clientWidth, height: canvas.clientHeight };
 		const renderer = new SketchRenderer<HTMLCanvasElement>({ canvas, resizeCSS: false });
 		const backgroundSketch = new Sketch(screensaver(backgroundColor), renderer, sizeParams);
-		const runner = new SketchRunner(backgroundSketch, undefined, { clickable: false });
+		const runner = new SketchRunner(backgroundSketch, undefined);
 		runner.start();
 		return () => {
 			runner.stop();
@@ -51,7 +51,6 @@
 		width: 100%;
 		height: 100%;
 		position: fixed;
-		z-index: -1;
 	}
 
 	#content-container {

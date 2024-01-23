@@ -10,5 +10,9 @@
 	$: metaTags = extend(true, {}, data.baseMetaTags, $page.data.pageMetaTags);
 </script>
 
+<svelte:head>
+	<link rel="preconnect" href="https://fonts.gstatic.com" />
+</svelte:head>
+
 <MetaTags {...metaTags} />
 <slot />

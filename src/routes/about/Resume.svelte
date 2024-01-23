@@ -26,6 +26,8 @@
 </div>
 
 <style lang="scss">
+	@use 'sass:meta';
+
 	// Ignoring since we're printing page through Puppeteer, and Chrome definitely supports this
 	/* stylelint-disable-next-line plugin/no-unsupported-browser-features */
 	@page {
@@ -43,8 +45,7 @@
 		padding: $padding-container;
 
 		:global {
-			/* stylelint-disable-next-line no-invalid-position-at-import-rule */
-			@import 'styles/about';
+			@include meta.load-css('./styles/about');
 		}
 	}
 </style>

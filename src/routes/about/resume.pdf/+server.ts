@@ -1,5 +1,6 @@
 import { launch } from 'puppeteer';
 
+// Explicitly add global styles since +layout.svelte is not applied to server-side components
 import globalStyles from '$lib/styles/global.scss?inline';
 
 import Resume from '../Resume.svelte';

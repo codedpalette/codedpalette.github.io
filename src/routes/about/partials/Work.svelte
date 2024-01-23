@@ -18,7 +18,11 @@
 							<div class="left">
 								<span class="title">{workplace.position}</span>
 								<span class="subtitle margin-text-1">
-									<a href={workplace.url}>{workplace.name}</a>
+									{#if workplace.url}
+										<a href={workplace.url}>{workplace.name}</a>
+									{:else}
+										{workplace.name}
+									{/if}
 									{#if workplace.location}
 										{` · ${workplace.location}`}
 									{/if}

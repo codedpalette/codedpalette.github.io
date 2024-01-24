@@ -8,7 +8,7 @@ export const load = ({ url }) => {
 	const baseMetaTags: MetaTagsProps = {
 		title: 'Home',
 		description: 'Hello world! My name is Daniel, and I enjoy making computers display beautiful stuff.',
-		titleTemplate: 'codepalette · %s',
+		titleTemplate: 'codedpalette · %s',
 		canonical: new URL(url.pathname, url.origin).href,
 		openGraph: {
 			type: 'website',

@@ -6,7 +6,7 @@
 		"image": "",
 		"email": "daniel.blindr@gmail.com",
 		"phone": "+972 (53) 930-7348",
-		"url": "https://monkeyroar.github.io",
+		"url": "https://codedpalette.github.io",
 		"summary": "I'm Daniel, a software engineer hailing from Israel. I've been immersed in backend development for over 5 years. Recently, I stumbled upon the world of creative coding and generative art, prompting me to make a shift to graphics programming. Over the last 2 years, I've been diving deep into this fascinating field.\n\nMy passion for video games and game development has been with me since a young age, and my programming journey actually kicked off with learning how to develop games. What I find most fulfilling about programming is its creative aspect, bringing visuals and aesthetically pleasing creations to life.",
 		"location": {
 			"city": "Ramat Gan",
@@ -15,8 +15,8 @@
 		"profiles": [
 			{
 				"network": "GitHub",
-				"username": "monkeyroar",
-				"url": "https://github.com/monkeyroar"
+				"username": "codedpalette",
+				"url": "https://github.com/codedpalette"
 			},
 			{
 				"network": "LinkedIn",
@@ -108,14 +108,14 @@
 			"name": "Generative art sketches",
 			"description": "My generative art sketches",
 			"keywords": ["Typescript", "Pixi.js", "WebGL", "Three.JS"],
-			"url": "https://github.com/monkeyroar/sketches",
+			"url": "https://github.com/codedpalette/sketches",
 			"roles": []
 		},
 		{
 			"name": "Personal website",
 			"description": "My personal website",
 			"keywords": ["Typescript", "Svelte"],
-			"url": "https://github.com/monkeyroar/personal-site",
+			"url": "https://github.com/codedpalette/personal-site",
 			"roles": []
 		}
 	],

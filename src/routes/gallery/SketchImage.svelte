@@ -33,6 +33,8 @@
 	let zoomed = false;
 	let overlay = false;
 
+	const baseGithubUrl = 'https://github.com/codedpalette';
+
 	onDestroy(() => thumbnailUrl && URL.revokeObjectURL(thumbnailUrl));
 
 	async function zoomIn() {
@@ -103,7 +105,7 @@
 	</div>
 	<h1>{module.name}</h1>
 	<a
-		href={`https://github.com/monkeyroar/sketches/blob/master/sketches/${module.year}/${module.name}.ts`}
+		href={`${baseGithubUrl}/sketches/blob/master/sketches/${module.year}/${module.name}.ts`}
 		target="_blank"
 		on:click|stopPropagation
 	>

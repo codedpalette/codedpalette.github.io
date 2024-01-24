@@ -10,7 +10,7 @@
 	onMount(() => {
 		const backgroundColor = getComputedStyle(canvas).backgroundColor;
 		const sizeParams = { width: canvas.clientWidth, height: canvas.clientHeight };
-		const renderer = new SketchRenderer<HTMLCanvasElement>({ canvas, resizeCSS: false });
+		const renderer = new SketchRenderer<HTMLCanvasElement>({ canvas, resizeCSS: false, antialias: false });
 		const backgroundSketch = new Sketch(screensaver(backgroundColor), renderer, sizeParams);
 		const runner = new SketchRunner(backgroundSketch, undefined);
 		runner.start();

@@ -26,7 +26,7 @@
 						</div>
 					</div>
 					<!-- eslint-disable-next-line svelte/no-at-html-tags -->
-					<div class="summary markdown margin-text-4">{@html mdToHtml(project.description)}</div>
+					<div class="highlights markdown margin-text-4">{@html mdToHtml(project.description)}</div>
 					{#if validArray(project.highlights)}
 						<ul class="highlights margin-text-4 no-break">
 							{#each project.highlights as highlight}

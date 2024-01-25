@@ -88,7 +88,7 @@
 
 				#contact {
 					@media screen {
-						display: none;
+						display: none; //TODO: Svelte conditional rendering
 					}
 
 					list-style-type: none;

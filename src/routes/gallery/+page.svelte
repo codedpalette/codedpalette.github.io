@@ -68,7 +68,14 @@
 	<NavBar />
 	<div id="content">
 		<h1>Generative artworks</h1>
-		<p>Some more text here text text text i love text</p>
+		<p id="sub-heading">Explore the gallery to discover a collection of generative artworks.</p>
+		<p>
+			Click on any piece for a fullscreen view with a unique variation on each click. Return to the gallery by clicking
+			outside or scrolling.
+		</p>
+		<p>
+			Be sure to check out the GitHub links for the source code to learn how I create these interactive web graphics!
+		</p>
 		{#if loadedSketches.length == 0}
 			<div id="loader-container">
 				<Loader />
@@ -88,6 +95,15 @@
 </Flex>
 
 <style lang="scss">
+	#sub-heading {
+		font-size: $font-size-xlarge;
+	}
+
+	p {
+		margin-block: 0.5rem;
+		font-size: $font-size-large;
+	}
+
 	#content {
 		padding: $padding-container;
 		height: 100%;
@@ -100,7 +116,7 @@
 	}
 
 	#grid-container {
-		padding: $padding-container 0;
+		padding: $padding-container * 2 0;
 	}
 
 	h1 {

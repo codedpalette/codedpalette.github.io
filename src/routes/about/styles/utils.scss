@@ -6,14 +6,26 @@
 
 .margin-container-2:not(:first-child) {
 	margin-top: $space-2;
+
+	@media print {
+		margin-top: $space-1;
+	}
 }
 
 .margin-container-3:not(:first-child) {
 	margin-top: $space-3;
+
+	@media print {
+		margin-top: $space-2;
+	}
 }
 
 .margin-container-4:not(:first-child) {
 	margin-top: $space-4;
+
+	@media print {
+		margin-top: $space-3;
+	}
 }
 
 .padding-container-2 {

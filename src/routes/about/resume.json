@@ -7,7 +7,7 @@
 		"email": "daniel.blindr@gmail.com",
 		"phone": "+972 (53) 930-7348",
 		"url": "https://codedpalette.github.io",
-		"summary": "I'm Daniel, a software engineer hailing from Israel. I've been immersed in backend development for over 5 years. Recently, I stumbled upon the world of creative coding and generative art, prompting me to make a shift to graphics programming. Over the last 2 years, I've been diving deep into this fascinating field.\n\nMy passion for video games and game development has been with me since a young age, and my programming journey actually kicked off with learning how to develop games. What I find most fulfilling about programming is its creative aspect, bringing visuals and aesthetically pleasing creations to life.",
+		"summary": "I'm Daniel, a software engineer hailing from Israel. I've been immersed in both frontend and backend development for over 5 years. Recently, I stumbled upon the world of creative coding and generative art, prompting me to make a shift to graphics programming. Over the last 2 years, I've been diving deep into this fascinating field. What I find most fulfilling about programming is its creative aspect, bringing visuals and aesthetically pleasing creations to life.",
 		"location": {
 			"city": "Ramat Gan",
 			"countryCode": "IL"
@@ -106,15 +106,15 @@
 	"projects": [
 		{
 			"name": "Generative art sketches",
-			"description": "My generative art sketches",
-			"keywords": ["Typescript", "Pixi.js", "WebGL", "Three.JS"],
+			"description": "This project encompasses the source code for my portfolio's generative artworks. Addressing challenges involved optimizing rendering performance for a seamless 60 fps, maintaining a clear separation of artwork code from setup details, and methodically refactoring shared functions into a utilities library.",
+			"keywords": ["Typescript", "Pixi.js", "WebGL", "Three.JS", "Shaders"],
 			"url": "https://github.com/codedpalette/sketches",
 			"roles": []
 		},
 		{
 			"name": "Personal website",
-			"description": "My personal website",
-			"keywords": ["Typescript", "Svelte"],
+			"description": "Repository which hosts the source code for my personal website. Key features include the incorporation of a thread pool pattern to optimize site responsiveness during sketch rendering.",
+			"keywords": ["Typescript", "Svelte", "SvelteKit", "SCSS", "Web Workers"],
 			"url": "https://github.com/codedpalette/personal-site",
 			"roles": []
 		}

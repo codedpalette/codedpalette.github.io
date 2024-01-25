@@ -16,8 +16,7 @@ $max-table-size: 750px;
 
     .highlights {
       width: auto;
-      display: block;
-      padding: 0 $space-1;
+      display: block;      
       margin-bottom: 0;
 
       li {
@@ -26,7 +25,7 @@ $max-table-size: 750px;
 
         &::before {
           content: '· ';
-          vertical-align: middle;
+          font-size: $font-size-large;          
         }
       }
     }

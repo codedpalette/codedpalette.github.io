@@ -15,7 +15,7 @@
 			<span id="label">{basics.label}</span>
 		</div>
 		<div class="side">
-			<a id="pdf" href="/about/resume.pdf">
+			<a id="pdf" href="/about/resume.pdf" aria-label="Save as PDF">
 				<Fa icon={faFilePdf}></Fa>
 			</a>
 			<ul id="contact">

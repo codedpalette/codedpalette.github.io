@@ -21,14 +21,7 @@
 	const sizeParams: SizeParams = { width: 1200, height: 1200 };
 	const thumbnailResolution = 1 / 2;
 	const thumbnailSizeParams: SizeParams = { ...sizeParams, resolution: thumbnailResolution };
-	const workerPoolOpts: WorkerPoolOptions = {
-		maxWorkers: 3,
-		workerOpts: {
-			// By default, Vite uses a module worker in dev mode, which can cause your application to fail.
-			// Therefore, we need to use a module worker in dev mode and a classic worker in prod mode.
-			type: import.meta.env.PROD ? undefined : 'module'
-		}
-	};
+	const workerPoolOpts: WorkerPoolOptions = { maxWorkers: 3, workerOpts: { type: 'module' } };
 
 	onMount(async () => {
 		// eslint-disable-next-line compat/compat
@@ -41,6 +34,8 @@
 			try {
 				let sketch: Sketch<HTMLCanvasElement>, thumbnail: Blob;
 				if (workerpool) {
+					// TODO: Check why not async
+					// TODO: Thumbnail bug reproducible in safari
 					const result = (await workerpool.exec('render', [module, thumbnailSizeParams])) as RenderResult;
 					sketch = new Sketch(sketchFactory, renderer, sizeParams, result.seed);
 					thumbnail = result.blob;

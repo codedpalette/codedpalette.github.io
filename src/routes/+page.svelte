@@ -1,23 +1,30 @@
 <script lang="ts">
 	import { screensaver, Sketch, SketchRenderer, SketchRunner } from 'sketches';
-	import { onMount } from 'svelte';
+	import { onDestroy, onMount } from 'svelte';
 
+	import { browser } from '$app/environment';
 	import Flex from '$lib/components/Flex.svelte';
 	import NavBar from '$lib/components/NavBar.svelte';
 
 	let canvas: HTMLCanvasElement;
+	let renderer: SketchRenderer<HTMLCanvasElement>;
+	let runner: SketchRunner;
 
-	onMount(() => {
-		const backgroundColor = getComputedStyle(canvas).backgroundColor;
+	onMount(async () => {
 		const sizeParams = { width: canvas.clientWidth, height: canvas.clientHeight };
-		const renderer = new SketchRenderer<HTMLCanvasElement>({ canvas, resizeCSS: false, antialias: false });
-		const backgroundSketch = new Sketch(screensaver(backgroundColor), renderer, sizeParams);
-		const runner = new SketchRunner(backgroundSketch, undefined);
+		renderer = new SketchRenderer<HTMLCanvasElement>({ canvas, resizeCSS: false, antialias: false });
+
+		const backgroundColor = getComputedStyle(canvas).backgroundColor;
+		const backgroundSketch = new Sketch(await screensaver(backgroundColor), renderer, sizeParams);
+		runner = new SketchRunner(backgroundSketch, undefined);
 		runner.start();
-		return () => {
+	});
+
+	onDestroy(() => {
+		if (browser) {
 			runner.stop();
 			renderer.destroy();
-		};
+		}
 	});
 </script>
 
@@ -25,7 +32,6 @@
 	<canvas id="background" bind:this={canvas}></canvas>
 	<Flex width="narrow">
 		<div id="content-container">
-			<div id="text-background"></div>
 			<div id="text-container">
 				<h1>Hello, world</h1>
 				<h2>my name is Daniel</h2>
@@ -37,6 +43,8 @@
 </div>
 
 <style lang="scss">
+	@use 'sass:color';
+
 	#container {
 		width: 100%;
 		height: 100%;
@@ -61,17 +69,15 @@
 		text-transform: uppercase;
 	}
 
-	#text-background {
-		position: absolute;
-		width: 100%;
-		height: 100%;
-		background: $black;
-		opacity: 0.2;
-	}
-
 	#text-container {
 		position: relative;
 		padding: $padding-container;
+		background-color: color.change($black, $alpha: 0.8);
+		border-radius: 20px;
+
+		@media (max-width: 550px) {
+			margin: 0 5px;
+		}
 	}
 
 	h1 {

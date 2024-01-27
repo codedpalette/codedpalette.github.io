@@ -1,43 +1,42 @@
-<script context="module" lang="ts">
-	export type LoadedSketch = {
-		sketch: Sketch<HTMLCanvasElement>;
-		thumbnail: Blob;
-		thumbnailResolution: number;
-		module: SketchModule;
-	};
-</script>
+<!-- Simple check by reference to determine if reactive values have changed -->
+<svelte:options immutable={true} />
 
 <script lang="ts">
 	import { faGithub } from '@fortawesome/free-brands-svg-icons';
 	import throttle from 'just-throttle';
-	import { type Sketch, type SketchModule, SketchRunner } from 'sketches';
+	import { Sketch, type SketchModule, SketchRunner } from 'sketches';
 	// Because of this bug https://github.com/import-js/eslint-plugin-import/issues/1479
-	/* eslint-disable import/no-duplicates */
-	import { onDestroy } from 'svelte';
+	// eslint-disable-next-line import/no-duplicates
+	import { getContext } from 'svelte';
+	// eslint-disable-next-line import/no-duplicates
 	import { fade } from 'svelte/transition';
 	import { Fa } from 'svelte-fa';
-	/* eslint-enable import/no-duplicates */
 
-	export let sketch: Sketch<HTMLCanvasElement>;
-	export let thumbnail: Blob;
+	import { thumbnailResolutionContextKey } from './+page.svelte';
+
+	type SketchContent = {
+		sketch: Sketch;
+		thumbnail: Blob;
+	};
+
 	export let module: SketchModule;
-	export let thumbnailResolution: number;
+	export let content: SketchContent | undefined = undefined;
+	const baseGithubUrl = 'https://github.com/codedpalette';
+	const thumbnailResolution = getContext<number>(thumbnailResolutionContextKey);
 
-	$: runner = new SketchRunner(sketch);
-	$: ready = thumbnail !== undefined;
-	$: thumbnailUrl = thumbnail ? URL.createObjectURL(thumbnail) : undefined;
+	$: ready = content !== undefined;
+	$: sketch = content?.sketch as Sketch;
+	$: thumbnail = content?.thumbnail as Blob;
+	$: runner = sketch && new SketchRunner(sketch);
+	$: thumbnailUrl = thumbnail && URL.createObjectURL(thumbnail);
 
 	let thumbnailImg: HTMLImageElement;
-	let container: HTMLDivElement;
 	let imageContainer: HTMLDivElement;
 	let zoomed = false;
 	let overlay = false;
 
-	const baseGithubUrl = 'https://github.com/codedpalette';
-
-	onDestroy(() => thumbnailUrl && URL.revokeObjectURL(thumbnailUrl));
-
-	async function zoomIn() {
+	function zoomIn() {
+		if (zoomed) return;
 		const margin = 18; //px
 		const viewportWidth = document.documentElement.clientWidth - margin * 2;
 		const viewportHeight = document.documentElement.clientHeight - margin * 2;
@@ -55,26 +54,26 @@
 		imageContainer.style.transform = `scale(${scale}) translate3d(${translateX}px, ${translateY}px, 0)`;
 		document.addEventListener('scroll', scrollHandler);
 
-		// This needs to be higher than scale transition to none on zoomed container
-		// to let browser update layout
-		const renderDelay = 100;
-		setTimeout(() => {
-			// runner.start potentially has to initialize sketch, which is a long lasting operations
-			// using setTimeout here to let css animation start
+		// TODO: Polyfill
+		// eslint-disable-next-line compat/compat
+		requestIdleCallback(() => {
 			runner.start();
 			imageContainer.appendChild(sketch.renderer.canvas);
 			thumbnailImg.style.display = 'none';
-		}, renderDelay);
+		});
 	}
 
-	async function zoomOut() {
+	function zoomOut() {
+		if (!zoomed) return;
 		document.removeEventListener('scroll', scrollHandler);
 		imageContainer.style.transform = 'none';
 		overlay = false;
 		runner.stop();
-		await updateThumbnail();
-		thumbnailImg.style.display = 'inline';
-		imageContainer.removeChild(sketch.renderer.canvas);
+		updateThumbnail().then(() => {
+			// TODO: Move to image.onload
+			imageContainer.removeChild(sketch.renderer.canvas);
+			thumbnailImg.style.display = 'inline';
+		});
 	}
 
 	async function updateThumbnail() {
@@ -83,25 +82,23 @@
 		sketch.resize({ resolution: 1 });
 	}
 
-	const scrollHandler = throttle(() => zoomed && zoomOut(), 400);
+	function imageOnload() {
+		thumbnailUrl && URL.revokeObjectURL(thumbnailUrl);
+	}
+
+	const scrollHandler = throttle(zoomOut, 400);
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <!-- svelte-ignore a11y-no-static-element-interactions -->
-<div
-	bind:this={container}
-	class="container"
-	class:ready
-	class:zoomed
-	on:click|stopPropagation={() => !zoomed && zoomIn()}
->
+<div class="container" class:ready class:zoomed on:click={zoomIn}>
 	{#if overlay}
 		<!-- svelte-ignore a11y-click-events-have-key-events -->
 		<!-- svelte-ignore a11y-no-static-element-interactions -->
 		<div class="overlay" transition:fade on:outroend={() => (zoomed = false)} on:click|stopPropagation={zoomOut}></div>
 	{/if}
 	<div bind:this={imageContainer} class="image-container">
-		<img bind:this={thumbnailImg} src={thumbnailUrl} alt={module.name} />
+		<img bind:this={thumbnailImg} src={thumbnailUrl} alt={module.name} on:load={imageOnload} />
 	</div>
 	<h1>{module.name}</h1>
 	<a
@@ -152,9 +149,9 @@
 			/** Add z-index to grid item container to make it's stacking context display over other grid cells */
 			z-index: 1;
 
-			/** Until hovered container has scale property set, the overlay won't be positioned relative to viewport
-				We need it to transition to "none" faster than overlay is transitioning to opacity: 1 */
-			transition: scale 50ms;
+			/** We need to reset transform on container, otherwise the overlay won't be positioned relative to viewport.
+				See https://developer.mozilla.org/en-US/docs/Web/CSS/Containing_block#identifying_the_containing_block  */
+			transition: none;
 			transform: none;
 		}
 
@@ -187,7 +184,7 @@
 
 	.image-container {
 		position: relative;
-		transition: transform 400ms;
+		transition: transform 400ms ease-out;
 	}
 
 	img {

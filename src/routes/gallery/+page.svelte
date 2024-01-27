@@ -1,9 +1,12 @@
+<script context="module" lang="ts">
+	export const thumbnailResolutionContextKey = 'thumbnailResolution';
+</script>
+
 <script lang="ts">
-	import { loadModule, type SizeParams, Sketch, sketches, SketchRenderer } from 'sketches';
-	import { onDestroy, onMount } from 'svelte';
+	import { loadModule, type SizeParams, Sketch, sketches, type SketchModule, SketchRenderer } from 'sketches';
+	import { type ComponentProps, onMount, setContext } from 'svelte';
 	import { type Pool, pool, type WorkerPoolOptions } from 'workerpool';
 
-	import { browser } from '$app/environment';
 	import { trackError } from '$lib/analytics';
 	import Flex from '$lib/components/Flex.svelte';
 	import NavBar from '$lib/components/NavBar.svelte';
@@ -13,50 +16,49 @@
 
 	import Grid from './Grid.svelte';
 	import Loader from './Loader.svelte';
-	import SketchImage, { type LoadedSketch } from './SketchImage.svelte';
+	import SketchComponent from './SketchComponent.svelte';
 
-	let renderer: SketchRenderer<HTMLCanvasElement>;
-	let workerpool: Pool | undefined;
-	const loadedSketches: LoadedSketch[] = [];
+	const sketchContents: ComponentProps<SketchComponent>['content'][] = [];
+	const workerPoolOpts: WorkerPoolOptions = { maxWorkers: 3, workerOpts: { type: 'module' } };
 	const sizeParams: SizeParams = { width: 1200, height: 1200 };
 	const thumbnailResolution = 1 / 2;
 	const thumbnailSizeParams: SizeParams = { ...sizeParams, resolution: thumbnailResolution };
-	const workerPoolOpts: WorkerPoolOptions = { maxWorkers: 3, workerOpts: { type: 'module' } };
+	setContext(thumbnailResolutionContextKey, thumbnailResolution);
 
-	onMount(async () => {
+	onMount(() => {
 		// eslint-disable-next-line compat/compat
 		const ofcSupported = typeof OffscreenCanvas !== 'undefined' && new OffscreenCanvas(0, 0).getContext('webgl2');
-		renderer = new SketchRenderer({ resizeCSS: false });
+		const workerpool = ofcSupported ? pool(workerUrl, workerPoolOpts) : undefined;
+		const renderer = new SketchRenderer({ resizeCSS: false });
 		renderer.canvas.style.width = '100%';
-		workerpool = ofcSupported ? pool(workerUrl, workerPoolOpts) : undefined;
 		for (const [index, module] of sketches.entries()) {
-			const sketchFactory = await loadModule(module);
-			try {
-				let sketch: Sketch<HTMLCanvasElement>, thumbnail: Blob;
-				if (workerpool) {
-					// TODO: Check why not async
-					// TODO: Thumbnail bug reproducible in safari
-					const result = (await workerpool.exec('render', [module, thumbnailSizeParams])) as RenderResult;
-					sketch = new Sketch(sketchFactory, renderer, sizeParams, result.seed);
-					thumbnail = result.blob;
-				} else {
-					sketch = new Sketch(sketchFactory, renderer, thumbnailSizeParams);
-					thumbnail = await sketch.export();
-				}
-				loadedSketches[index] = { sketch, thumbnail, thumbnailResolution, module };
-			} catch (err) {
-				console.log(err);
-				trackError(err);
-			}
+			renderModule(index, module, renderer, workerpool);
 		}
-	});
-
-	onDestroy(() => {
-		if (browser) {
+		return () => {
 			renderer.destroy();
 			workerpool?.terminate();
-		}
+		};
 	});
+
+	async function renderModule(index: number, module: SketchModule, renderer: SketchRenderer, workerpool?: Pool) {
+		const sketchFactory = await loadModule(module);
+		try {
+			let sketch: Sketch<HTMLCanvasElement>, thumbnail: Blob;
+			if (workerpool) {
+				// TODO: Check why not async
+				const result = (await workerpool.exec('render', [module, thumbnailSizeParams])) as RenderResult;
+				sketch = new Sketch(sketchFactory, renderer, sizeParams, result.seed);
+				thumbnail = result.blob;
+			} else {
+				sketch = new Sketch(sketchFactory, renderer, thumbnailSizeParams);
+				thumbnail = await sketch.export();
+			}
+			sketchContents[index] = { sketch, thumbnail };
+		} catch (err) {
+			console.log(err);
+			trackError(err);
+		}
+	}
 </script>
 
 <Flex stretch width="wide">
@@ -71,18 +73,14 @@
 		<p>
 			Be sure to check out the GitHub links for the source code to learn how I create these interactive web graphics!
 		</p>
-		{#if loadedSketches.length == 0}
+		{#if sketchContents.length == 0}
 			<div id="loader-container">
 				<Loader />
 			</div>
 		{:else}
 			<div id="grid-container">
-				<Grid items={sketches} let:index>
-					{#if loadedSketches[index]}
-						<SketchImage {...loadedSketches[index]} />
-					{:else}
-						<div class="placeholder"></div>
-					{/if}
+				<Grid items={sketches} let:item let:index>
+					<SketchComponent module={item} content={sketchContents[index]} />
 				</Grid>
 			</div>
 		{/if}
@@ -119,11 +117,5 @@
 		font-size: $header-name-font-size;
 		margin: 0;
 		line-height: 1em;
-	}
-
-	.placeholder {
-		visibility: hidden;
-		width: 300px;
-		height: 400px;
 	}
 </style>

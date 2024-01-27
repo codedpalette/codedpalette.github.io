@@ -2,7 +2,6 @@
 <svelte:options immutable={true} />
 
 <script lang="ts">
-	import { faGithub } from '@fortawesome/free-brands-svg-icons';
 	import throttle from 'just-throttle';
 	import { Sketch, type SketchModule, SketchRunner } from 'sketches';
 	// Because of this bug https://github.com/import-js/eslint-plugin-import/issues/1479
@@ -10,9 +9,10 @@
 	import { getContext } from 'svelte';
 	// eslint-disable-next-line import/no-duplicates
 	import { fade } from 'svelte/transition';
-	import { Fa } from 'svelte-fa';
 
 	import { thumbnailResolutionContextKey } from './+page.svelte';
+	import GithubLink from './GithubLink.svelte';
+	import SketchImageComponent from './SketchImageComponent.svelte';
 
 	type SketchContent = {
 		sketch: Sketch;
@@ -21,7 +21,7 @@
 
 	export let module: SketchModule;
 	export let content: SketchContent | undefined = undefined;
-	const baseGithubUrl = 'https://github.com/codedpalette';
+
 	const thumbnailResolution = getContext<number>(thumbnailResolutionContextKey);
 
 	$: ready = content !== undefined;
@@ -30,49 +30,30 @@
 	$: runner = sketch && new SketchRunner(sketch);
 	$: thumbnailUrl = thumbnail && URL.createObjectURL(thumbnail);
 
-	let thumbnailImg: HTMLImageElement;
-	let imageContainer: HTMLDivElement;
+	let sketchImage: SketchImageComponent;
 	let zoomed = false;
 	let overlay = false;
 
-	function zoomIn() {
+	async function zoomIn() {
 		if (zoomed) return;
-		const margin = 18; //px
-		const viewportWidth = document.documentElement.clientWidth - margin * 2;
-		const viewportHeight = document.documentElement.clientHeight - margin * 2;
-		const { width: naturalWidth, height: naturalHeight } = sketch.params;
-		const { width, height, top, left } = thumbnailImg.getBoundingClientRect();
-
-		const scaleX = Math.min(naturalWidth, viewportWidth) / width;
-		const scaleY = Math.min(naturalHeight, viewportHeight) / height;
-		const scale = Math.min(scaleX, scaleY);
-		const translateX = (-left + (viewportWidth - width) / 2 + margin) / scale;
-		const translateY = (-top + (viewportHeight - height) / 2 + margin) / scale;
-
-		zoomed = true;
-		overlay = true;
-		imageContainer.style.transform = `scale(${scale}) translate3d(${translateX}px, ${translateY}px, 0)`;
+		zoomed = overlay = true;
 		document.addEventListener('scroll', scrollHandler);
-
-		// TODO: Polyfill
-		// eslint-disable-next-line compat/compat
-		requestIdleCallback(() => {
+		sketchImage.zoomIn(sketch.params);
+		setTimeout(() => {
 			runner.start();
-			imageContainer.appendChild(sketch.renderer.canvas);
-			thumbnailImg.style.display = 'none';
+			sketchImage.addCanvas(sketch.renderer.canvas);
 		});
 	}
 
 	function zoomOut() {
 		if (!zoomed) return;
-		document.removeEventListener('scroll', scrollHandler);
-		imageContainer.style.transform = 'none';
 		overlay = false;
+		document.removeEventListener('scroll', scrollHandler);
+		sketchImage.zoomOut();
 		runner.stop();
 		updateThumbnail().then(() => {
 			// TODO: Move to image.onload
-			imageContainer.removeChild(sketch.renderer.canvas);
-			thumbnailImg.style.display = 'inline';
+			sketchImage.removeCanvas(sketch.renderer.canvas);
 		});
 	}
 
@@ -80,10 +61,6 @@
 		sketch.resize({ resolution: thumbnailResolution });
 		thumbnail = await sketch.export();
 		sketch.resize({ resolution: 1 });
-	}
-
-	function imageOnload() {
-		thumbnailUrl && URL.revokeObjectURL(thumbnailUrl);
 	}
 
 	const scrollHandler = throttle(zoomOut, 400);
@@ -97,18 +74,9 @@
 		<!-- svelte-ignore a11y-no-static-element-interactions -->
 		<div class="overlay" transition:fade on:outroend={() => (zoomed = false)} on:click|stopPropagation={zoomOut}></div>
 	{/if}
-	<div bind:this={imageContainer} class="image-container">
-		<img bind:this={thumbnailImg} src={thumbnailUrl} alt={module.name} on:load={imageOnload} />
-	</div>
+	<SketchImageComponent bind:this={sketchImage} alt={module.name} {thumbnailUrl} />
 	<h1>{module.name}</h1>
-	<a
-		href={`${baseGithubUrl}/sketches/blob/master/sketches/${module.year}/${module.name}.ts`}
-		target="_blank"
-		on:click|stopPropagation
-	>
-		source
-		<Fa icon={faGithub}></Fa>
-	</a>
+	<GithubLink {module} />
 </div>
 
 <style lang="scss">
@@ -180,24 +148,6 @@
 		// Unsupported mostly on mobile where there is no cursor anyway
 		/* stylelint-disable-next-line plugin/no-unsupported-browser-features */
 		cursor: zoom-out;
-	}
-
-	.image-container {
-		position: relative;
-		transition: transform 400ms ease-out;
-	}
-
-	img {
-		width: 100%;
-		aspect-ratio: 1/1;
-	}
-
-	a {
-		display: block;
-		font-style: italic;
-		color: color.mix($white, $black);
-		text-align: right;
-		width: 100%;
 	}
 
 	@keyframes fade-in-up {

@@ -19,7 +19,7 @@
 	a {
 		display: block;
 		font-style: italic;
-		color: color.mix($white, $black);
+		color: $black;
 		text-align: right;
 		width: 100%;
 	}

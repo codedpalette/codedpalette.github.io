@@ -8,10 +8,10 @@ export type RenderResult = {
 	seed: number[];
 };
 
-async function render(sketchModule: SketchModule, params: SizeParams): Promise<RenderResult> {
+async function render(sketchModule: SketchModule, params: SizeParams, format?: string): Promise<RenderResult> {
 	const sketchFactory = await loadModule(sketchModule);
 	const sketch = new Sketch(sketchFactory, renderer, params);
-	const blob = await sketch.export();
+	const blob = await sketch.export({}, format);
 	const seed = sketch.seed;
 	return { blob, seed };
 }

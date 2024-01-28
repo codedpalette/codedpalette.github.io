@@ -3,46 +3,51 @@
 
 <script lang="ts">
 	import { Sketch, type SketchModule, SketchRunner } from 'sketches';
-	import { getContext } from 'svelte';
 
-	import { thumbnailResolutionContextKey } from './+page.svelte';
 	import GithubLink from './GithubLink.svelte';
 	import SketchImageComponent from './SketchImageComponent.svelte';
 
+	// Passing props as object with immutable=true to ensure that subsequent updates to sketch array won't trigger
+	// reactive overwrite of this component's props
 	type SketchContent = {
 		sketch: Sketch;
 		thumbnail: Blob;
+		format?: string;
 	};
 
 	export let module: SketchModule;
-	// TODO: Test without object
 	export let content: SketchContent | undefined = undefined;
-
 	$: ready = content !== undefined;
+	// We can typecast to non-nullable type here since the element is interactive only after ready == true,
+	// by which time the content is not undefined
 	$: sketch = content?.sketch as Sketch;
 	$: thumbnail = content?.thumbnail as Blob;
-	$: runner = sketch && new SketchRunner(sketch);
+	$: runner = sketch && new SketchRunner(sketch, { click: () => (dirty = true) });
 	$: thumbnailUrl = thumbnail && URL.createObjectURL(thumbnail);
 
-	const thumbnailResolution = getContext<number>(thumbnailResolutionContextKey);
 	let sketchImage: SketchImageComponent;
 	let zoomed = false;
+	let dirty = false;
 
 	async function zoomIn() {
 		zoomed = true;
 		sketchImage.zoomIn(sketch.params);
 
-		// TODO: Performance
+		// Give browser some time to reflow and start transitions before running a potentially long render
 		setTimeout(() => {
 			runner.start();
 			sketchImage.addCanvas(sketch.renderer.canvas);
-		});
+		}, 20);
 	}
 
 	async function zoomOut() {
 		runner.stop();
-		// TODO: Check if dirty
-		thumbnail = await sketch.export({ resolution: thumbnailResolution });
+		if (dirty) {
+			thumbnail = await sketch.export({}, content?.format);
+			dirty = false;
+		} else {
+			sketchImage.removeCanvas();
+		}
 	}
 </script>
 

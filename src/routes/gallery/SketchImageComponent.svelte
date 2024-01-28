@@ -40,7 +40,7 @@
 		imageHidden = true;
 	}
 
-	function removeCanvas() {
+	export function removeCanvas() {
 		if (addedCanvas) imageContainer.removeChild(addedCanvas);
 		addedCanvas = undefined;
 		imageHidden = false;
@@ -62,7 +62,7 @@
 	}
 
 	function imageOnload() {
-		thumbnailUrl && URL.revokeObjectURL(thumbnailUrl);
+		//thumbnailUrl && URL.revokeObjectURL(thumbnailUrl);
 		removeCanvas();
 	}
 </script>
@@ -73,7 +73,11 @@
 	<div class="overlay" transition:fade on:outroend={onZoomOutEnd} on:click|stopPropagation={zoomOut}></div>
 {/if}
 <div bind:this={imageContainer} class="image-container" style:transform={imageTransform}>
-	<img bind:this={thumbnailImage} src={thumbnailUrl} {alt} on:load={imageOnload} class:hidden={imageHidden} />
+	{#if thumbnailUrl}
+		<img bind:this={thumbnailImage} src={thumbnailUrl} {alt} on:load={imageOnload} class:hidden={imageHidden} />
+	{:else}
+		<div class="placeholder"></div>
+	{/if}
 </div>
 
 <style lang="scss">
@@ -95,11 +99,16 @@
 
 		img {
 			width: 100%;
-			aspect-ratio: 1/1;
+			aspect-ratio: 1;
 
 			&.hidden {
 				display: none;
 			}
 		}
+	}
+
+	.placeholder {
+		width: 100%;
+		aspect-ratio: 1;
 	}
 </style>

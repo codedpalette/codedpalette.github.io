@@ -22,4 +22,10 @@ npm run build
 
 You can preview the production build with `npm run preview`.
 
-<!-- TODO: Explain other commands >
+### Other supported commands
+
+- `npm run visualize %chart-type%` - Visualize resulting Rollup bundle with [rollup-plugin-visualizer](https://github.com/btd/rollup-plugin-visualizer). Supported values for `%chart-type%` include `sunburst`, `treemap` and `network`.
+- `npm run check` - Perform SvelteKit checks
+- `npm run lint` - Lint code with [ESLint](/.eslintrc.cjs)
+- `npm run lint:css` - Lint styles with [Stylelint](/.stylelintrc.json)
+- `npm run format` - Format files with Prettier

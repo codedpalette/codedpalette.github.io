@@ -6,6 +6,7 @@
 	import Projects from './partials/Projects.svelte';
 	import Skills from './partials/Skills.svelte';
 	import Work from './partials/Work.svelte';
+	// TODO: Resume print overrides
 	import { basics, education, languages, projects, skills, work } from './resume.json';
 </script>
 

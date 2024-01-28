@@ -2,13 +2,8 @@
 <svelte:options immutable={true} />
 
 <script lang="ts">
-	import throttle from 'just-throttle';
 	import { Sketch, type SketchModule, SketchRunner } from 'sketches';
-	// Because of this bug https://github.com/import-js/eslint-plugin-import/issues/1479
-	// eslint-disable-next-line import/no-duplicates
 	import { getContext } from 'svelte';
-	// eslint-disable-next-line import/no-duplicates
-	import { fade } from 'svelte/transition';
 
 	import { thumbnailResolutionContextKey } from './+page.svelte';
 	import GithubLink from './GithubLink.svelte';
@@ -20,9 +15,8 @@
 	};
 
 	export let module: SketchModule;
+	// TODO: Test without object
 	export let content: SketchContent | undefined = undefined;
-
-	const thumbnailResolution = getContext<number>(thumbnailResolutionContextKey);
 
 	$: ready = content !== undefined;
 	$: sketch = content?.sketch as Sketch;
@@ -30,51 +24,38 @@
 	$: runner = sketch && new SketchRunner(sketch);
 	$: thumbnailUrl = thumbnail && URL.createObjectURL(thumbnail);
 
+	const thumbnailResolution = getContext<number>(thumbnailResolutionContextKey);
 	let sketchImage: SketchImageComponent;
 	let zoomed = false;
-	let overlay = false;
 
 	async function zoomIn() {
-		if (zoomed) return;
-		zoomed = overlay = true;
-		document.addEventListener('scroll', scrollHandler);
+		zoomed = true;
 		sketchImage.zoomIn(sketch.params);
+
+		// TODO: Performance
 		setTimeout(() => {
 			runner.start();
 			sketchImage.addCanvas(sketch.renderer.canvas);
 		});
 	}
 
-	function zoomOut() {
-		if (!zoomed) return;
-		overlay = false;
-		document.removeEventListener('scroll', scrollHandler);
-		sketchImage.zoomOut();
+	async function zoomOut() {
 		runner.stop();
-		updateThumbnail().then(() => {
-			// TODO: Move to image.onload
-			sketchImage.removeCanvas(sketch.renderer.canvas);
-		});
+		// TODO: Check if dirty
+		thumbnail = await sketch.export({ resolution: thumbnailResolution });
 	}
-
-	async function updateThumbnail() {
-		sketch.resize({ resolution: thumbnailResolution });
-		thumbnail = await sketch.export();
-		sketch.resize({ resolution: 1 });
-	}
-
-	const scrollHandler = throttle(zoomOut, 400);
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <!-- svelte-ignore a11y-no-static-element-interactions -->
-<div class="container" class:ready class:zoomed on:click={zoomIn}>
-	{#if overlay}
-		<!-- svelte-ignore a11y-click-events-have-key-events -->
-		<!-- svelte-ignore a11y-no-static-element-interactions -->
-		<div class="overlay" transition:fade on:outroend={() => (zoomed = false)} on:click|stopPropagation={zoomOut}></div>
-	{/if}
-	<SketchImageComponent bind:this={sketchImage} alt={module.name} {thumbnailUrl} />
+<div class="container" class:ready class:zoomed on:click={() => !zoomed && zoomIn()}>
+	<SketchImageComponent
+		bind:this={sketchImage}
+		{thumbnailUrl}
+		alt={module.name}
+		onZoomOutStart={zoomOut}
+		onZoomOutEnd={() => (zoomed = false)}
+	/>
 	<h1>{module.name}</h1>
 	<GithubLink {module} />
 </div>
@@ -136,18 +117,6 @@
 			font-size: $header-label-font-size;
 			margin: 0.5em 0;
 		}
-	}
-
-	.overlay {
-		position: fixed;
-		top: 0;
-		bottom: 0;
-		left: 0;
-		right: 0;
-		background-color: #fff;
-		// Unsupported mostly on mobile where there is no cursor anyway
-		/* stylelint-disable-next-line plugin/no-unsupported-browser-features */
-		cursor: zoom-out;
 	}
 
 	@keyframes fade-in-up {

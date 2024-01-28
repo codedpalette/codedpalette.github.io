@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { ResumeSchema } from '@kurone-kito/jsonresume-types';
+	import extend from 'just-extend';
 
 	import Basics from './partials/Basics.svelte';
 	import Education from './partials/Education.svelte';
@@ -13,7 +14,11 @@
 	export let print = false;
 	export let overrides: ResumeSchema = {};
 
-	const { basics, education, languages, projects, skills, work } = { ...resume, ...overrides };
+	const { basics, education, languages, projects, skills, work } = extend(
+		true,
+		resume,
+		overrides
+	) as Required<ResumeSchema>;
 </script>
 
 <div id="content">

@@ -14,7 +14,7 @@ const config = {
 	// See https://kit.svelte.dev/docs/adapters for more information about adapters.
 	kit: {
 		adapter: adapter(),
-		inlineStyleThreshold: 1000
+		inlineStyleThreshold: 2048 // Inline styles smaller than 2kb
 	}
 };
 

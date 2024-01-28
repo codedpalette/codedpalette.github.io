@@ -1,4 +1,6 @@
 <script lang="ts">
+	import type { ResumeSchema } from '@kurone-kito/jsonresume-types';
+
 	import Basics from './partials/Basics.svelte';
 	import Education from './partials/Education.svelte';
 	import Languages from './partials/Languages.svelte';
@@ -6,12 +8,16 @@
 	import Projects from './partials/Projects.svelte';
 	import Skills from './partials/Skills.svelte';
 	import Work from './partials/Work.svelte';
-	// TODO: Resume print overrides
-	import { basics, education, languages, projects, skills, work } from './resume.json';
+	import resume from './resume.json';
+
+	export let print = false;
+	export let overrides: ResumeSchema = {};
+
+	const { basics, education, languages, projects, skills, work } = { ...resume, ...overrides };
 </script>
 
 <div id="content">
-	<Basics {basics} />
+	<Basics {basics} {print} />
 	<div class="table flex">
 		<div class="main">
 			<Projects {projects} />

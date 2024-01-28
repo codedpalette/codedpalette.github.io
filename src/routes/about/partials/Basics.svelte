@@ -5,6 +5,7 @@
 
 	import { calcLocation, mdToHtml } from '../helper';
 
+	export let print: boolean;
 	export let basics: Required<ResumeSchema>['basics'];
 </script>
 
@@ -15,23 +16,26 @@
 			<span id="label">{basics.label}</span>
 		</div>
 		<div class="side">
-			<a id="pdf" href="/about/resume.pdf" aria-label="Save as PDF">
-				<Fa icon={faFilePdf}></Fa>
-			</a>
-			<ul id="contact">
-				<li>
-					<Fa icon={faPhone} fw></Fa>
-					{basics.phone}
-				</li>
-				<li>
-					<Fa icon={faEnvelope} fw></Fa>
-					{basics.email}
-				</li>
-				<li class="margin-text-5">
-					<Fa icon={faLocationDot} fw></Fa>
-					{calcLocation(basics.location)}
-				</li>
-			</ul>
+			{#if print}
+				<ul id="contact">
+					<li>
+						{basics.phone}
+						<Fa icon={faPhone} fw></Fa>
+					</li>
+					<li>
+						{basics.email}
+						<Fa icon={faEnvelope} fw></Fa>
+					</li>
+					<li class="margin-text-5">
+						{calcLocation(basics.location)}
+						<Fa icon={faLocationDot} fw></Fa>
+					</li>
+				</ul>
+			{:else}
+				<a id="pdf" href="/about/resume.pdf" aria-label="Save as PDF">
+					<Fa icon={faFilePdf}></Fa>
+				</a>
+			{/if}
 		</div>
 	</div>
 	<!-- eslint-disable-next-line svelte/no-at-html-tags -->
@@ -77,21 +81,14 @@
 				}
 
 				#pdf {
-					@media print {
-						display: none;
-					}
-
 					:global(svg) {
 						font-size: 2em;
 					}
 				}
 
 				#contact {
-					@media screen {
-						display: none; //TODO: Svelte conditional rendering
-					}
-
 					list-style-type: none;
+					direction: ltr;
 
 					li {
 						font-size: $font-size-large;

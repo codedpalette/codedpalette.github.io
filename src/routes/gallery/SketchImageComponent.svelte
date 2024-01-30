@@ -19,18 +19,20 @@
 	let imageHidden = false;
 	let overlayVisible = false;
 
-	const scrollHandler = throttle(zoomOut, 400);
+	const handlerThrottled = throttle(zoomOut, 400);
 
 	export function zoomIn(naturalSize: ImageSize) {
 		overlayVisible = true;
 		imageTransform = calculateImageTransform(naturalSize);
-		document.addEventListener('scroll', scrollHandler);
+		document.addEventListener('scroll', handlerThrottled);
+		window.addEventListener('resize', handlerThrottled);
 	}
 
 	function zoomOut() {
 		overlayVisible = false;
 		imageTransform = undefined;
-		document.removeEventListener('scroll', scrollHandler);
+		document.removeEventListener('scroll', handlerThrottled);
+		window.removeEventListener('resize', handlerThrottled);
 		onZoomOutStart();
 	}
 
@@ -60,11 +62,6 @@
 		const translateY = (-top + (viewportHeight - height) / 2 + margin) / scale;
 		return `scale(${scale}) translate3d(${translateX}px, ${translateY}px, 0)`;
 	}
-
-	function imageOnload() {
-		//thumbnailUrl && URL.revokeObjectURL(thumbnailUrl);
-		removeCanvas();
-	}
 </script>
 
 {#if overlayVisible}
@@ -74,7 +71,7 @@
 {/if}
 <div bind:this={imageContainer} class="image-container" style:transform={imageTransform}>
 	{#if thumbnailUrl}
-		<img bind:this={thumbnailImage} src={thumbnailUrl} {alt} on:load={imageOnload} class:hidden={imageHidden} />
+		<img bind:this={thumbnailImage} src={thumbnailUrl} {alt} on:load={removeCanvas} class:hidden={imageHidden} />
 	{:else}
 		<div class="placeholder"></div>
 	{/if}

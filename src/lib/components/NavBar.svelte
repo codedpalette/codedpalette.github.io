@@ -58,6 +58,7 @@
 				padding: $padding-container $padding-container * 2;
 				text-decoration: none;
 				color: inherit;
+				transition: scale 200ms;
 
 				&:hover {
 					scale: 1.2;

@@ -54,6 +54,9 @@
 				thumbnail = await sketch.export(sizeParams, format);
 			}
 			sketchContents[index] = { sketch, thumbnail, format };
+			if (sketchContents.length == sketches.length) {
+				workerpool?.terminate();
+			}
 		} catch (err) {
 			console.log(err);
 			trackError(err);

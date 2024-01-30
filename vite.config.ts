@@ -36,7 +36,13 @@ export default defineConfig(({ mode }) => {
 			}
 		},
 		worker: {
-			format: 'es'
+			format: 'es',
+			rollupOptions: {
+				output: {
+					// Dynamic imports causing troubles in Safari
+					inlineDynamicImports: true
+				}
+			}
 		}
 	};
 });

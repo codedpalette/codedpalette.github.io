@@ -22,8 +22,8 @@
 
 	onDestroy(() => {
 		if (browser) {
-			runner.stop();
-			renderer.destroy();
+			runner?.stop();
+			renderer?.destroy();
 		}
 	});
 </script>
@@ -33,7 +33,7 @@
 	<Flex width="narrow">
 		<div id="content-container">
 			<div id="text-container">
-				<h1>Hello, world</h1>
+				<h1>Hello world</h1>
 				<h2>my name is Daniel</h2>
 				<h3>and I enjoy making computers display beautiful stuff</h3>
 				<NavBar mainPage />

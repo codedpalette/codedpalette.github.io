@@ -5,6 +5,7 @@
 	import { Sketch, type SketchModule, SketchRunner } from 'sketches';
 
 	import GithubLink from './GithubLink.svelte';
+	import { nextFrame } from './schedule';
 	import SketchImageComponent from './SketchImageComponent.svelte';
 
 	// Passing props as object with immutable=true to ensure that subsequent updates to sketch array won't trigger
@@ -32,17 +33,16 @@
 	async function zoomIn() {
 		zoomed = true;
 		sketchImage.zoomIn(sketch.params);
-
-		// Give browser some time to reflow and start transitions before running a potentially long render
-		setTimeout(() => {
+		nextFrame(() => {
 			runner.start();
 			sketchImage.addCanvas(sketch.renderer.canvas);
-		}, 20);
+		});
 	}
 
 	async function zoomOut() {
 		runner.stop();
 		if (dirty) {
+			thumbnailUrl && URL.revokeObjectURL(thumbnailUrl);
 			thumbnail = await sketch.export({}, content?.format);
 			dirty = false;
 		} else {
@@ -67,6 +67,9 @@
 
 <style lang="scss">
 	@use 'sass:color';
+
+	$box-shadow: 5px;
+	$box-shadow-color: color.scale($white, $blackness: 50%);
 
 	.container {
 		position: relative;
@@ -93,28 +96,24 @@
 			right: 0;
 			z-index: -1;
 			opacity: 0;
-			border-radius: 10px;
-			box-shadow:
-				-10px -10px 20px #aeadaa,
-				10px 10px 20px #fff;
+			border-radius: $box-shadow * 2;
+			box-shadow: 0 0 $box-shadow $box-shadow-color;
+			transition: box-shadow 400ms;
 		}
 
 		&.zoomed {
 			/** Add z-index to grid item container to make it's stacking context display over other grid cells */
 			z-index: 1;
-
-			/** We need to reset transform on container, otherwise the overlay won't be positioned relative to viewport.
-				See https://developer.mozilla.org/en-US/docs/Web/CSS/Containing_block#identifying_the_containing_block  */
-			transition: none;
-			transform: none;
 		}
 
 		&:not(.zoomed):hover {
 			// Unsupported mostly on mobile where there is no cursor anyway
 			/* stylelint-disable-next-line plugin/no-unsupported-browser-features */
 			cursor: zoom-in;
-			scale: 1.1;
-			z-index: 1;
+
+			&::after {
+				box-shadow: 0 0 $box-shadow * 4 $box-shadow-color;
+			}
 		}
 
 		h1 {

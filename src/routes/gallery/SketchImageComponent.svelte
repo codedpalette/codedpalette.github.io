@@ -2,6 +2,8 @@
 	import throttle from 'just-throttle';
 	import { fade } from 'svelte/transition';
 
+	import { nextFrame } from './schedule';
+
 	type ImageSize = {
 		width: number;
 		height: number;
@@ -43,9 +45,11 @@
 	}
 
 	export function removeCanvas() {
-		if (addedCanvas) imageContainer.removeChild(addedCanvas);
-		addedCanvas = undefined;
 		imageHidden = false;
+		nextFrame(() => {
+			if (addedCanvas) imageContainer.removeChild(addedCanvas);
+			addedCanvas = undefined;
+		});
 	}
 
 	function calculateImageTransform(naturalSize: ImageSize) {
@@ -99,8 +103,14 @@
 			aspect-ratio: 1;
 
 			&.hidden {
-				display: none;
+				visibility: hidden;
 			}
+		}
+
+		:global(canvas) {
+			position: absolute;
+			top: 0;
+			left: 0;
 		}
 	}
 

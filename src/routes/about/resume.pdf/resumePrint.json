@@ -1,6 +1,6 @@
 {
 	"$schema": "https://raw.githubusercontent.com/jsonresume/resume-schema/v1.0.0/schema.json",
 	"basics": {
-		"summary": "TODO: Print summary override.\n\nI'm Daniel, a software engineer hailing from Israel. I've been immersed in both frontend and backend development for over 5 years. Recently, I stumbled upon the world of creative coding and generative art, prompting me to make a shift to graphics programming. Over the last 2 years, I've been diving deep into this fascinating field. What I find most fulfilling about programming is its creative aspect, bringing visuals and aesthetically pleasing creations to life."
+		"summary": "I am an experienced software engineer proficient in both **frontend** and **backend** development. My recent exploration into creative coding and generative art showcases proficiency in *Typescript*, *Pixi.js*, *WebGL*, and *Three.JS*. Throughout my career, I have excelled in **optimizing performance** and **promoting teamwork and collaboration**. What I find most fulfilling about programming is its creative aspect, bringing visuals and aesthetically pleasing creations to life."
 	}
 }

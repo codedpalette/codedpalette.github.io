@@ -27,6 +27,17 @@
 	},
 	"work": [
 		{
+			"name": "Freelance",
+			"position": "Frontend Developer",
+			"startDate": "2022-10",
+			"endDate": "2024-02",
+			"highlights": [
+				"Worked on developing several dynamic and responsive user interfaces with TypeScript and frameworks like React and Svelte, ensuring optimal performance and a user-friendly experience.",
+				"Translated design mockups and wireframes into high-quality, interactive web applications, showcasing attention to detail and adherence to UI/UX best practices.",
+				"Implemented and maintained scalable stylesheets with SCSS, fostering code reusability and consistency across various projects."
+			]
+		},
+		{
 			"name": "Reali",
 			"location": "Tel Aviv, IL",
 			"description": "Using Reali, customers could buy and sell in one coordinated transaction, eliminating resale contingencies, moving twice, and paying two mortgages at once.",
@@ -37,7 +48,6 @@
 			"highlights": [
 				"Engineered backend microservices using Scala and the Play framework, ensuring robust and scalable functionality for a seamless real estate experience.",
 				"Enhanced database performance by optimizing MongoDB queries and implementing improvements in Mongo Compass, elevating the efficiency of data retrieval processes.",
-				"Established data pipelines using Apache Spark to extract and store geographic data in the database, enriching the platform with valuable location-based insights.",
 				"Provided mentorship to team members, imparting expertise in Scala and functional programming, fostering a collaborative and skilled development team."
 			]
 		},
@@ -61,7 +71,7 @@
 			"position": "Java Backend Developer",
 			"url": "https://puls.com/",
 			"startDate": "2017-02",
-			"endDate": "2018-11",
+			"endDate": "2019-01",
 			"highlights": [
 				"Engineered the migration of a PHP monolith to Java microservices using Spring Boot, enhancing system performance and maintainability.",
 				"Developed integrations for offline conversion tracking systems, improving performance metrics accuracy.",

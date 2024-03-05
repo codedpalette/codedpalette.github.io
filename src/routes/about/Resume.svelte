@@ -25,8 +25,8 @@
 	<Basics {basics} {print} />
 	<div class="table flex">
 		<div class="main">
-			<Projects {projects} />
 			<Work {work} />
+			<Projects {projects} />
 		</div>
 		<div class="side">
 			<Skills {skills} />
@@ -54,7 +54,10 @@
 
 	#content {
 		width: 100%;
-		padding: $padding-container;
+
+		@media screen {
+			padding: $padding-container;
+		}
 
 		:global {
 			@include meta.load-css('./styles/about');

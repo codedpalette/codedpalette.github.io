@@ -39,7 +39,7 @@
 		</div>
 	</div>
 	<!-- eslint-disable-next-line svelte/no-at-html-tags -->
-	<div class="summary markdown padding-bottom-container-2">{@html mdToHtml(basics.summary)}</div>
+	<div class="summary markdown" class:padding-bottom-container-2={!print}>{@html mdToHtml(basics.summary)}</div>
 </div>
 
 <style lang="scss">

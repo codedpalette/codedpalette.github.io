@@ -1,8 +1,17 @@
 <script lang="ts">
-	import { loadModule, type SizeParams, Sketch, sketches, type SketchModule, SketchRenderer } from 'sketches';
-	import { type ComponentProps, onMount } from 'svelte';
+	import {
+		initRenderer,
+		loadModule,
+		type SizeParams,
+		type Sketch,
+		sketches,
+		type SketchModule,
+		type SketchRenderer
+	} from 'sketches';
+	import { type ComponentProps, onDestroy, onMount } from 'svelte';
 	import { type Pool, pool, type WorkerPoolOptions } from 'workerpool';
 
+	import { browser } from '$app/environment';
 	import { trackError } from '$lib/analytics';
 	import Flex from '$lib/components/Flex.svelte';
 	import NavBar from '$lib/components/NavBar.svelte';
@@ -14,44 +23,49 @@
 	import Loader from './Loader.svelte';
 	import SketchComponent from './SketchComponent.svelte';
 
+	let renderer: SketchRenderer<HTMLCanvasElement>;
+	let workerpool: Pool | undefined;
 	const sketchContents: ComponentProps<SketchComponent>['content'][] = [];
 	const workerPoolOpts: WorkerPoolOptions = { maxWorkers: 3, workerOpts: { type: 'module' } };
 	const sizeParams: SizeParams = { width: 1200, height: 1200 };
 
-	onMount(() => {
+	onMount(async () => {
 		const webpFormat = 'image/webp';
 		const webpSupported = document.createElement('canvas').toDataURL(webpFormat).indexOf(`data:${webpFormat}`) == 0;
 		const imageFormat = webpSupported ? webpFormat : undefined;
 		// eslint-disable-next-line compat/compat
 		const ofcSupported = typeof OffscreenCanvas !== 'undefined' && new OffscreenCanvas(0, 0).getContext('webgl2');
-		const workerpool = ofcSupported ? pool(workerUrl, workerPoolOpts) : undefined;
-		const renderer = new SketchRenderer({ resizeCSS: false });
+		workerpool = ofcSupported ? pool(workerUrl, workerPoolOpts) : undefined;
+		renderer = await initRenderer({ resizeCSS: false });
 		renderer.canvas.style.width = '100%';
 		for (const [index, module] of sketches.entries()) {
 			renderModule(index, module, renderer, workerpool, imageFormat);
 		}
-		return () => {
-			renderer.destroy();
+	});
+
+	onDestroy(() => {
+		if (browser) {
+			renderer?.destroy();
 			workerpool?.terminate();
-		};
+		}
 	});
 
 	async function renderModule(
 		index: number,
 		module: SketchModule,
-		renderer: SketchRenderer,
+		renderer: SketchRenderer<HTMLCanvasElement>,
 		workerpool?: Pool,
 		format?: string
 	) {
 		try {
-			let sketch: Sketch<HTMLCanvasElement>, thumbnail: Blob;
+			let sketch: Sketch, thumbnail: Blob;
 			if (workerpool) {
-				const result = (await workerpool.exec('render', [module, sizeParams, format])) as RenderResult;
-				sketch = new Sketch(await loadModule(module), renderer, sizeParams, result.seed);
-				thumbnail = result.blob;
+				const { blob, seed } = (await workerpool.exec('render', [module, sizeParams, format])) as RenderResult;
+				sketch = (await loadModule(module))(renderer, { ...sizeParams, seed });
+				thumbnail = blob;
 			} else {
-				sketch = new Sketch(await loadModule(module), renderer, sizeParams);
-				thumbnail = await sketch.export(sizeParams, format);
+				sketch = (await loadModule(module))(renderer, sizeParams);
+				thumbnail = await sketch.export({ format });
 			}
 			sketchContents[index] = { sketch, thumbnail, format };
 			if (sketchContents.length == sketches.length) {

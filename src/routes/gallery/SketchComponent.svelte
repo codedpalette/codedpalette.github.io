@@ -2,7 +2,7 @@
 <svelte:options immutable={true} />
 
 <script lang="ts">
-	import { Sketch, type SketchModule, SketchRunner } from 'sketches';
+	import { type Sketch, type SketchModule, SketchRunner } from 'sketches';
 
 	import GithubLink from './GithubLink.svelte';
 	import { nextFrame } from './schedule';
@@ -32,10 +32,10 @@
 
 	async function zoomIn() {
 		zoomed = true;
-		sketchImage.zoomIn(sketch.params);
+		sketchImage.zoomIn(sketch.size);
 		nextFrame(() => {
 			runner.start();
-			sketchImage.addCanvas(sketch.renderer.canvas);
+			sketchImage.addCanvas(sketch.canvas);
 		});
 	}
 
@@ -43,7 +43,7 @@
 		runner.stop();
 		if (dirty) {
 			thumbnailUrl && URL.revokeObjectURL(thumbnailUrl);
-			thumbnail = await sketch.export({}, content?.format);
+			thumbnail = await sketch.export({ format: content?.format });
 			dirty = false;
 		} else {
 			sketchImage.removeCanvas();

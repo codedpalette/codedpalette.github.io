@@ -1,7 +1,7 @@
-import { loadModule, type SizeParams, Sketch, type SketchModule, SketchRenderer } from 'sketches';
+import { initRenderer, loadModule, type SizeParams, type SketchModule, type SketchRenderer } from 'sketches';
 import { worker } from 'workerpool';
 
-const renderer = new SketchRenderer<OffscreenCanvas>();
+let renderer: SketchRenderer<OffscreenCanvas>;
 
 export type RenderResult = {
 	blob: Blob;
@@ -9,9 +9,10 @@ export type RenderResult = {
 };
 
 async function render(sketchModule: SketchModule, params: SizeParams, format?: string): Promise<RenderResult> {
-	const sketchFactory = await loadModule(sketchModule);
-	const sketch = new Sketch(sketchFactory, renderer, params);
-	const blob = await sketch.export({}, format);
+	renderer = renderer || (await initRenderer());
+	const sketchConstructor = await loadModule(sketchModule);
+	const sketch = sketchConstructor(renderer, params);
+	const blob = await sketch.export({ format });
 	const seed = sketch.seed;
 	return { blob, seed };
 }

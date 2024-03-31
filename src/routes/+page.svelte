@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { screensaver, Sketch, SketchRenderer, SketchRunner } from 'sketches';
+	import { screensaver, SketchRunner } from 'sketches';
 	import { onDestroy, onMount } from 'svelte';
 
 	import { browser } from '$app/environment';
@@ -7,15 +7,10 @@
 	import NavBar from '$lib/components/NavBar.svelte';
 
 	let canvas: HTMLCanvasElement;
-	let renderer: SketchRenderer<HTMLCanvasElement>;
 	let runner: SketchRunner;
 
 	onMount(async () => {
-		const sizeParams = { width: canvas.clientWidth, height: canvas.clientHeight };
-		renderer = new SketchRenderer<HTMLCanvasElement>({ canvas, resizeCSS: false, antialias: false });
-
-		const backgroundColor = getComputedStyle(canvas).backgroundColor;
-		const backgroundSketch = new Sketch(await screensaver(backgroundColor), renderer, sizeParams);
+		const backgroundSketch = await screensaver(canvas);
 		runner = new SketchRunner(backgroundSketch, undefined);
 		runner.start();
 	});
@@ -23,7 +18,6 @@
 	onDestroy(() => {
 		if (browser) {
 			runner?.stop();
-			renderer?.destroy();
 		}
 	});
 </script>

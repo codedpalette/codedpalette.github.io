@@ -15,5 +15,5 @@ export function trackError(err: unknown) {
 					cause: `${err.cause}`
 				}
 			: { message: `${err}` };
-	umami && umami.track('error_event', errorData);
+	window.umami && umami.track('error_event', errorData);
 }

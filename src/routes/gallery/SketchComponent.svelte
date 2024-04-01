@@ -5,7 +5,7 @@
 	import { type Sketch, type SketchModule, SketchRunner } from 'sketches';
 
 	import GithubLink from './GithubLink.svelte';
-	import { nextFrame } from './schedule';
+	import { skipFrames } from './schedule';
 	import SketchImageComponent from './SketchImageComponent.svelte';
 
 	// Passing props as object with immutable=true to ensure that subsequent updates to sketch array won't trigger
@@ -33,7 +33,7 @@
 	async function zoomIn() {
 		zoomed = true;
 		sketchImage.zoomIn(sketch.size);
-		nextFrame(() => {
+		skipFrames(() => {
 			runner.start();
 			sketchImage.addCanvas(sketch.canvas);
 		});
@@ -45,8 +45,6 @@
 			thumbnailUrl && URL.revokeObjectURL(thumbnailUrl);
 			thumbnail = await sketch.export({ format: content?.format });
 			dirty = false;
-		} else {
-			sketchImage.removeCanvas();
 		}
 	}
 </script>

@@ -1,5 +1,3 @@
-// TODO: Remove
-export function nextFrame(callback: () => void) {
-	// 20 ms should be enough
-	setTimeout(callback, 20);
+export function skipFrames(callback: () => void, frames = 1) {
+	setTimeout(callback, 17 * frames);
 }

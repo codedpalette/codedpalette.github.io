@@ -2,7 +2,7 @@
 	import throttle from 'just-throttle';
 	import { fade } from 'svelte/transition';
 
-	import { nextFrame } from './schedule';
+	import { skipFrames } from './schedule';
 
 	type ImageSize = {
 		width: number;
@@ -21,7 +21,7 @@
 	let imageHidden = false;
 	let overlayVisible = false;
 
-	const handlerThrottled = throttle(zoomOut, 400);
+	const handlerThrottled = throttle(zoomOutStart, 400);
 
 	export function zoomIn(naturalSize: ImageSize) {
 		overlayVisible = true;
@@ -30,7 +30,7 @@
 		window.addEventListener('resize', handlerThrottled);
 	}
 
-	function zoomOut() {
+	function zoomOutStart() {
 		overlayVisible = false;
 		imageTransform = undefined;
 		document.removeEventListener('scroll', handlerThrottled);
@@ -38,18 +38,19 @@
 		onZoomOutStart();
 	}
 
+	async function zoomOutEnd() {
+		imageHidden = false;
+		onZoomOutEnd();
+		skipFrames(() => {
+			if (addedCanvas) imageContainer.removeChild(addedCanvas);
+			addedCanvas = undefined;
+		}, 5); //Bug with blinking images in Firefox
+	}
+
 	export function addCanvas(canvas: HTMLCanvasElement) {
 		addedCanvas = canvas;
 		imageContainer.appendChild(canvas);
 		imageHidden = true;
-	}
-
-	export function removeCanvas() {
-		imageHidden = false;
-		nextFrame(() => {
-			if (addedCanvas) imageContainer.removeChild(addedCanvas);
-			addedCanvas = undefined;
-		});
 	}
 
 	function calculateImageTransform(naturalSize: ImageSize) {
@@ -71,11 +72,11 @@
 {#if overlayVisible}
 	<!-- svelte-ignore a11y-click-events-have-key-events -->
 	<!-- svelte-ignore a11y-no-static-element-interactions -->
-	<div class="overlay" transition:fade on:outroend={onZoomOutEnd} on:click|stopPropagation={zoomOut}></div>
+	<div class="overlay" transition:fade on:outroend={zoomOutEnd} on:click|stopPropagation={zoomOutStart}></div>
 {/if}
 <div bind:this={imageContainer} class="image-container" style:transform={imageTransform}>
 	{#if thumbnailUrl}
-		<img bind:this={thumbnailImage} src={thumbnailUrl} {alt} on:load={removeCanvas} class:hidden={imageHidden} />
+		<img bind:this={thumbnailImage} src={thumbnailUrl} {alt} class:hidden={imageHidden} />
 	{:else}
 		<div class="placeholder"></div>
 	{/if}

@@ -43,7 +43,8 @@ jobs:
       - name: Update remote dependencies
         run: yarn add sketches@npm:@codedpalette/sketches@latest
       - name: Install dependencies
-        run: yarn install --immutable
+        #FIXME: Remove ignore once pixi changes are merged
+        run: YARN_CHECKSUM_BEHAVIOR=ignore yarn install --immutable
       - name: Build
         run: yarn build
       - name: Setup Pages

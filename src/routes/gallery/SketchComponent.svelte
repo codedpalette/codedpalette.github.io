@@ -40,8 +40,9 @@
 	}
 
 	async function zoomOut() {
+		// TODO: Add ability to pause and resume runner
 		runner.stop();
-		if (dirty) {
+		if (dirty || sketch.updatable) {
 			thumbnailUrl && URL.revokeObjectURL(thumbnailUrl);
 			thumbnail = await sketch.export({ format: content?.format });
 			dirty = false;

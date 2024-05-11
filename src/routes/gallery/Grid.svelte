@@ -21,7 +21,7 @@
 		grid-column: span 2;
 	}
 
-	@media (min-width: 600px) {
+	@media (min-width: 600px) and (max-width: 899px) {
 		#grid {
 			grid-template-columns: repeat(4, 1fr);
 		}

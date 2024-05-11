@@ -37,7 +37,6 @@
 		const ofcSupported = typeof OffscreenCanvas !== 'undefined' && new OffscreenCanvas(0, 0).getContext('webgl2');
 		workerpool = ofcSupported ? pool(workerUrl, workerPoolOpts) : undefined;
 		renderer = await initRenderer({ resizeCSS: false });
-		renderer.canvas.style.width = '100%';
 		for (const [index, module] of sketches.entries()) {
 			renderModule(index, module, renderer, workerpool, imageFormat);
 		}
@@ -67,6 +66,7 @@
 				sketch = (await loadModule(module))(renderer, sizeParams);
 				thumbnail = await sketch.export({ format });
 			}
+			sketch.canvas.style.width = '100%';
 			sketchContents[index] = { sketch, thumbnail, format };
 			if (sketchContents.length == sketches.length) {
 				workerpool?.terminate();

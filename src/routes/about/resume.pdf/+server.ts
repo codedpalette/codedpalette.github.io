@@ -13,7 +13,7 @@ type ServerSideComponent = {
 /** @type {import('./$types').RequestHandler} */
 export async function GET() {
 	const resumeRender = (ResumePrint as unknown as ServerSideComponent).render();
-	const browser = await launch({ headless: 'new' });
+	const browser = await launch({ headless: true });
 	const page = await browser.newPage();
 	await page.setContent(
 		`<html>

@@ -27,14 +27,15 @@
 	},
 	"work": [
 		{
-			"name": "Freelance",
-			"position": "Frontend Developer",
-			"startDate": "2022-10",
-			"endDate": "2024-02",
+			"name": "Bringo.co.uk",
+			"url": "https://bringo.co.uk/",
+			"position": "Senior Frontend Developer",
+			"startDate": "2023-04",
 			"highlights": [
-				"Worked on developing several dynamic and responsive user interfaces with TypeScript and frameworks like React and Svelte, ensuring optimal performance and a user-friendly experience.",
-				"Translated design mockups and wireframes into high-quality, interactive web applications, showcasing attention to detail and adherence to UI/UX best practices.",
-				"Implemented and maintained scalable stylesheets with SCSS, fostering code reusability and consistency across various projects."
+				"Led the migration from a legacy TypeScript codebase to a modern Next.js architecture.",
+				"Improved several Google Lighthouse metrics by 1.5 to 2.5 seconds through effective separation of server-side and client-side rendering.",
+				"Collaborated with UI designers to implement mockup designs and develop a cohesive design system using React and styled-components.",
+				"Developed a highly interactive graph viewer component for analyzing connections between UK companies and their significant control holders and/or directors."
 			]
 		},
 		{
@@ -47,7 +48,7 @@
 			"endDate": "2022-09",
 			"highlights": [
 				"Engineered backend microservices using Scala and the Play framework, ensuring robust and scalable functionality for a seamless real estate experience.",
-				"Enhanced database performance by optimizing MongoDB queries and implementing improvements in Mongo Compass, elevating the efficiency of data retrieval processes.",
+				"Enhanced database performance by optimizing MongoDB queries and implementing improvements in Mongo Compass, resulting in a ~3-fold reduction in query response time.",
 				"Provided mentorship to team members, imparting expertise in Scala and functional programming, fostering a collaborative and skilled development team."
 			]
 		},
@@ -76,8 +77,7 @@
 				"Engineered the migration of a PHP monolith to Java microservices using Spring Boot, enhancing system performance and maintainability.",
 				"Developed integrations for offline conversion tracking systems, improving performance metrics accuracy.",
 				"Created a price calculation microservice, streamlining pricing with tax calculations, upsells, coupons, and discounts.",
-				"Led the development of an NPS scoring system and mail sending microservice, boosting customer engagement and satisfaction.",
-				"Innovated a timetable microservice for efficient appointment scheduling, considering technician availability and market-specific factors."
+				"Led the development of a timetable microservice for efficient appointment scheduling, considering technician availability and market-specific factors."
 			]
 		}
 	],
@@ -93,14 +93,14 @@
 	],
 	"skills": [
 		{
+			"name": "Frontend development",
+			"level": "Intermediate",
+			"keywords": ["Javascript", "Typescript", "React", "Next.js", "Svelte", "Pixi.js", "SCSS"]
+		},
+		{
 			"name": "Backend development",
 			"level": "Advanced",
 			"keywords": ["Java", "Scala", "SpringBoot", "Play"]
-		},
-		{
-			"name": "Frontend development",
-			"level": "Intermediate",
-			"keywords": ["Javascript", "Typescript", "React", "Svelte", "Pixi.js"]
 		},
 		{
 			"name": "Databases",
@@ -123,7 +123,7 @@
 		},
 		{
 			"name": "Personal website",
-			"description": "Repository which hosts the source code for my personal website. Key features include the incorporation of a thread pool pattern to optimize site responsiveness during sketch rendering.",
+			"description": "Repository which hosts the source code for my personal website. Key features include the incorporation of a thread pool pattern to optimize site responsiveness during artwork rendering.",
 			"keywords": ["Typescript", "Svelte", "SvelteKit", "SCSS", "Web Workers"],
 			"url": "https://github.com/codedpalette/personal-site",
 			"roles": []

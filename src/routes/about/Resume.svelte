@@ -25,8 +25,8 @@
 	<Basics {basics} {print} />
 	<div class="table flex">
 		<div class="main">
-			<Work {work} />
 			<Projects {projects} />
+			<Work {work} />
 		</div>
 		<div class="side">
 			<Skills {skills} />

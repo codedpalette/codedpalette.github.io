@@ -2,12 +2,13 @@
 // MIT License
 // Copyright (c) 2020 EGOIST (https: //egoist.sh)
 @use "variables" as *;
+@use "sass:color";
 
 $max-table-size: 750px;
 
 .table {
   width: 100%;
-  display: table;
+  display: table;  
 
   .main {
     padding-right: $space-4;
@@ -18,19 +19,13 @@ $max-table-size: 750px;
       width: auto;
       display: block;      
       margin-bottom: 0;
-      font-size: $font-size-medium;
-
-      @media print {
-        font-size: $font-size-small;
-      }
+      font-size: $font-size-large;
 
       li {        
-        list-style: none;          
-
-        &::before {
-          content: '· ';
-          font-size: $font-size-large;          
-        }
+        list-style: none;
+        border-left: 2px solid color.mix($black, $white, 20%);
+        margin: $space-1 0;
+        padding-left: $space-1;          
       }
     }
 
@@ -38,7 +33,7 @@ $max-table-size: 750px;
       display: table-cell;
 
       .title {
-        font-size: $font-size-large;
+        font-size: $font-size-heading;
         font-weight: bold;
         display: block;
       }

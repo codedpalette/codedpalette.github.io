@@ -30,7 +30,7 @@ a {
 
 p,
 q {
-	line-height: $line-height-1;
+	line-height: $line-height-2;
 }
 
 li {
@@ -42,7 +42,12 @@ li {
 }
 
 .summary {
-	font-size: $font-size-large;
+	font-size: $font-size-heading;
+
+	p {
+		line-height: $line-height-3;
+	}
+	
 
 	&:empty {
 		display: none;

@@ -8,7 +8,7 @@
 </script>
 
 {#if validArray(projects)}
-	<div id="projects" class="margin-container-4">
+	<div id="projects" class="main margin-container-4 no-break">
 		<p class="section-title no-alone-2">Projects</p>
 		<div class="container">
 			{#each projects as project}

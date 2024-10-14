@@ -25,7 +25,9 @@
 	<Basics {basics} {print} />
 	<div class="table flex">
 		<div class="main">
-			<Projects {projects} />
+			{#if !print}
+				<Projects {projects} />
+			{/if}
 			<Work {work} />
 		</div>
 		<div class="side">
@@ -35,6 +37,11 @@
 			<Links {basics} />
 		</div>
 	</div>
+	{#if print}
+		<div class="table flex">
+			<Projects {projects} />
+		</div>
+	{/if}
 </div>
 
 <style lang="scss">
@@ -49,6 +56,7 @@
 	@media print {
 		:global(html, body) {
 			width: $flex-content-width;
+			font-family: Arial, sans-serif;
 		}
 	}
 

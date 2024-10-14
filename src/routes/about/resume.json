@@ -32,8 +32,7 @@
 			"position": "Senior Frontend Developer",
 			"startDate": "2023-04",
 			"highlights": [
-				"Led the migration from a legacy TypeScript codebase to a modern Next.js architecture.",
-				"Improved several Google Lighthouse metrics by 1.5 to 2.5 seconds through effective separation of server-side and client-side rendering.",
+				"Led the migration from a legacy TypeScript codebase to a modern Next.js architecture, improving several Google Lighthouse metrics by 1.5 to 2.5 seconds through effective separation of server-side and client-side rendering.",
 				"Collaborated with UI designers to implement mockup designs and develop a cohesive design system using React and styled-components.",
 				"Developed a highly interactive graph viewer component for analyzing connections between UK companies and their significant control holders and/or directors."
 			]

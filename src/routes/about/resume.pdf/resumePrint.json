@@ -1,6 +1,6 @@
 {
 	"$schema": "https://raw.githubusercontent.com/jsonresume/resume-schema/v1.0.0/schema.json",
 	"basics": {
-		"summary": "I am an experienced software engineer proficient in both **frontend** and **backend** development. My recent exploration into creative coding and generative art showcases proficiency in *Typescript*, *Pixi.js*, *WebGL*, and *Three.JS*. Throughout my career, I have excelled in **optimizing performance** and **promoting teamwork and collaboration**. What I find most fulfilling about programming is its creative aspect, bringing visuals and aesthetically pleasing creations to life."
+		"summary": "I am an experienced software engineer proficient in both **frontend** and **backend** development. My recent exploration into creative coding and generative art showcases proficiency in *Typescript*, *Pixi.js*, *WebGL*, and *Three.JS*. Throughout my career, I have excelled in **optimizing performance** and **promoting teamwork and collaboration**. What I find most fulfilling about programming is its creative aspect, bringing visuals and aesthetically pleasing creations to life. Looking for a front-end position, with an emphasis on low-level graphics (WebGL / shaders)."
 	}
 }

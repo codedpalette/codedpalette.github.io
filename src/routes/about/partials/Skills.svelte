@@ -51,7 +51,7 @@
 				}
 
 				li {
-					font-size: $font-size-xsmall;
+					font-size: $font-size-small;
 					list-style: none;
 				}
 			}

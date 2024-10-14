@@ -28,7 +28,7 @@
 <style lang="scss">
 	#education {
 		.title {
-			font-size: $font-size-small;
+			font-size: $font-size-medium;
 		}
 
 		.institution {

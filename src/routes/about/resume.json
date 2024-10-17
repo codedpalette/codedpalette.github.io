@@ -94,17 +94,28 @@
 		{
 			"name": "Frontend development",
 			"level": "Intermediate",
-			"keywords": ["Javascript", "Typescript", "React", "Next.js", "Svelte", "Pixi.js", "SCSS"]
-		},
-		{
-			"name": "Backend development",
-			"level": "Advanced",
-			"keywords": ["Java", "Scala", "SpringBoot", "Play"]
+			"keywords": [
+				"Javascript",
+				"Typescript",
+				"React",
+				"Next.js",
+				"Zustand",
+				"Svelte",
+				"Pixi.js",
+				"WebGL",
+				"Three.js",
+				"SCSS"
+			]
 		},
 		{
 			"name": "Databases",
 			"level": "Advanced",
 			"keywords": ["MongoDB", "PostgreSQL", "Redis"]
+		},
+		{
+			"name": "Backend development",
+			"level": "Advanced",
+			"keywords": ["Java", "Scala", "SpringBoot", "Play"]
 		},
 		{
 			"name": "Cloud and DevOps",
